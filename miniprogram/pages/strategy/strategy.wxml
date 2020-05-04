@@ -1,0 +1,124 @@
+<view class="top">
+  <image class="bgcImg" src="{{strategyBgc}}"></image>
+  <view class="recommend">
+    <text class="recommendText">|为您精选|</text>
+    <text class="swiperCity">{{swiperCity}}</text>
+  </view>
+</view>
+<!-- 搜索栏 -->
+<view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};">
+  <image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
+  <image src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+  <input class="searchInput" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};"></input>
+</view>
+
+<!-- 地区选择器 -->
+<picker mode='region' bindchange="changeRegion">
+  <view class="region" style="top:{{navBarHeight}}px">
+    <view>{{region[1]}}</view>
+    <image src="{{selectUrl}}"></image>
+    <text>旅行攻略</text>
+  </view>
+</picker>
+
+<!-- 轮播图 -->
+<swiper indicator-dots="true" autoplay="true" interval="5000" circular indicator-active-color="white" duration="1000" style="top: {{navBarHeight+30}}px;" bindchange="changeSwiperCity">
+  <view wx:for="{{swiperList}}" wx:key="index">
+    <swiper-item>
+      <image src="{{item.url}}" mode="aspectFill"></image>
+    </swiper-item>
+  </view>
+</swiper>
+
+<!-- 天气 -->
+<view class="weather" style="top:{{navBarHeight}}px">
+  <image src="{{weatherImg}}"></image>
+  <text>{{tempreture}}°C</text>
+</view>
+
+
+<!-- 推荐导游 -->
+<view class="recommendGuide">
+  <text class="title">推荐导游</text>
+  <view class="guideContent">
+    <view class="guideList" wx:for="{{recommendGuide}}" wx:key="index">
+      <image src="{{item.guideImg}}"></image>
+      <text>{{item.guideName}}</text>
+      <text class="guideSchool">{{item.guideSchool}}</text>
+    </view>
+    <image src="{{moreSrc}}" class="more"></image>
+  </view>
+</view>
+
+<!-- 热门景点 -->
+<view class="recommendView">
+  <view class="viewTitle">
+    <text class="title">热门景点</text>
+    <text class="more">> 查看更多</text>
+  </view>
+  <view class="viewContent">
+    <view class="viewItem" wx:for="{{recommendView}}" wx:key="index">
+      <image src="{{item.viewImg}}" class="viewLeft"></image>
+      <view class="viewRight">
+        <text class="viewName">{{item.viewName}}</text>
+        <view class="viewStar">
+          <text>推荐星数</text>
+          <image wx:for="iii++" wx:for-item="i" wx:key="iii" wx:if="iii<{{item.star}}" src='{{starIcon}}' class='star'></image>
+        </view>
+        <text class="viewDescription">{{item.viewDes}}</text>
+        <text class="viewLocation">{{item.location}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 推荐小队 -->
+<view class="recommendGuide recommendTeam">
+  <text class="title">推荐小队</text>
+  <view class="guideContent">
+    <view class="guideList" wx:for="{{recommendGuide}}" wx:key="index">
+      <image src="{{item.guideImg}}"></image>
+      <text>{{item.guideName}}</text>
+      <text class="guideSchool">{{item.guideSchool}}</text>
+    </view>
+    <image src="{{moreSrc}}" class="more"></image>
+  </view>
+</view>
+
+<!-- 热门攻略 -->
+<view class="recommendView">
+  <view class="viewTitle">
+    <text class="title">热门攻略</text>
+    <text class="more">> 查看更多</text>
+  </view>
+  <view class="viewContent">
+    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index">
+      <image class="cover" src="{{item.coverImg}}"></image>
+      <view class="itemRight">
+        <view class="title">
+          <text class="articleTitle">{{item.title}}</text>
+          <text class="publishDate">{{item.publishDate}}</text>
+        </view>
+
+        <text class="viewDescription">{{item.content}}</text>
+
+        <view class="data">
+          <view class="view">
+            <image class="viewImg" src="{{viewIcon}}"></image>
+            <text class="viewNum">{{item.viewNum}}</text>
+          </view>
+          <view class="like">
+            <image class="likeImg" src="{{likeIcon}}"></image>
+            <text class="likeNum">{{item.likeNum}}</text>
+          </view>
+        </view>
+
+        <view class="info">
+          <image class="authorImg" src="{{item.authorImg}}"></image>
+          <text class="author">{{item.author}}</text>
+          <text class="school">{{item.school}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

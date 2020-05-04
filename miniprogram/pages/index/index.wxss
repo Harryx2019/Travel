@@ -1,0 +1,159 @@
+.top{
+  background-color: rgb(246,247,251);
+  height: 640rpx;
+  position: relative;
+}
+swiper{
+  height:500rpx;
+}
+swiper image{
+  width:100%;
+}
+.wx-swiper-dots {
+    position: relative;
+}
+.wx-swiper-dots.wx-swiper-dots-horizontal {
+    margin-bottom: 70rpx;
+}
+
+.navigate{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width:86%;
+  height: 200rpx;
+  background-color: rgb(255,255,255);
+  border-radius: 5%;
+  bottom: 20rpx;
+  left: 7%;
+  z-index: 100;
+}
+.navigate image{
+  width: 100rpx;
+  height: 100rpx;
+}
+.navigate .navigate-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 热门目的地 */
+.hotDestination, .hotStrategy{
+  display: block;
+  font-size: 20px;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+.destination{
+  width: 100%;
+  height: 140rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.destination .destination-item image{
+  position: relative;
+  border-radius: 5%;
+  width: 150rpx;
+  height: 120rpx;
+}
+.destination .destination-item text{
+  text-align: center;
+  width: 100rpx;
+  height: 40rpx;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -20rpx;
+  margin-left: -50rpx;
+  z-index: 2;
+}
+
+/* 热门攻略 */
+.strategy{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(246,247,251);
+}
+.strategyItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width:95%;
+  height: 200rpx;
+  margin: 20rpx auto;
+  /* background-color: blanchedalmond; */
+}
+.cover{
+  width: 35%;
+  height: 100%;
+  border-radius: 5%;
+}
+.itemRight{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.itemRight .title{
+  height: 50%;
+  position: relative;
+}
+.itemRight .title .articleTitle{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.itemRight .title .publishDate{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color:rgb(102,102,102);
+}
+.itemRight .data{
+  display: flex;
+  flex-direction: row;
+}
+.itemRight .data .view{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.itemRight .data .view .viewImg{
+  width: 50rpx;
+  height: 50rpx;
+}
+.itemRight .data .like{
+  margin-left: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.itemRight .data .like .likeImg{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.itemRight .info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.itemRight .info .authorImg{
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+.itemRight .info .author{
+  margin-right: 24rpx;
+}
+.itemRight .info .school{
+  display: block;
+  padding: 10rpx 20rpx;
+  background-color: rgb(240,240,240);
+  border-radius: 5%;
+}

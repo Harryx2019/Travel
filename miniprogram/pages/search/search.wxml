@@ -1,0 +1,16 @@
+<image class="background" src="{{bgcUrl}}"></image>
+<!-- 搜索栏 -->
+<view class="search">
+  <image src="{{searchUrl}}"></image>
+  <input class="searchInput" placeholder="搜索目的地/景点/攻略" bindconfirm="searchTo"></input>
+</view>
+
+<!-- 推荐 -->
+<text class="hotText">当季热门目的地</text>
+<view class="destination">
+  <view class="destination-item" wx:for="{{destinationList}}" wx:key="index" bindtap="navigateTo" data-city="{{item.city}}">
+    <image src="{{item.url}}">
+      <text>{{item.city}}</text> 
+    </image>
+  </view>
+</view>

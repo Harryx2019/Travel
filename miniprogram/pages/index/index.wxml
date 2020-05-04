@@ -1,0 +1,62 @@
+<!-- 头部 -->
+<view class="top">
+  <!-- 首页轮播图 -->
+  <swiper indicator-dots="true" autoplay="true" interval="5000" circular indicator-active-color="white" duration="1000">
+    <view wx:for="{{swiperImg}}" wx:key="index">
+      <swiper-item>
+        <image src="{{item}}" mode="aspectFill"></image>
+      </swiper-item>
+    </view>
+  </swiper>
+  <!-- 首页搜索框 -->
+  <navigation-bar default-data="{{defaultData}}" bindtap="navigateTo" data-page="search"></navigation-bar>
+
+  <!-- 首页导航栏 -->
+  <view class="navigate">
+    <view class="navigate-item" wx:for="{{navigateList}}" wx:key="index" bindtap="navigateTo" data-page="{{item.page}}" data-city="北京市">
+      <image src="{{item.url}}"></image>
+      <text>{{item.text}}</text>
+    </view>
+  </view>
+</view>
+
+<!-- 热门目的地 -->
+<text class="hotDestination">热门目的地</text>
+<view class="destination">
+  <view class="destination-item" wx:for="{{destinationList}}" wx:key="index" bindtap="navigateTo" data-city="{{item.city}}" data-page="strategy">
+    <image src="{{item.url}}">
+      <text>{{item.city}}</text>
+    </image>
+  </view>
+</view>
+
+<!-- 热门攻略 -->
+<text class="hotStrategy">热门攻略</text>
+<view class="strategy" wx:for="{{strategyList}}" wx:key="index">
+  <view class="strategyItem">
+    <image class="cover" src="{{item.coverImg}}"></image>
+    <view class="itemRight">
+      <view class="title">
+        <text class="articleTitle">{{item.title}}</text>
+        <text class="publishDate">{{item.publishDate}}</text>
+      </view>
+
+      <view class="data">
+        <view class="view">
+          <image class="viewImg" src="{{viewIcon}}"></image>
+          <text class="viewNum">{{item.viewNum}}</text>
+        </view>
+        <view class="like">
+          <image class="likeImg" src="{{likeIcon}}"></image>
+          <text class="likeNum">{{item.likeNum}}</text>
+        </view>
+      </view>
+
+      <view class="info">
+        <image class="authorImg" src="{{item.authorImg}}"></image>
+        <text class="author">{{item.author}}</text>
+        <text class="school">{{item.school}}</text>
+      </view>
+    </view>
+  </view>
+</view>

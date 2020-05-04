@@ -1,0 +1,5 @@
+<!-- 自定义顶部栏 -->
+<view class="nav-bar" style="height:{{navBarHeight}}px">
+  <image src="{{iconUrl}}" style="width:{{iconWidth}}px; height:{{iconWidth}}px; left:{{iconLeft}}px; bottom:{{iconBottom}}px;"></image>
+  <input class="search" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; left:{{menuRight}}px; bottom:{{menuBottom}}px"></input>
+</view>

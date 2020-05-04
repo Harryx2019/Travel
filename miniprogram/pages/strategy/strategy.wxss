@@ -1,0 +1,326 @@
+page{
+  background-color: rgb(245,245,245);
+}
+.top{
+  position: relative;
+  height: 700rpx;
+}
+.bgcImg{
+  width: 100%;
+  height:700rpx;
+}
+.recommend{
+  position: absolute;
+  left: 10%;
+  bottom: 8%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 100;
+}
+.swiperCity{
+  color: white;
+}
+.recommendText{
+  color: gold;
+  margin-right: 30rpx;
+  letter-spacing:4rpx;
+}
+
+.search{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  font-size: 26rpx;
+}
+.search .back{
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  left: 0;
+}
+.search image{
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  left: 15%;
+  z-index: 10;
+}
+.search input{
+  position: absolute;
+  width: 40%;
+  left: 12%;
+  border-radius: 50rpx;
+  padding-left: 80rpx;
+}
+
+.region{
+  position: absolute;
+  width: 100%;
+  height: 30rpx;
+  left: 6%;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 28rpx;
+}
+.region image{
+  color: white;
+  width: 40rpx;
+  height: 40rpx;
+}
+.region text{
+  position: absolute;
+  font-weight: bold;
+  left: 36%;
+  font-size: 34rpx;
+}
+
+.weather{
+  position: absolute;
+  width: 20%;
+  right: 6%;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 28rpx;
+  color: white;
+  font-weight: bold;
+}
+.weather image{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+swiper{
+  width: 80%;
+  height: 380rpx;
+  position: absolute;
+  left: 10%;
+}
+swiper-item{
+  position: relative;
+  top: 0;
+  border-radius: 5%;
+}
+swiper image{
+  width: 100%;
+}
+
+/* 推荐导游 */
+.recommendGuide{
+  position: relative;
+  background-color: white;
+  width: 100%;
+  height: 250rpx;
+  border-radius: 6%;
+  margin-top: -20rpx;
+}
+.recommendGuide .title{
+  position: absolute;
+  font-size: 34rpx;
+  font-weight: bold;
+  top: 26rpx;
+  left: 10%
+}
+.recommendGuide .guideContent{
+  position: absolute;
+  top: 50rpx;
+  left: 5%;
+  width: 90%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.recommendGuide .guideContent{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.recommendGuide .guideContent .guideList{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+}
+.recommendGuide .guideContent .guideList image{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+.recommendGuide .guideContent .guideList .guideSchool{
+  background-color: rgb(245,245,245);
+  border-radius: 5%;
+  padding: 0 5rpx;
+}
+.recommendGuide .guideContent .more{
+  width:  40rpx;
+  height: 40rpx;
+}
+
+/* 热门景点 */
+.viewTitle{
+  height: 50rpx;
+  margin-top: 20rpx;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.viewTitle .title{
+  font-size: 34rpx;
+  font-weight: bold;
+  position: absolute;
+  left: 10%;
+}
+.viewTitle .more{
+  font-size: 24rpx;
+  position: absolute;
+  right: 10%;
+}
+/* 热门景点详情 */
+.viewContent{
+  width: 90%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 5%;
+}
+.viewContent .viewItem{
+  padding: 10rpx 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/* 景点图片 */
+.viewContent .viewItem .viewLeft{
+  width: 30%;
+  height: 150rpx;
+  border-radius: 5%;
+}
+.viewContent .viewItem .viewRight{
+  width: 68%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+/* 景点名称 */
+.viewContent .viewItem .viewName{
+  font-weight: bold;
+}
+/* 景点推荐星数 */
+.viewContent .viewItem .viewStar{
+  color: red;
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.viewContent .viewItem .viewStar text{
+  margin-right: 20rpx;
+}
+.viewContent .viewItem .viewStar .star{
+  width: 30rpx;
+  height: 30rpx;
+}
+/* 景点描述 */
+.viewContent .viewItem .viewDescription{
+  font-size: 24rpx;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:2; 
+  -webkit-box-orient:vertical;
+}
+/* 景点地点 */
+.viewContent .viewItem .viewLocation{
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  background-color: rgb(245,245,245);
+  font-size: 24rpx;
+  padding: 5rpx;
+}
+
+.recommendTeam{
+  margin-top: 20rpx;
+}
+
+/* 热门攻略 */
+.viewItem .cover{
+  width: 30%;
+  height: 150rpx;
+  border-radius: 5%;
+}
+.itemRight{
+  width: 68%;
+  display: flex;
+  flex-direction: column;
+}
+.itemRight .title{
+  position: relative;
+}
+.itemRight .title .articleTitle{
+  font-weight: bold;
+}
+.itemRight .title .publishDate{
+  font-size: 26rpx;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color:rgb(102,102,102);
+}
+.itemRight .data{
+  display: flex;
+  flex-direction: row;
+}
+.itemRight .data .view{
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.itemRight .data .view .viewImg{
+  width: 40rpx;
+  height: 40rpx;
+}
+.itemRight .data .like{
+  font-size: 26rpx;
+  margin-left: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.itemRight .data .like .likeImg{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.itemRight .info{
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.itemRight .info .authorImg{
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+.itemRight .info .author{
+  margin-right: 24rpx;
+}
+.itemRight .info .school{
+  font-size: 26rpx;
+  display: block;
+  padding: 5rpx 20rpx;
+  background-color: rgb(240,240,240);
+  border-radius: 5%;
+}
