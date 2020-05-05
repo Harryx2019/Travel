@@ -9,7 +9,7 @@
 <view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};">
   <image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
   <image src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
-  <input class="searchInput" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};"></input>
+  <input class="searchInput" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};" bindconfirm="changeStrategy" value="{{inputValue}}"></input>
 </view>
 
 <!-- 地区选择器 -->
@@ -24,7 +24,7 @@
 <!-- 轮播图 -->
 <swiper indicator-dots="true" autoplay="true" interval="5000" circular indicator-active-color="white" duration="1000" style="top: {{navBarHeight+30}}px;" bindchange="changeSwiperCity">
   <view wx:for="{{swiperList}}" wx:key="index">
-    <swiper-item>
+    <swiper-item bindtap="changeStrategy" data-city="{{item.city}}" data-province="{{item.province}}">
       <image src="{{item.url}}" mode="aspectFill"></image>
     </swiper-item>
   </view>
@@ -89,10 +89,13 @@
 <view class="recommendView">
   <view class="viewTitle">
     <text class="title">热门攻略</text>
-    <text class="more">> 查看更多</text>
   </view>
-  <view class="viewContent">
-    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index">
+  <view wx:if="{{strategyList.length==0}}" class="viewContent" style="height: 300rpx;">
+    <image class="emptyImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/none.png"></image>
+    <text class="emptyText">暂无相关旅行攻略哦！期待您的发布！</text>
+  </view>
+  <view wx:else class="viewContent">
+    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index" style="height:180rpx">
       <image class="cover" src="{{item.coverImg}}"></image>
       <view class="itemRight">
         <view class="title">
@@ -116,9 +119,13 @@
         <view class="info">
           <image class="authorImg" src="{{item.authorImg}}"></image>
           <text class="author">{{item.author}}</text>
-          <text class="school">{{item.school}}</text>
+          <text class="school">{{item.university}}</text>
         </view>
       </view>
+    </view>
+    <view wx:if="{{flag==1}}" class="viewItem" style="height: 100rpx;">
+      <image class="emptyImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/none.png"></image>
+      <text class="emptyText">没有更多攻略啦！期待您的发布！</text>
     </view>
   </view>
 </view>

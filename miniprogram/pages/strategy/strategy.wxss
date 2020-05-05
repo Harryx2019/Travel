@@ -189,13 +189,19 @@ swiper image{
   width: 90%;
   margin: 0 auto;
   background-color: white;
-  border-radius: 5%;
+  border-radius: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .viewContent .viewItem{
   padding: 10rpx 10rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 10rpx solid rgb(245,245,245,0.8);
 }
 /* 景点图片 */
 .viewContent .viewItem .viewLeft{
@@ -205,10 +211,11 @@ swiper image{
 }
 .viewContent .viewItem .viewRight{
   width: 68%;
+   height: 130rpx;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 /* 景点名称 */
 .viewContent .viewItem .viewName{
@@ -235,7 +242,7 @@ swiper image{
   text-overflow:ellipsis;
   overflow:hidden;
   display:-webkit-box;
-  -webkit-line-clamp:2; 
+  -webkit-line-clamp:1; 
   -webkit-box-orient:vertical;
 }
 /* 景点地点 */
@@ -303,6 +310,7 @@ swiper image{
   margin-right: 10rpx;
 }
 .itemRight .info{
+  position: relative;
   font-size: 30rpx;
   display: flex;
   flex-direction: row;
@@ -318,9 +326,23 @@ swiper image{
   margin-right: 24rpx;
 }
 .itemRight .info .school{
+  position: absolute;
+  bottom: 0;
+  right: 2%;
   font-size: 26rpx;
-  display: block;
-  padding: 5rpx 20rpx;
+  text-align: center;
+  padding: 5rpx 5rpx;
   background-color: rgb(240,240,240);
   border-radius: 5%;
+  width: 40%;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:1; 
+  -webkit-box-orient:vertical;
+}
+
+.emptyImg{
+  width: 100rpx;
+  height: 100rpx;
 }

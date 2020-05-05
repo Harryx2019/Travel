@@ -8,7 +8,7 @@
 <!-- 推荐 -->
 <text class="hotText">当季热门目的地</text>
 <view class="destination">
-  <view class="destination-item" wx:for="{{destinationList}}" wx:key="index" bindtap="navigateTo" data-city="{{item.city}}">
+  <view class="destination-item" wx:for="{{destinationList}}" wx:key="index" bindtap="navigateTo" data-city="{{item.city}}" data-province="{{item.province}}">
     <image src="{{item.url}}">
       <text>{{item.city}}</text> 
     </image>

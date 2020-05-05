@@ -8,12 +8,16 @@
       </swiper-item>
     </view>
   </swiper>
+
   <!-- 首页搜索框 -->
-  <navigation-bar default-data="{{defaultData}}" bindtap="navigateTo" data-page="search"></navigation-bar>
+  <view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};" >
+    <input class="searchInput" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};" bindtap="navigateTo" data-page="search" ></input>
+    <image src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+  </view>
 
   <!-- 首页导航栏 -->
   <view class="navigate">
-    <view class="navigate-item" wx:for="{{navigateList}}" wx:key="index" bindtap="navigateTo" data-page="{{item.page}}" data-city="北京市">
+    <view class="navigate-item" wx:for="{{navigateList}}" wx:key="index" bindtap="navigateTo" data-page="{{item.page}}" data-city="北京市" data-province="北京">
       <image src="{{item.url}}"></image>
       <text>{{item.text}}</text>
     </view>
@@ -23,7 +27,7 @@
 <!-- 热门目的地 -->
 <text class="hotDestination">热门目的地</text>
 <view class="destination">
-  <view class="destination-item" wx:for="{{destinationList}}" wx:key="index" bindtap="navigateTo" data-city="{{item.city}}" data-page="strategy">
+  <view class="destination-item" wx:for="{{destinationList}}" wx:key="index" bindtap="navigateTo" data-province="{{item.province}}" data-city="{{item.city}}" data-page="strategy">
     <image src="{{item.url}}">
       <text>{{item.city}}</text>
     </image>
@@ -31,31 +35,36 @@
 </view>
 
 <!-- 热门攻略 -->
-<text class="hotStrategy">热门攻略</text>
-<view class="strategy" wx:for="{{strategyList}}" wx:key="index">
-  <view class="strategyItem">
-    <image class="cover" src="{{item.coverImg}}"></image>
-    <view class="itemRight">
-      <view class="title">
-        <text class="articleTitle">{{item.title}}</text>
-        <text class="publishDate">{{item.publishDate}}</text>
-      </view>
-
-      <view class="data">
-        <view class="view">
-          <image class="viewImg" src="{{viewIcon}}"></image>
-          <text class="viewNum">{{item.viewNum}}</text>
+<view class="hotStrategy">
+  <text>热门攻略</text>
+  <text class="more" bindtap="navigateTo" data-page="strategy" data-city="北京市" data-province="北京">> 查看更多</text>
+</view>
+<view class="strategyContend">
+  <view class="strategy" wx:for="{{strategyList}}" wx:key="index">
+    <view class="strategyItem">
+      <image class="cover" src="{{item.coverImg}}"></image>
+      <view class="itemRight">
+        <view class="title">
+          <text class="articleTitle">{{item.title}}</text>
+          <text class="school">{{item.university}}</text>
         </view>
-        <view class="like">
-          <image class="likeImg" src="{{likeIcon}}"></image>
-          <text class="likeNum">{{item.likeNum}}</text>
-        </view>
-      </view>
 
-      <view class="info">
-        <image class="authorImg" src="{{item.authorImg}}"></image>
-        <text class="author">{{item.author}}</text>
-        <text class="school">{{item.school}}</text>
+        <view class="data">
+          <view class="view">
+            <image class="viewImg" src="{{viewIcon}}"></image>
+            <text class="viewNum">{{item.viewNum}}</text>
+          </view>
+          <view class="like">
+            <image class="likeImg" src="{{likeIcon}}"></image>
+            <text class="likeNum">{{item.likeNum}}</text>
+          </view>
+        </view>
+
+        <view class="info">
+          <image class="authorImg" src="{{item.authorImg}}"></image>
+          <text class="author">{{item.author}}</text>
+          <text class="publishDate">{{item.publishDate}}</text>
+        </view>
       </view>
     </view>
   </view>

@@ -10,11 +10,6 @@ Page({
     bgcUrl:"http://b1-q.mafengwo.net/s7/M00/8A/4D/wKgB6lS4tbaAXdU4AC1nXOLC8vQ72.jpeg?imageMogr2%2Fthumbnail%2F%21640x400r%2Fgravity%2FCenter%2Fcrop%2F%21640x400%2Fquality%2F90",
     searchUrl: "cloud://test-wusir.7465-test-wusir-1302022901/icon/search.png",
 
-    //组件参数设置，传递到组件
-    defaultData: {
-      title: "搜索页" 
-    },
-
     // 推荐城市
     destinationList :[]
   },
@@ -27,8 +22,9 @@ Page({
   },
   navigateTo:function(e){
     let city=e.currentTarget.dataset.city;
+    let province=e.currentTarget.dataset.province;
     wx.navigateTo({
-      url: '../strategy/strategy?city=' + city
+      url: '../strategy/strategy?city=' + city+'&province='+province
     })
   },
   /**

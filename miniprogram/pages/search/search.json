@@ -1,7 +1,4 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "目的地选择",
-  "usingComponents": {
-    "navigation-bar": "../../components/navigation-bar/navigation-bar"
-  }
+  "navigationBarTitleText": "目的地选择"
 }

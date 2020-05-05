@@ -3,9 +3,9 @@
     "pages/index/index",
     "pages/strategy/strategy",
     "pages/search/search",
-    "components/navigation-bar/navigation-bar",
     "pages/square/square",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/view/view"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
