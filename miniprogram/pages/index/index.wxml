@@ -40,7 +40,7 @@
   <text class="more" bindtap="navigateTo" data-page="strategy" data-city="北京市" data-province="北京">> 查看更多</text>
 </view>
 <view class="strategyContend">
-  <view class="strategy" wx:for="{{strategyList}}" wx:key="index">
+  <view class="strategy" wx:for="{{strategyList}}" wx:key="index" bindtap="navigateToDetail" data-id="{{item._id}}">
     <view class="strategyItem">
       <image class="cover" src="{{item.coverImg}}"></image>
       <view class="itemRight">

@@ -1,0 +1,62 @@
+<!-- 使用搜索组件 -->
+<mySearch></mySearch>
+
+<view class="strategyDetail" style="top:{{navBarHeight}}px;">
+  <view class="top">
+    <text>你正在看</text>
+    <view class="location" bindtap="navigateTo" data-city="{{strategy[0].destination}}">
+      <image class="locationImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/location.png"></image>
+      <text>{{strategy[0].destination}}</text>
+    </view>
+  </view>
+
+  <image class="coverImg" src="{{strategy[0].coverImg}}"></image>
+
+  <view class="author">
+    <image class="authorImg" src="{{strategy[0].authorImg}}"></image>
+    <view class="authorInfo">
+      <text class="authorName">{{strategy[0].author}}</text>
+      <text class="publishTime">{{strategy[0].publishDate}}</text>
+    </view>
+    <button class="follow">关注</button>
+    <text class="destination">{{strategy[0].city}}</text>
+  </view>
+
+  <view class="strategyInfo">
+    <view class="infoItem">
+      <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/setoutTime.png"></image>
+      <text>出发时间<text class="bar"> / </text>{{strategy[0].setoutDate}}</text>
+    </view>
+    <view class="infoItem">
+      <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/traverDay.png"></image>
+      <text>出行天数<text class="bar"> / </text>{{strategy[0].travelDays}}</text>
+    </view>
+    <view class="infoItem">
+      <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/cost.png"></image>
+      <text>人均费用<text class="bar"> / </text>{{strategy[0].averageCost}}</text>
+    </view>
+    <view class="infoItem">
+      <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+      <text>作者学校<text class="bar"> / </text>{{strategy[0].university}}</text>
+    </view>
+  </view>
+
+  <view class="strategyContent">{{strategy[0].content}}</view>
+</view>
+
+<view class="bottom">
+  <view class="comment-like">
+    <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/comment.png"></image>
+    <text>{{strategy[0].viewNum-200}}</text>
+  </view>
+  <view class="comment-like">
+    <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/greyLike.png"></image>
+    <text>{{strategy[0].likeNum}}</text>
+  </view>
+  <view class="comment-like" style="border-right:none;">
+    <view class="share">
+      <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
+      <text>分享</text>
+    </view>
+  </view>
+</view>

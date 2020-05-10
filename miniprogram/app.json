@@ -1,11 +1,13 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/viewDetail/viewDetail",
+    "pages/strategyDetail/strategyDetail",
+    "pages/view/view",
     "pages/strategy/strategy",
     "pages/search/search",
     "pages/square/square",
-    "pages/my/my",
-    "pages/view/view"
+    "pages/my/my"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

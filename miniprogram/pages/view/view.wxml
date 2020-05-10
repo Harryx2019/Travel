@@ -1,2 +1,70 @@
-<!--miniprogram/pages/view/view.wxml-->
-<text>miniprogram/pages/view/view.wxml</text>
+<!-- 景点详情页 -->
+<view class="top" style="height:{{navBarHeight}}px;">
+  <image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
+  <text class="topTitle" style="bottom:{{menuBottom}}px; height:{{menuHeight}}px; line-height:{{menuHeight}}px;">旅行景点门票</text>
+</view>
+
+<!-- 搜索框 -->
+<view class="search" style="height:{{navBarHeight+40}}px;">
+  <input class="searchInput" placeholder="搜索目的地/景点" bindconfirm="changeView" value="{{inputValue}}"></input>
+</view>
+
+<!-- 筛选器 -->
+<view class="select">
+  <view class="selectItem" bindtap="selectMenu" data-flag="hideSortFlag">
+    <text>{{chooseSortType}}</text>
+    <image src="{{selectIcon}}"></image>
+  </view>
+  <view class="selectItem" bindtap="selectMenu" data-flag="hideFlag" data-title="游玩景点" data-chooseItem="0">
+    <text>{{chooseViewType}}</text>
+    <image src="{{selectIcon}}"></image>
+  </view>
+  <view class="selectItem" bindtap="selectMenu" data-flag="hideFlag" data-title="预定时限" data-chooseItem="1">
+    <text>{{chooseTimeType}}</text>
+    <image src="{{selectIcon}}"></image>
+  </view>
+  <view class="selectItem" bindtap="selectMenu" data-flag="hideFlag" data-title="优惠类型" data-chooseItem="2">
+    <text>筛选</text>
+    <image src="{{siftIcon}}"></image>
+  </view>
+</view>
+
+<view hidden="{{hideSortFlag}}" class="sort" style="height:{{windowHeight}}px; top:{{navBarHeight}}px;">
+  <view class="sortArea" animation="{{animationData}}">
+    <view wx:for="{{sortType}}" wx:key="index" class="sortItem" bindtap="changeSort" data-flag="hideSortFlag" data-sortType="{{item}}">
+      <text class="sortType">{{item}}</text>
+    </view>
+  </view>
+  <view class="type-cancel" bindtap="hideMenu" data-flag="hideSortFlag" style="height:{{windowHeight-navBarHeight-200}}px"></view>
+</view>
+
+<view hidden="{{hideFlag}}" class="sort" style="height:{{windowHeight}}px; top:{{navBarHeight}}px;">
+  <view class="sortArea" animation="{{animationData}}">
+    <text class="menuTitle">{{menuTitle}}</text>
+    <view class="menuContent">
+      <view class="menuItem" wx:for="{{itemList[chooseItem]}}" wx:key="index" bindtap="changeSort" data-flag="hideFlag" data-type="{{item}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="type-cancel" bindtap="hideMenu" data-flag="hideFlag" style="height:{{windowHeight-navBarHeight-menuContentHeight}}px;"></view>
+</view>
+
+<view class="viewContent">
+  <view class="viewItem" wx:for="{{viewList}}" wx:key="index">
+    <image src="{{item.viewImg}}" class="viewLeft"></image>
+    <view class="viewRight">
+      <text class="viewName">{{item.viewName}}</text>
+      <view class="viewStar">
+        <text>推荐星数</text>
+        <image wx:for="{{item.star}}" wx:key="key"  wo:for-item='star' src='{{starIcon}}' class='star'></image>
+      </view>
+      <text class="viewDescription">{{item.viewDes}}</text>
+      <text class="viewLocation">{{item.province}}·{{item.city}}</text>
+    </view>
+  </view>
+  <view wx:if="{{flag==1}}" class="viewItem" style="height: 100rpx;">
+      <image class="emptyImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/none.png"></image>
+      <text class="emptyText">没有更多景点啦！敬请期待！</text>
+  </view>
+</view>

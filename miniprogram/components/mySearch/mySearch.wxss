@@ -1,0 +1,29 @@
+.mySearch{
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
+.mySearch .back{
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  left: 0;
+  z-index: 10;
+}
+.mySearch .search{
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  left: 12%;
+  z-index: 10;
+}
+.mySearch .searchInput{
+  font-size: 28rpx;
+  position: absolute;
+  background-color: rgb(246,247,249);
+  border-radius: 50rpx;
+  left: 10%;
+  width: 40%;
+  padding-left: 8%;
+}

@@ -54,7 +54,7 @@
 <view class="recommendView">
   <view class="viewTitle">
     <text class="title">热门景点</text>
-    <text class="more">> 查看更多</text>
+    <text class="more" bindtap="navigateTo" data-page="view" data-city="{{region[1]}}">> 查看更多</text>
   </view>
   <view class="viewContent">
     <view class="viewItem" wx:for="{{recommendView}}" wx:key="index">
@@ -63,10 +63,10 @@
         <text class="viewName">{{item.viewName}}</text>
         <view class="viewStar">
           <text>推荐星数</text>
-          <image wx:for="iii++" wx:for-item="i" wx:key="iii" wx:if="iii<{{item.star}}" src='{{starIcon}}' class='star'></image>
+          <image wx:for="{{item.star}}" wx:key="key"  wo:for-item='star' src='{{starIcon}}' class='star'></image>
         </view>
         <text class="viewDescription">{{item.viewDes}}</text>
-        <text class="viewLocation">{{item.location}}</text>
+        <text class="viewLocation">{{item.province}}·{{item.city}}</text>
       </view>
     </view>
   </view>
@@ -95,7 +95,7 @@
     <text class="emptyText">暂无相关旅行攻略哦！期待您的发布！</text>
   </view>
   <view wx:else class="viewContent">
-    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index" style="height:180rpx">
+    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index" style="height:180rpx" bindtap="navigateToDetail" data-id="{{item._id}}">
       <image class="cover" src="{{item.coverImg}}"></image>
       <view class="itemRight">
         <view class="title">

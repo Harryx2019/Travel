@@ -4,6 +4,7 @@ const db = wx.cloud.database();
 const swiperList = db.collection('indexDestination');
 const guide = db.collection('guide');
 const indexStrategy = db.collection('strategy');
+const viewList = db.collection('view');
 var page=0;
 Page({
 
@@ -41,21 +42,8 @@ Page({
 
     //热门景点
     starIcon: "cloud://test-wusir.7465-test-wusir-1302022901/icon/star.png",
-    recommendView: [{
-        viewName: "丽江古城",
-        viewImg: "http://b1-q.mafengwo.net/s5/M00/BF/3B/wKgB3FFuGt2AaZkbAAa9V_96uas42.jpeg",
-        viewDes: "丽江地区位于云南省西北部云贵高原与青藏高原的连接部位，曾是是丝绸之路和茶马古道的中转站，历史非常悠久，因为独特人文和自然景观，成为近国内人气非常高的旅行胜地。\n丽江古城又叫大研古镇，是中国为数不多的少数民族古城，被评为“世界文化遗产”：这里有浓郁的民族风情，小桥流水式的布局，错落有致的民居建筑，还有散漫的生活节奏丰富的夜生活。\n不少旅行者以为丽江古城就是丽江，其实不然。除了古城，丽江地区面积远大于丽江古城，这里有很多值得游览的地方——比如神秘的“东方女儿国”泸沽湖，安静闲适的束河古镇，巍峨雄伟的玉龙雪山和山清水秀的拉市海等地。",
-        location: "云南·丽江",
-        star: 5
-      },
-      {
-        viewName: "丽江古城",
-        viewImg: "http://b1-q.mafengwo.net/s5/M00/BF/3B/wKgB3FFuGt2AaZkbAAa9V_96uas42.jpeg",
-        viewDes: "丽江地区位于云南省西北部云贵高原与青藏高原的连接部位，曾是是丝绸之路和茶马古道的中转站，历史非常悠久，因为独特人文和自然景观，成为近国内人气非常高的旅行胜地。\n丽江古城又叫大研古镇，是中国为数不多的少数民族古城，被评为“世界文化遗产”：这里有浓郁的民族风情，小桥流水式的布局，错落有致的民居建筑，还有散漫的生活节奏丰富的夜生活。\n不少旅行者以为丽江古城就是丽江，其实不然。除了古城，丽江地区面积远大于丽江古城，这里有很多值得游览的地方——比如神秘的“东方女儿国”泸沽湖，安静闲适的束河古镇，巍峨雄伟的玉龙雪山和山清水秀的拉市海等地。",
-        location: "云南·丽江",
-        star: 5
-      }
-    ],
+    grayStar: "cloud://test-wusir.7465-test-wusir-1302022901/icon/grayStar.png",
+    recommendView: [],
 
     // 热门攻略
     viewIcon: "cloud://test-wusir.7465-test-wusir-1302022901/icon/view.png",
@@ -72,6 +60,13 @@ Page({
       url: '../' + page + '/' + page + '?city=' + city
     })
   },
+  // 跳转攻略详情页
+  navigateToDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../strategyDetail/strategyDetail?id=' + id
+    })
+  },
 
   navigateBack: function() {
     wx.navigateBack({
@@ -80,21 +75,24 @@ Page({
   },
 
   changeRegion: function(e) {
+    page=0;//重新加载页面
     let region = e.detail.value;
-    this.setData({
-      region: region
-    });
     this.getWeather();
-    //更改攻略
+    //更改攻略 处理省份字符串
     let chooseCity = e.detail.value[0];
     if (chooseCity[2] == '市') {
       chooseCity = chooseCity.split("市");
     } else {
       chooseCity = chooseCity.split("省");
     }
-    let city = chooseCity[0];
+    let province = chooseCity[0];
+    this.setData({
+      region: [province,region[1],region[2]],
+      flag: 0
+    });
+    //根据省名获取攻略页
     indexStrategy.limit(5).where({
-        city: city
+        city: province
       })
       .get({
         success: res => {
@@ -103,6 +101,8 @@ Page({
           })
         }
       });
+    //根据城市名获取景点列表
+    this.getViewList(this.data.region[1]);
   },
 
   changeSwiperCity: function(e) {
@@ -111,8 +111,9 @@ Page({
     })
   },
 
-  // 点击轮播图更新页面
+  // 点击轮播图更新页面或者搜索框
   changeStrategy: function(e) {
+    page=0;
     let inputValue=e.detail.value;
     let province="";
     let city="";
@@ -129,7 +130,8 @@ Page({
     }
     
     this.setData({
-      region: [province, city, ""]
+      region: [province, city, ""],
+      flag: 0
     });
     this.getWeather();
     indexStrategy.limit(5).where({
@@ -142,6 +144,7 @@ Page({
           })
         }
       });
+    this.getViewList(city);
   },
 
   //获取天气
@@ -170,6 +173,32 @@ Page({
     })
   },
 
+  // 获取景点信息
+  getViewList : function(city){
+    //处理城市选择器城市信息
+    city = city.split('市')[0];
+    viewList.limit(2).where({
+      city: city
+    }).get({
+      success : res=>{
+        if (res.data.length != 0) {//是否获取到相关词城市的景点信息
+          this.setData({
+            recommendView: res.data
+          })
+        }
+        else{
+          let page = Math.ceil(Math.random() * 10);
+          viewList.skip(page*5).limit(2).get({
+            success: res=>{
+              this.setData({
+                recommendView: res.data
+              })
+            }
+          })
+        }
+      }
+    });
+  },
   onPageScroll: function(res) {
     if (res.scrollTop >= 265) {
       this.setData({
@@ -187,6 +216,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    page=0;
     //province,city为攻略加载参数，不要加市
     let province = "北京";
     if (options.province != undefined) {
@@ -200,10 +230,11 @@ Page({
     // 修改region数据
     let region = [province, city, ""]
     this.setData({
-      region: region
+      region: region,
+      flag: 0
     });
     // 加载天气(city)、攻略(province)
-    this.getWeather();
+    this.getWeather(city);
     indexStrategy.limit(5).where({
         city: province
       })
@@ -215,6 +246,7 @@ Page({
         }
       });
 
+    this.getViewList(city);
     swiperList.limit(5).get({
       success: res => {
         this.setData({

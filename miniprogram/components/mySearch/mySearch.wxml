@@ -1,0 +1,5 @@
+<view class="mySearch" style="height:{{navBarHeight}}px;">
+  <image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
+  <image class="search" src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
+  <input class="searchInput" placeholder="搜索目的地/景点" bindconfirm="navigateTo" value="{{inputValue}}" style="bottom:{{menuBottom}}px; height:{{menuHeight}}px"></input>
+</view>

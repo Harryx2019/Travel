@@ -19,7 +19,9 @@ App({
       navBarHeight: 0, // 导航栏高度
       menuRight: 0, // 胶囊距右方间距（方保持左、右间距一致）
       menuBottom: 0, // 胶囊距底部间距（保持底部间距一致）
-      menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
+      menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）,
+
+      windowHeight: 0,//屏幕高度
     }
 
     const that=this;
@@ -32,5 +34,7 @@ App({
     that.globalData.menuRight=systemInfo.screenWidth-menuButtonInfo.right;
     that.globalData.menuBottom=menuButtonInfo.top-systemInfo.statusBarHeight;
     that.globalData.menuHeight=menuButtonInfo.height;
+
+    that.globalData.windowHeight=systemInfo.windowHeight;
   }
 })

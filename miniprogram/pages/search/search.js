@@ -17,7 +17,7 @@ Page({
   searchTo:function(e){
     let city=e.detail.value;
     wx.navigateTo({
-      url: '../strategy/strategy?city='+city
+      url: '../strategy/strategy?city=' + city + '&province=' + city
     })
   },
   navigateTo:function(e){

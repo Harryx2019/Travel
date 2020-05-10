@@ -211,7 +211,7 @@ swiper image{
 }
 .viewContent .viewItem .viewRight{
   width: 68%;
-   height: 130rpx;
+  height: 150rpx;
   position: relative;
   display: flex;
   flex-direction: column;

@@ -46,6 +46,14 @@ Page({
     })
   },
 
+  // 跳转攻略详情页
+  navigateToDetail : function(e){
+    let id=e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../strategyDetail/strategyDetail?id=' + id 
+    })
+  },
+
   onPageScroll: function (res) {
     if (res.scrollTop >= 130) {
       this.setData({
