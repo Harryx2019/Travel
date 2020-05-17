@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isLogin:false,
+    user: {},
     navBarHeight: app.globalData.navBarHeight,
     strategy: {}
   },
@@ -18,10 +20,23 @@ Page({
       url: '../strategy/strategy?city=' + city + '&province=' + city
     })
   },
+  navigateToMyStrategy: function (e) {
+    let author = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../myStrategy/myStrategy?author=' + author
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let isLogin = app.globalData.isLogin;
+    if (isLogin) {
+      this.setData({
+        isLogin: true,
+        user: app.globalData.user
+      })
+    }
     //获取攻略id号
     let id = options.id;
     strategyList.limit(1).where({

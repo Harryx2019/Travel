@@ -1,1 +1,79 @@
-/* miniprogram/pages/viewDetail/viewDetail.wxss */
+.coverImg{
+  width: 100%;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 10rpx auto;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid rgb(222,226,229);
+}
+.title .viewTitle{
+  position: relative;
+  width: 60%;
+}
+.title .viewTitle .viewName{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.title .viewTitle .location{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 5rpx 10rpx;
+  font-size: 26rpx;
+  background-color: rgb(234,244,253);
+  color: rgb(51,127,188);
+}
+.title .star{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(245,166,35);
+}
+.title .starIcon{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.address,.ticket,.openTime,.transport{
+  width: 90%;
+  margin: 0 auto;
+  min-height: 80rpx;
+  line-height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid rgb(222,226,229);
+}
+.info{
+  width: 90%;
+  font-size: 28rpx;
+}
+.iconImage{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.viewDes{
+  width:  90%;
+  line-height: 60rpx;
+  margin: 40rpx auto;
+}
+.desItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.point{
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+}
+.desItem text{
+  width: 90%;
+}

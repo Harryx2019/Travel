@@ -8,8 +8,13 @@
 <!-- 搜索栏 -->
 <view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};">
   <image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
-  <image src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+  <image class="searchIcon" src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
   <input class="searchInput" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};" bindconfirm="changeStrategy" value="{{inputValue}}"></input>
+  <button wx:if="{{!isLogin}}" class="user" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+    <image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+  </button>
+
+  <image wx:else src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
 </view>
 
 <!-- 地区选择器 -->
@@ -57,13 +62,13 @@
     <text class="more" bindtap="navigateTo" data-page="view" data-city="{{region[1]}}">> 查看更多</text>
   </view>
   <view class="viewContent">
-    <view class="viewItem" wx:for="{{recommendView}}" wx:key="index">
+    <view class="viewItem" wx:for="{{recommendView}}" wx:key="index" bindtap="navigateToDetail" data-id="{{item._id}}" data-page="viewDetail">
       <image src="{{item.viewImg}}" class="viewLeft"></image>
       <view class="viewRight">
         <text class="viewName">{{item.viewName}}</text>
         <view class="viewStar">
           <text>推荐星数</text>
-          <image wx:for="{{item.star}}" wx:key="key"  wo:for-item='star' src='{{starIcon}}' class='star'></image>
+          <image wx:for="{{item.star}}" wx:key="key" wo:for-item='star' src='{{starIcon}}' class='star'></image>
         </view>
         <text class="viewDescription">{{item.viewDes}}</text>
         <text class="viewLocation">{{item.province}}·{{item.city}}</text>
@@ -95,7 +100,7 @@
     <text class="emptyText">暂无相关旅行攻略哦！期待您的发布！</text>
   </view>
   <view wx:else class="viewContent">
-    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index" style="height:180rpx" bindtap="navigateToDetail" data-id="{{item._id}}">
+    <view class="viewItem" wx:for="{{strategyList}}" wx:key="index" style="height:180rpx" bindtap="navigateToDetail" data-id="{{item._id}}" data-page="strategyDetail">
       <image class="cover" src="{{item.coverImg}}"></image>
       <view class="itemRight">
         <view class="title">

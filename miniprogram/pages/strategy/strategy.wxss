@@ -40,7 +40,7 @@ page{
   width: 40rpx;
   left: 0;
 }
-.search image{
+.search .searchIcon{
   position: absolute;
   height: 40rpx;
   width: 40rpx;
@@ -53,6 +53,25 @@ page{
   left: 12%;
   border-radius: 50rpx;
   padding-left: 80rpx;
+}
+.user{
+  position: absolute;
+  padding: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0,0,0,0);
+  z-index: 100;
+}
+.userImg{
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 60rpx; 
+  height: 60rpx;
 }
 
 .region{

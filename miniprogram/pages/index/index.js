@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user: {isLogin:false},
+    isLogin: false,
     swiperImg: [
       "https://images.pexels.com/photos/130111/pexels-photo-130111.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260",
       "https://images.pexels.com/photos/2085998/pexels-photo-2085998.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260",
@@ -19,6 +21,7 @@ Page({
     navBarHeight: app.globalData.navBarHeight,
     menuTop: app.globalData.navBarHeight - app.globalData.menuBottom - app.globalData.menuHeight,
     menuHeight: app.globalData.menuHeight,
+    menuWidth: app.globalData.menuWidth,
     menuBottom: app.globalData.menuBottom,
     searchBackgroundColor: "none",
     inputBackgroundColor: "rgb(255,255,255,0.5)",
@@ -37,12 +40,34 @@ Page({
 
   },
 
+  getUserInfo : function(e){
+    let userInfo=e.detail.userInfo;
+    let user={};
+    user.nickName = userInfo.nickName;
+    user.avatarUrl = userInfo.avatarUrl;
+
+    if (userInfo.gender == 1) {
+      user.sex = 'male';
+    } else {
+      user.sex = 'female';
+    }
+    user.province = userInfo.province;
+    user.city = userInfo.city;
+    this.setData({
+      user: user,
+      isLogin: true
+    });
+    app.globalData.isLogin = true;
+    app.globalData.user= user;
+  },
+
   navigateTo: function (e) {
     let page = e.currentTarget.dataset.page;
     let city = e.currentTarget.dataset.city;
     let province= e.currentTarget.dataset.province;
+    let district = e.currentTarget.dataset.district;
     wx.navigateTo({
-      url: '../' + page + '/' + page + '?province=' + province+ '&city=' + city
+      url: '../' + page + '/' + page + '?province=' + province + '&city=' + city + '&district' + district
     })
   },
 
@@ -51,6 +76,13 @@ Page({
     let id=e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '../strategyDetail/strategyDetail?id=' + id 
+    })
+  },
+
+  navigateToMyStrategy:function(e){
+    let author=e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../myStrategy/myStrategy?author='+author,
     })
   },
 
@@ -72,6 +104,51 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取
+    let that = this;
+    wx.getSetting({
+      success(res){
+        var statu = res.authSetting;
+        if (statu['scope.userInfo']) {
+          let user = app.globalData.user;
+          that.setData({
+            user: user,
+            isLogin: true
+          });
+          app.globalData.isLogin = true;
+        }
+      }
+    });
+    // 获取用户位置信息
+    var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+    var qqmapsdk = new QQMapWX({
+      key: 'VVWBZ-AJA3I-3T2GW-5ZLKT-MPXCE-OVB2D'
+    });
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        var latitude = res.latitude;
+        var longitude = res.longitude;
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          success: function (res) {
+            var province = res.result.address_component.province;
+            var city = res.result.address_component.city;
+            var district = res.result.address_component.district;
+
+            that.setData({
+              province: province,
+              city: city,
+              district: district
+            })
+          }
+        })
+      },
+    });
+
     indexNavigate.get({
       success: res => {
         this.setData({

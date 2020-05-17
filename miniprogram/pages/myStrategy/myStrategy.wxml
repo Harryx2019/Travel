@@ -1,0 +1,82 @@
+<!-- 背景图片 -->
+<view style="background-color: rgb(0,0,0,0.8);">
+  <image class="coverImg" src="{{author.coverImg}}" mode="aspectFit"></image>
+</view>
+
+<view class="navBarTop" style="height:{{navBarHeight}}px; background-color:{{navBarBgc}};">
+  <image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+  <text style="color:{{navBarColor}};">{{author.name}}</text>
+</view>
+
+<view class="author">
+  <image class="authorImg" src="{{author.authorImg}}"></image>
+  <view class="authorInfo">
+    <view class="authorName">
+      <text class="name">{{author.name}}</text>
+      <image class="sex" wx:if="{{author.sex=='male'}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boy.png"></image>
+      <image class="sex" wx:else src="cloud://test-wusir.7465-test-wusir-1302022901/icon/girl.png"></image>
+    </view>
+    <text class="school">{{author.school}}</text>
+  </view>
+</view>
+
+<view class="data">
+  <text>{{author.followNum}}</text>
+  <text style="margin-bottom:10rpx;">粉丝</text>
+  <text>{{author.viewNum}}</text>
+  <text>来访</text>
+</view>
+
+<view class="content">
+  <view wx:if="{{strategy}}">
+    <view class="top">
+      <text style="color:rgb(81,199,201); border-bottom:3px solid rgb(81,199,201);">游记</text>
+      <text bindtap="changePage" data-page="store">收藏</text>
+    </view>
+
+    <view class="myStrategy">
+      <view class="item" wx:for="{{myStrategy}}" wx:key="index">
+        <view class="date">
+          <text class="publishDay">{{item.publishDay}}</text>
+          <text class="publishMonth">{{item.publishMonth}}月</text>
+        </view>
+        <view class="strategyContent" bindtap="navigateToDetail" data-id="{{item._id}}">
+          <image src="{{item.coverImg}}" mode="widthFix"></image>
+          <text>{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{store}}">
+    <view class="top">
+      <text bindtap="changePage" data-page="strategy">游记</text>
+      <text style="color:rgb(81,199,201); border-bottom:3px solid rgb(81,199,201);">收藏</text>
+    </view>
+
+    <view class="myStrategy">
+      <view class="item" wx:for="{{myLikeStrategy}}" wx:key="index">
+        <view class="date">
+          <text class="publishDay">{{item.publishDay}}</text>
+          <text class="publishMonth">{{item.publishMonth}}月</text>
+        </view>
+        <view class="strategyContent" bindtap="navigateToDetail" data-id="{{item._id}}">
+          <image src="{{item.coverImg}}" mode="widthFix"></image>
+          <text>{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view class="bottom">
+  <view class="follow">
+    <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/follow.png"></image>
+    <text>关注</text>
+  </view>
+  <view class="join">
+    <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/joinTeam.png"></image>
+    <text>加入小队</text>
+  </view>
+</view>

@@ -1,14 +1,20 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/viewDetail/viewDetail",
     "pages/strategyDetail/strategyDetail",
-    "pages/view/view",
+    "pages/myStrategy/myStrategy",
     "pages/strategy/strategy",
-    "pages/search/search",
+    "pages/my/my",
     "pages/square/square",
-    "pages/my/my"
+    "pages/viewDetail/viewDetail",
+    "pages/view/view",
+    "pages/search/search"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",

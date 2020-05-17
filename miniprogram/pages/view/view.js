@@ -44,6 +44,12 @@ Page({
     flag: 0//当前城市所有数据已经遍历
   },
 
+  navigateToDetail: function(e){
+    let id=e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../viewDetail/viewDetail?id='+id,
+    })
+  },
   navigateBack: function() {
     wx.navigateBack({
       delta: 1

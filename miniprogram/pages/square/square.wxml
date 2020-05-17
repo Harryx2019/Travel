@@ -1,2 +1,130 @@
-<!--miniprogram/pages/square/square.wxml-->
-<text>miniprogram/pages/square/square.wxml</text>
+<!-- 页面1：推荐 -->
+<view wx:if="{{recommend}}">
+  <view class="top" style="height:{{navBarHeight}}px;">
+    <view class="topSelect" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px;">
+      <text style="border-bottom: 2px solid rgb(81,199,201);">推荐</text>
+      <text bindtap="changePage" data-page="同城">同城</text>
+    </view>
+    <!-- 用户头像 -->
+    <button wx:if="{{!isLogin}}" class="user" style="bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+      <image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+    </button>
+    
+    <image wx:else src="{{user.avatarUrl}}" class="userImg" style="bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
+  </view>
+
+  <view class="hotDestination" style="padding-top:{{navBarHeight}}px;">
+    <view class="title">
+      <text class="hot">大学热门目的地</text>
+      <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/hot.png"></image>
+      <text class="more" bindtap="navigateTo" data-province="北京" data-city="北京">更多 ></text>
+    </view>
+    <view class="content">
+      <view class="item" wx:for="{{hotDestination}}" wx:key="index" bindtap="navigateTo" data-province="{{item.province}}" data-city="{{item.city}}">
+        <text>{{item.province}} {{item.city}}</text>
+        <image wx:if="{{item.id==0}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boom.png" class="boom"></image>
+        <image wx:if="{{item.id==3}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/new.png" class="boom"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="contentItem" wx:for="{{strategyList}}" wx:key="index">
+      <image class="left" src="{{item.authorImg}}" bindtap="navigateToMyStrategy" data-author="{{item.author}}"></image>
+      <view class="right">
+        <view class="author">
+          <text class="authorName">{{item.author}}</text>
+          <text class="school">{{item.university}}</text>
+          <text class="follow">关注</text>
+        </view>
+
+        <text class="postContent {{item.ellipsis?'ellipsis':'unellipsis'}}">{{item.content}}</text>
+        <text wx:if="{{item.showTotalBtn}}" class="showTotal" bindtap="showTotal" data-id="{{item.id}}" data-ellipsis="{{item.ellipsis}}">{{item.totalBtnText}}</text>
+
+        <image src="{{item.coverImg}}" class="picture" mode="aspectFit" bindtap="navigateToDetail" data-id="{{item._id}}"></image>
+
+        <view class="function">
+          <text class='date'>{{item.publishDate}}</text>
+          <view class="like">
+            <image src="{{comment}}"></image>
+            <text>{{item.viewNum-200}}</text>
+          </view>
+          <view class="like">
+            <image src="{{like}}"></image>
+            <text>{{item.likeNum}}</text>
+          </view>
+        </view>
+
+        <view class="comment">
+          <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/blueLike.png"></image>
+          <text class="likeList">{{item.author}}</text>
+          <text>等{{item.likeNum}}人点赞</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{school}}">
+  <view class="top" style="height:{{navBarHeight}}px;">
+    <view class="topSelect" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px;">
+      <text bindtap="changePage" data-page="推荐">推荐</text>
+      <text style="border-bottom: 2px solid rgb(81,199,201);">同城</text>
+    </view>
+  </view>
+
+  <view class="hotPeople" style="padding-top:{{navBarHeight+10}}px;">
+    <view class="title">
+      <text class="hot">今日</text>
+      <text class="hot">红人榜</text>
+    </view>
+    <scroll-view class="peopleList" scroll-x>
+      <view class="peopleItem" wx:for="{{peopleList}}" wx:key="index">
+        <view class="people">
+          <image src="{{item.authorImg}}" bindtap="navigateToMyStrategy" data-author="{{item.author}}"></image>
+          <text>{{item.author}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="content">
+    <view class="contentItem" wx:for="{{strategyListOfSame}}" wx:key="index">
+      <image class="left" src="{{item.authorImg}}" bindtap="navigateToMyStrategy" data-author="{{item.author}}"></image>
+      <view class="right">
+        <view class="author">
+          <text class="authorName">{{item.author}}</text>
+          <text class="school">{{item.university}}</text>
+          <text class="follow">关注</text>
+        </view>
+
+        <text class="postContent {{item.ellipsis?'ellipsis':'unellipsis'}}">{{item.content}}</text>
+        <text wx:if="{{item.showTotalBtn}}" class="showTotal" bindtap="showTotal" data-id="{{item.id}}" data-ellipsis="{{item.ellipsis}}">{{item.totalBtnText}}</text>
+
+        <image src="{{item.coverImg}}" class="picture" mode="aspectFit" bindtap="navigateToDetail" data-id="{{item._id}}"></image>
+
+        <view class="function">
+          <text class='date'>{{item.publishDate}}</text>
+          <view class="like">
+            <image src="{{comment}}"></image>
+            <text>{{item.viewNum-200}}</text>
+          </view>
+          <view class="like">
+            <image src="{{like}}"></image>
+            <text>{{item.likeNum}}</text>
+          </view>
+        </view>
+
+        <view class="comment">
+          <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/blueLike.png"></image>
+          <text class="likeList">{{item.author}}</text>
+          <text>等{{item.likeNum}}人点赞</text>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{showAll2}}" class="empty" style="height: 200rpx;">
+      <image class="emptyImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/none.png"></image>
+      <text class="emptyText">没有更多内容啦！期待您的发布！</text>
+    </view>
+  </view>
+</view>

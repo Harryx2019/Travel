@@ -1,2 +1,43 @@
-<!--miniprogram/pages/viewDetail/viewDetail.wxml-->
-<text>景点详情页</text>
+<mySearch></mySearch>
+
+<image class="coverImg" src="{{view[0].viewImg}}" style="margin-top:{{navBarHeight}}px" mode="aspectFit"></image>
+
+<view class="title">
+  <view class="viewTitle">
+    <text class="viewName">{{view[0].viewName}}</text>
+    <text class="location">{{view[0].province}}·{{view[0].city}}</text>
+  </view>
+  <view class="star">
+    <text>推荐星数</text>
+    <view>
+      <image wx:for="{{view[0].star}}" wx:key="key"  wo:for-item='star' src='{{starIcon}}' class='starIcon'></image>
+    </view>
+  </view>
+</view>
+
+<view class="address">
+  <image class="iconImage" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/address.png"></image>
+  <text class="info">{{view[0].viewAddress}}</text>
+</view>
+
+<view class="ticket">
+  <image class="iconImage" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/viewTicket.png"></image>
+  <text class="info">{{view[0].viewTicket}}</text>
+</view>
+
+<view class="openTime">
+  <image class="iconImage" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/openTime.png"></image>
+  <text class="info">{{view[0].viewOpenTime}}</text>
+</view>
+
+<view class="transport">
+  <image class="iconImage" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/transport.png"></image>
+  <text class="info">{{view[0].viewTransport}}</text>
+</view>
+
+<view class="viewDes">
+  <view  class="desItem" wx:for="{{viewDes}}" wx:key="index">
+    <image class="point" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/point.png"></image>
+    <text>{{item}}</text>
+  </view>
+</view>

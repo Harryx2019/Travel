@@ -12,12 +12,17 @@
   <!-- 首页搜索框 -->
   <view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};" >
     <input class="searchInput" placeholder="搜索目的地/景点/攻略" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};" bindtap="navigateTo" data-page="search" ></input>
-    <image src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+    <image class="searchIcon" src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+    <button wx:if="{{!isLogin}}" class="user" style="right:{{menuWidth+20}}px; bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+      <image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+    </button>
+    
+    <image wx:else src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+20}}px; bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
   </view>
 
   <!-- 首页导航栏 -->
   <view class="navigate">
-    <view class="navigate-item" wx:for="{{navigateList}}" wx:key="index" bindtap="navigateTo" data-page="{{item.page}}" data-city="北京市" data-province="北京">
+    <view class="navigate-item" wx:for="{{navigateList}}" wx:key="index" bindtap="navigateTo" data-page="{{item.page}}" data-city="{{city}}" data-province="{{province}}" data-district="{{district}}">
       <image src="{{item.url}}"></image>
       <text>{{item.text}}</text>
     </view>
@@ -37,7 +42,7 @@
 <!-- 热门攻略 -->
 <view class="hotStrategy">
   <text>热门攻略</text>
-  <text class="more" bindtap="navigateTo" data-page="strategy" data-city="北京市" data-province="北京">> 查看更多</text>
+  <text class="more" bindtap="navigateTo" data-page="strategy" data-city="{{city}}" data-province="{{province}}" data-district="{{district}}">> 查看更多</text>
 </view>
 <view class="strategyContend">
   <view class="strategy" wx:for="{{strategyList}}" wx:key="index" bindtap="navigateToDetail" data-id="{{item._id}}">

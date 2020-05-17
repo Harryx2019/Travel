@@ -12,9 +12,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user:{},
+    isLogin: false,
+
     navBarHeight: app.globalData.navBarHeight,
     menuTop: app.globalData.navBarHeight - app.globalData.menuBottom - app.globalData.menuHeight,
     menuHeight: app.globalData.menuHeight,
+    menuWidth: app.globalData.menuWidth,
     menuBottom: app.globalData.menuBottom,
     searchBackgroundColor: "none",
     inputBackgroundColor: "rgb(255,255,255,0.5)",
@@ -25,7 +29,7 @@ Page({
     backUrl: "cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png",
 
     // 地区
-    region: ['北京市', '北京市', '东城区'],
+    region: [],
     selectUrl: "cloud://test-wusir.7465-test-wusir-1302022901/icon/select.png",
 
     //天气
@@ -53,6 +57,27 @@ Page({
     flag : 0
   },
 
+  getUserInfo: function (e) {
+    let userInfo = e.detail.userInfo;
+    let user = {};
+    user.nickName = userInfo.nickName;
+    user.avatarUrl = userInfo.avatarUrl;
+
+    if (userInfo.gender == 1) {
+      user.sex = 'male';
+    } else {
+      user.sex = 'female';
+    }
+    user.province = userInfo.province;
+    user.city = userInfo.city;
+    this.setData({
+      user: user,
+      isLogin: true
+    });
+    app.globalData.isLogin = true;
+    app.globalData.user = user;
+  },
+
   navigateTo: function(e) {
     let page = e.currentTarget.dataset.page;
     let city = e.currentTarget.dataset.city;
@@ -63,14 +88,22 @@ Page({
   // 跳转攻略详情页
   navigateToDetail: function (e) {
     let id = e.currentTarget.dataset.id;
+    let page = e.currentTarget.dataset.page
     wx.navigateTo({
-      url: '../strategyDetail/strategyDetail?id=' + id
+      url: '../'+page+'/'+page+'?id=' + id
     })
   },
 
   navigateBack: function() {
     wx.navigateBack({
       delta: 1
+    })
+  },
+
+  navigateToMyStrategy: function (e) {
+    let author = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../myStrategy/myStrategy?author=' + author,
     })
   },
 
@@ -216,6 +249,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let that=this;
+    let isLogin = app.globalData.isLogin;
+    if(isLogin){
+      this.setData({
+        user: app.globalData.user,
+        isLogin: true
+      })
+    }
+
     page=0;
     //province,city为攻略加载参数，不要加市
     let province = "北京";
@@ -226,15 +268,26 @@ Page({
     if (options.city != undefined) {
       city = options.city;
     }
+    let district = "东城区";
+    if (options.district!=undefined){
+      distinct = options.district;
+    }
 
     // 修改region数据
-    let region = [province, city, ""]
+    let region = [province, city, district];
     this.setData({
       region: region,
       flag: 0
     });
     // 加载天气(city)、攻略(province)
     this.getWeather(city);
+    
+    if (province[2] == '市') {
+      province = province.split("市");
+    } else {
+      province = province.split("省");
+    }
+    province = province[0];
     indexStrategy.limit(5).where({
         city: province
       })

@@ -30,7 +30,6 @@
 /* 封面 */
 .coverImg{
   width: 100%;
-  height: 600rpx;
 }
 /* 作者信息 */
 .author{

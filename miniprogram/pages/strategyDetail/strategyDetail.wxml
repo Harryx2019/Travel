@@ -1,5 +1,6 @@
 <!-- 使用搜索组件 -->
 <mySearch></mySearch>
+<myLogin data-isLogin="{{isLogin}}" data-user="{{user}}"></myLogin>
 
 <view class="strategyDetail" style="top:{{navBarHeight}}px;">
   <view class="top">
@@ -10,10 +11,10 @@
     </view>
   </view>
 
-  <image class="coverImg" src="{{strategy[0].coverImg}}"></image>
+  <image class="coverImg" src="{{strategy[0].coverImg}}" mode="aspectFit"></image>
 
   <view class="author">
-    <image class="authorImg" src="{{strategy[0].authorImg}}"></image>
+    <image class="authorImg" src="{{strategy[0].authorImg}}" bindtap="navigateToMyStrategy" data-author="{{strategy[0].author}}"></image>
     <view class="authorInfo">
       <text class="authorName">{{strategy[0].author}}</text>
       <text class="publishTime">{{strategy[0].publishDate}}</text>

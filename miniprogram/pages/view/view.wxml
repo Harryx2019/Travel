@@ -51,7 +51,7 @@
 </view>
 
 <view class="viewContent">
-  <view class="viewItem" wx:for="{{viewList}}" wx:key="index">
+  <view class="viewItem" wx:for="{{viewList}}" wx:key="index" bindtap="navigateToDetail" data-id="{{item._id}}">
     <image src="{{item.viewImg}}" class="viewLeft"></image>
     <view class="viewRight">
       <text class="viewName">{{item.viewName}}</text>

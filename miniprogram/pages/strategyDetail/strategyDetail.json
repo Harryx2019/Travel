@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "mySearch": "../../components/mySearch/mySearch"
+    "mySearch": "../../components/mySearch/mySearch",
+    "myLogin": "../../components/myLogin/myLogin"
   },
   "navigationStyle": "custom"
 }

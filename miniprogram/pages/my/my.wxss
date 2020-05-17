@@ -1,1 +1,68 @@
-/* miniprogram/pages/my/my.wxss */
+.top{
+  width: 100%;
+}
+.title{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  text-align: center;
+  z-index: 100;
+}
+.title text{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  font-size: 34rpx;
+  font-weight: bold;
+}
+
+.user{
+  width: 100%;
+  height: 160rpx;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 5%;
+  position: absolute;
+}
+.user .userImg{
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.user .userName{
+  font-size: 40rpx;
+  font-weight: bold;
+  font-family: "STKaiti";
+}
+.user .button{
+  line-height: normal;
+  position: absolute;
+  right: 20%;
+  bottom: 40rpx;
+  width: 180rpx;
+  height: 80rpx;
+  border: 1px solid rgb(0,173,25);
+  border-radius: 5px;
+  text-align: center;
+  padding: 0;
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(255,255,255,0.5);
+}
+.user .button image{
+  width: 60rpx;
+  height: 60rpx;
+}
+.user .button .login{
+  font-size: 26rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: rgb(0,173,25);
+}

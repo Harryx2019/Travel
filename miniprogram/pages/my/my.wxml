@@ -1,2 +1,14 @@
-<!--miniprogram/pages/my/my.wxml-->
-<text>miniprogram/pages/my/my.wxml</text>
+<view class="title" style="height:{{navBarHeight}}px;">
+  <text style="line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">个人中心</text>
+</view>
+
+<image class="top" src="cloud://test-wusir.7465-test-wusir-1302022901/image/myBgc.jpg" mode="widthFix"></image>
+
+<view class="user" style="top:{{navBarHeight}}px;">
+  <open-data class="userImg" type="userAvatarUrl"></open-data>
+  <open-data class="userName" type="userNickName"></open-data>
+  <button hidden="{{hiddenButton}}" class="button" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">
+    <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
+    <text class="login">登录</text>
+  </button>
+</view>

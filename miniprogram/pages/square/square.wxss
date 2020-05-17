@@ -1,1 +1,272 @@
-/* miniprogram/pages/square/square.wxss */
+.top{
+  position: fixed;
+  z-index: 100;
+  background-color: white;
+  width: 100%;
+}
+.topSelect{
+  position: absolute;
+  left: 36%;
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.topSelect text{
+  text-align: center;
+  font-weight: bold;
+  padding: 10rpx 0;
+  width: 80rpx;
+}
+.user{
+  position: absolute;
+  left: 5%;  
+  padding: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0,0,0,0);
+  z-index: 100;
+}
+.userImg{
+  position: absolute;
+  left: 5%;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 60rpx; 
+  height: 60rpx;
+}
+
+.hotDestination{
+  width: 100%;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid rgb(245,245,245);
+}
+.hotDestination .title{
+  position: relative;
+  width: 90%;
+  height: 40rpx;
+  margin: 20rpx auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.hotDestination .title .hot{
+  font-size: 36rpx;
+  font-weight: bold;
+  font-family: "STKaiti";
+}
+.hotDestination .title .icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 10rpx;
+}
+.hotDestination .title .more{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 26rpx;
+}
+.hotDestination .content{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.hotDestination .content .item{
+  font-size: 30rpx;
+  width: 50%;
+  line-height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.hotDestination .content .item .boom{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 10rpx;
+}
+
+.content{
+  width: 90%;
+  margin: 20rpx auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.content .contentItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20rpx 0;
+}
+.content .contentItem .left{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50rpx;
+}
+.content .contentItem .right{
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.content .contentItem .right .author{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.content .contentItem .right .author .authorName{
+  color: rgb(94,194,194);
+  font-size: 34rpx;
+  font-weight: bold;
+}
+.content .contentItem .right .author .school{
+  color: rgb(215,215,215);
+  font-size: 28rpx;
+}
+.content .contentItem .right .author .follow{
+  border: 1px solid orange;
+  color: orange;
+  font-size: 28rpx;
+  padding: 5rpx 20rpx;
+  position: absolute;
+  right: 10%;
+  bottom: 20rpx;
+}
+.content .contentItem .right .ellipsis{
+  -webkit-line-clamp:4; 
+}
+.content .contentItem .right .unellipsis{
+  -webkit-line-clamp:0; 
+}
+.content .contentItem .right .postContent{
+  line-height: 40rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  margin-bottom: 10rpx;
+} 
+.content .contentItem .right .showTotal{
+  color: rgb(94,194,194);
+}
+.content .contentItem .right .picture{
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 10rpx;
+}
+.content .contentItem .right .function{
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10rpx;
+  color: rgb(215,215,215);
+}
+.content .contentItem .right .function .date{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.content .contentItem .right .function .like{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10rpx;
+}
+.content .contentItem .right .function image{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.content .contentItem .right .comment{
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(246,248,247);
+}
+.content .contentItem .right .comment .likeList{
+  color: rgb(94,194,194);
+}
+.content .contentItem .right .comment image{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.hotPeople{
+  width: 100%;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid rgb(245,245,245);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.hotPeople .title{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-right: 1px solid rgb(245,245,245);
+}
+.hotPeople .title .hot{
+  font-size: 36rpx;
+  font-weight: bold;
+  font-family: "STKaiti";
+  color: orangered;
+}
+.hotPeople .peopleList{
+  width: 75%;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.hotPeople .peopleList .peopleItem{
+  width: 140rpx;
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+}
+.hotPeople .peopleList .peopleItem .people{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.hotPeople .peopleList .peopleItem image{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50rpx;
+}
+.hotPeople .peopleList .peopleItem text{
+  font-size: 26rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:1; 
+}
+
+.empty{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.emptyImg{
+  width: 100rpx;
+  height: 100rpx;
+}
