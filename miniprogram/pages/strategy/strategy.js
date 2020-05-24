@@ -125,7 +125,7 @@ Page({
     });
     //根据省名获取攻略页
     indexStrategy.limit(5).where({
-        city: province
+        province: province
       })
       .get({
         success: res => {
@@ -168,7 +168,7 @@ Page({
     });
     this.getWeather();
     indexStrategy.limit(5).where({
-        city: province
+        province: province
       })
       .get({
         success: res => {
@@ -249,7 +249,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let that=this;
     let isLogin = app.globalData.isLogin;
     if(isLogin){
       this.setData({
@@ -289,7 +288,7 @@ Page({
     }
     province = province[0];
     indexStrategy.limit(5).where({
-        city: province
+        province: province
       })
       .get({
         success: res => {
@@ -359,7 +358,7 @@ Page({
     page++;
     let province=this.data.region[0];
     indexStrategy.skip(5*page).limit(5).where({
-      city: province
+      province: province
     })
       .get({
         success: res => {

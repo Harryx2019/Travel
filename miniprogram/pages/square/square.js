@@ -3,6 +3,7 @@ const app = getApp();
 const db = wx.cloud.database();
 const hotDestination = db.collection('indexDestination');
 const strategyList = db.collection('strategy');
+const userList = db.collection('user');
 var page1 = 0; //推荐页面加载页面数
 var page2 = 0; //同城页面加载页面数
 Page({
@@ -11,8 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLogin:false,
-    user:{},
+    isLogin: false,
+    user: {},
 
     recommend: true,
     school: false,
@@ -56,27 +57,27 @@ Page({
     app.globalData.isLogin = true;
     app.globalData.user = user;
   },
-  navigateTo: function(e) {
+  navigateTo: function (e) {
     let province = e.currentTarget.dataset.province;
     let city = e.currentTarget.dataset.city;
     wx.navigateTo({
       url: '../strategy/strategy?province=' + province + '&city=' + city,
     })
   },
-  navigateToDetail :function(e){
-    let id=e.currentTarget.dataset.id;
+  navigateToDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../strategyDetail/strategyDetail?id='+id
+      url: '../strategyDetail/strategyDetail?id=' + id
     })
   },
-  navigateToMyStrategy :function(e){
-    let author=e.currentTarget.dataset.author;
+  navigateToMyStrategy: function (e) {
+    let author = e.currentTarget.dataset.author;
     wx.navigateTo({
-      url: '../myStrategy/myStrategy?author='+author
+      url: '../myStrategy/myStrategy?author=' + author
     })
   },
 
-  changePage: function(e) {
+  changePage: function (e) {
     let page = e.currentTarget.dataset.page;
     if (page == '同城') {
       this.setData({
@@ -86,30 +87,17 @@ Page({
       //只有在第一次加载同城页面才会获取数组信息
       if (this.data.strategyListOfSame.length == 0) {
         strategyList.limit(5).where({
-          city: this.data.city
+          province: this.data.city
         }).get({
           success: res => {
             let strategyTempList = res.data;
-            let length=strategyTempList.length;
-            if(length==0){
+            let length = strategyTempList.length;
+            if (length == 0) {
               this.setData({
                 showAll2: true
               })
-            }
-            else{
+            } else {
               for (let i = 0; i < length; i++) {
-                //点赞人数
-                let list = [];
-                let k = Math.ceil(Math.random() * 10);
-                strategyList.skip(k * 5).limit(12).get({
-                  success: res => {
-                    for (let j = 0; j < 12; j++) {
-                      list.push(res.data[j].author);
-                    }
-                  }
-                });
-                strategyTempList[i].likeList = list;
-
                 let contentLength = strategyTempList[i].content.length;
                 if (contentLength > 100) {
                   strategyTempList[i].showTotalBtn = true;
@@ -131,7 +119,7 @@ Page({
       })
     }
   },
-  showTotal: function(e) {
+  showTotal: function (e) {
     var id = e.currentTarget.dataset.id;
     var flag = e.currentTarget.dataset.ellipsis;
 
@@ -167,8 +155,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    let that = this;
+  onLoad: function (options) {
     let isLogin = app.globalData.isLogin;
     if (isLogin) {
       this.setData({
@@ -185,14 +172,14 @@ Page({
       }
     });
     //今日红人榜
-    strategyList.limit(10).get({
+    userList.limit(10).get({
       success: res => {
         let peopleList = [];
         for (let i = 0; i < 10; i++) {
           let list = {};
           list.id = res.data[i]._id;
-          list.author = res.data[i].author;
-          list.authorImg = res.data[i].authorImg;
+          list.author = res.data[i].nickName;
+          list.authorImg = res.data[i].avatarUrl;
           peopleList.push(list);
         };
         this.setData({
@@ -205,18 +192,6 @@ Page({
       success: res => {
         let strategyTempList = res.data;
         for (let i = 0; i < 5; i++) {
-          //点赞人数
-          let list = [];
-          let k = Math.ceil(Math.random() * 10);
-          strategyList.skip(k * 5).limit(12).get({
-            success: res => {
-              for (let j = 0; j < 12; j++) {
-                list.push(res.data[j].author);
-              }
-            }
-          });
-          strategyTempList[i].likeList = list;
-
           let contentLength = strategyTempList[i].content.length;
           if (contentLength > 100) {
             strategyTempList[i].showTotalBtn = true;
@@ -234,46 +209,46 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     var page;
     if (this.data.recommend == true) {
       page1++;
-      page=page1;
+      page = page1;
       strategyList.skip(5 * page).limit(5).get({
         success: res => {
           let oldData = this.data.strategyList;
@@ -284,18 +259,6 @@ Page({
             })
           } else {
             for (let i = 0; i < 5; i++) {
-              //点赞人数
-              let list = [];
-              let k = Math.ceil(Math.random() * 10);
-              strategyList.skip(k * 5).limit(12).get({
-                success: res => {
-                  for (let j = 0; j < 12; j++) {
-                    list.push(res.data[j].author);
-                  }
-                }
-              });
-              strategyTempList[i].likeList = list;
-
               let contentLength = strategyTempList[i].content.length;
               if (contentLength > 100) {
                 strategyTempList[i].showTotalBtn = true;
@@ -309,12 +272,11 @@ Page({
           }
         }
       })
-    }
-    else{
+    } else {
       page2++;
-      page=page2;
+      page = page2;
       strategyList.skip(5 * page).limit(5).where({
-        city: this.data.city
+        province: this.data.city
       }).get({
         success: res => {
           let oldData = this.data.strategyListOfSame;
@@ -325,18 +287,6 @@ Page({
             })
           } else {
             for (let i = 0; i < 5; i++) {
-              //点赞人数
-              let list = [];
-              let k = Math.ceil(Math.random() * 10);
-              strategyList.skip(k * 5).limit(12).get({
-                success: res => {
-                  for (let j = 0; j < 12; j++) {
-                    list.push(res.data[j].author);
-                  }
-                }
-              });
-              strategyTempList[i].likeList = list;
-
               let contentLength = strategyTempList[i].content.length;
               if (contentLength > 100) {
                 strategyTempList[i].showTotalBtn = true;
@@ -356,7 +306,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

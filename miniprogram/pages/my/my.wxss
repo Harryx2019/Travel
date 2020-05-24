@@ -26,14 +26,19 @@
   padding: 0 5%;
   position: absolute;
 }
-.user .userImg{
-  width: 140rpx;
-  height: 140rpx;
+.userInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.userImg{
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20rpx;
 }
-.user .userName{
+.userName{
   font-size: 40rpx;
   font-weight: bold;
   font-family: "STKaiti";
@@ -45,7 +50,7 @@
   bottom: 40rpx;
   width: 180rpx;
   height: 80rpx;
-  border: 1px solid rgb(0,173,25);
+  border: 2px solid rgb(182,224,252);
   border-radius: 5px;
   text-align: center;
   padding: 0;
@@ -65,4 +70,129 @@
   line-height: 80rpx;
   text-align: center;
   color: rgb(0,173,25);
+}
+
+.content{
+  width: 100%;
+  background-color: rgb(246,247,249);
+  position: absolute;
+  top: 360rpx;
+}
+.menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  height: 200rpx;
+  margin: 0 auto;
+  margin-top: -60rpx;
+  background-color: white;
+  border-radius: 25rpx;
+}
+.menu .menuItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 160rpx;
+}
+.menu .menuItem .menuIcon{
+  width: 70rpx;
+  height: 70rpx;
+}
+.menu .menuItem .menuText{
+  font-size: 30rpx;
+}
+
+.contentItem{
+  background-color: white;
+  width: 90%;
+  height: 180rpx;
+  margin: 20rpx auto;
+  border-radius: 25rpx;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.contentItem .left{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 120rpx;
+  width: 60%;
+  margin-left: 5%;
+}
+.contentItem .left .menuTitle{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.contentItem .left .dec{
+  font-size: 26rpx;
+  color: rgb(128,129,131);
+}
+.contentItem .icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.content .right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  right: 5%;
+  bottom: 30rpx;
+  padding: 20rpx 20rpx;
+  background-color:rgb(184,226,251);
+  height: 30rpx;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.consult{
+  width: 90%;
+  height: 200rpx;
+  margin: 20rpx auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 25rpx;
+}
+.consult .logo{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10rpx;
+}
+.consult .consultTitle{
+  margin-left: 5%;
+  font-size: 40rpx;
+  color: rgb(128,129,131);
+}
+.consultContent{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  height: 100rpx;
+  margin: 0 auto;
+  position: relative;
+}
+.consultContent .left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+.consultContent .right{
+  position: absolute;
+  right: 5%;
+  bottom: 20rpx;
 }

@@ -1,7 +1,8 @@
 // miniprogram/pages/myStrategy/myStrategy.js
 const app = getApp();
-const db=wx.cloud.database();
-const strategyList=db.collection('strategy');
+const db = wx.cloud.database();
+const strategyList = db.collection('strategy');
+const userList = db.collection('user');
 Page({
 
   /**
@@ -10,41 +11,66 @@ Page({
   data: {
     navBarHeight: app.globalData.navBarHeight,
     navBarBgc: 'none',
-    navBarColor:'white',
+    navBarColor: 'white',
 
-    strategy:true,
-    store:false,
+    strategy: true,
+    store: false,
 
-    myStrategy:[],
-    myLikeStrategy :[],
-    author:{}
+    myStrategy: [],
+    myLikeStrategy: [],
+    author: {}
   },
 
-  changePage: function(e){
-    console.log(e);
-    let page=e.currentTarget.dataset.page;
-    if(page=='store'){
+  changePage: function (e) {
+    let page = e.currentTarget.dataset.page;
+    if (page == 'store') {
+      if (this.data.myLikeStrategy.length == 0) {
+        //获取用户收藏游记
+        let myLikeStrategy = {};
+        let likeStrategyList = this.data.author.likeStrategyList;
+        let length = likeStrategyList.length;
+        console.log(length);
+        for (let i = 0; i < length; i++) {
+          strategyList.where({
+            id: likeStrategyList[i]
+          }).get({
+            success: res => {
+              let strategy = res.data[0];
+              myLikeStrategy[i] = strategy;
+
+              let date = strategy.publishDate;
+              date = date.split('/');
+              myLikeStrategy[i].publishYear = date[0];
+              myLikeStrategy[i].publishMonth = date[1];
+              myLikeStrategy[i].publishDay = date[2];
+
+              this.setData({
+                myLikeStrategy: myLikeStrategy
+              })
+            }
+          })
+        }
+      }
       this.setData({
-        strategy:false,
-        store:true
+        strategy: false,
+        store: true
       })
-    }else{
+    } else {
       this.setData({
         strategy: true,
         store: false
       })
     }
   },
-  navigateBack : function(){
+  navigateBack: function () {
     wx.navigateBack({
-      delta:1
+      delta: 1
     })
   },
-  navigateToDetail :function(e){
-    console.log(e);
-    let id=e.currentTarget.dataset.id;
+  navigateToDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../strategyDetail/strategyDetail?id='+id
+      url: '../strategyDetail/strategyDetail?id=' + id
     })
   },
 
@@ -52,10 +78,9 @@ Page({
     if (res.scrollTop >= 130) {
       this.setData({
         navBarBgc: "white",
-        navBarColor :"black"
+        navBarColor: "black"
       })
-    }
-    else {
+    } else {
       this.setData({
         navBarBgc: "none",
         navBarColor: "white"
@@ -67,54 +92,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let author=options.author;
+    let author = {};
+    author.name = options.author;
     //获取用户游记
     strategyList.where({
-      author:author
+      author: author.name
     }).get({
-      success: res=>{
-        let myStrategy=res.data;
-        let length = myStrategy.length;
-        for(let i=0;i<length;i++){
-          let date=myStrategy[i].publishDate;
-          date=date.split('/');
-          myStrategy[i].publishYear = date[0];
-          myStrategy[i].publishMonth = date[1];
-          myStrategy[i].publishDay = date[2];
-        }
-
-        //获取用户信息
-        let author={};
-        author.name = myStrategy[0].author;
-        author.authorImg = myStrategy[0].authorImg; 
-        author.school = myStrategy[0].university;
-        author.coverImg = myStrategy[0].coverImg;
-        author.viewNum = myStrategy[0].viewNum
-        let followNum = myStrategy[0].likeNum - 200;
-        if(followNum<0){
-          author.followNum=0;
-        }else{
-          author.followNum=followNum;
-        }
-        let i=Math.random()*10;
-        if(i>5){
-          author.sex='male';
-        }
-        else{
-          author.sex='female';
-        }
-
-
-        this.setData({
-          myStrategy: myStrategy,
-          author : author
-        })
-      }
-    });
-
-    //获取用户收藏游记
-    strategyList.limit(1).get({
-      success: res=>{
+      success: res => {
         let myStrategy = res.data;
         let length = myStrategy.length;
         for (let i = 0; i < length; i++) {
@@ -125,10 +109,30 @@ Page({
           myStrategy[i].publishDay = date[2];
         }
         this.setData({
-          myLikeStrategy: myStrategy
+          myStrategy: myStrategy
         })
       }
-    })
+    });
+
+    //获取用户信息
+    userList.where({
+      nickName: author.name
+    }).get({
+      success: res => {
+        let user = res.data[0];
+        author.sex = user.sex;
+        author.authorImg = user.avatarUrl;
+        author.school = user.schoolName;
+        author.coverImg = user.coverImg;
+        author.viewNum = user.viewNum;
+        author.followList = user.followList;
+        author.followNum = user.followList.length;
+        author.likeStrategyList = user.likeStrategyList;
+        this.setData({
+          author: author
+        })
+      }
+    });
   },
 
   /**

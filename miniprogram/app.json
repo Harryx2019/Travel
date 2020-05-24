@@ -1,11 +1,12 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/strategyDetail/strategyDetail",
-    "pages/myStrategy/myStrategy",
-    "pages/strategy/strategy",
     "pages/my/my",
+    "pages/myStrategy/myStrategy",
     "pages/square/square",
+    "pages/index/index",
+    "pages/qualifySchool/qualifySchool",
+    "pages/strategyDetail/strategyDetail",
+    "pages/strategy/strategy",
     "pages/viewDetail/viewDetail",
     "pages/view/view",
     "pages/search/search"

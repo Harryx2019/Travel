@@ -1,14 +1,80 @@
 <view class="title" style="height:{{navBarHeight}}px;">
-  <text style="line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">个人中心</text>
+	<text style="line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">个人中心</text>
 </view>
 
 <image class="top" src="cloud://test-wusir.7465-test-wusir-1302022901/image/myBgc.jpg" mode="widthFix"></image>
 
 <view class="user" style="top:{{navBarHeight}}px;">
-  <open-data class="userImg" type="userAvatarUrl"></open-data>
-  <open-data class="userName" type="userNickName"></open-data>
-  <button hidden="{{hiddenButton}}" class="button" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">
-    <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
-    <text class="login">登录</text>
-  </button>
+	<button hidden="{{isLogin}}" class="button" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+		<image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
+		<text class="login">登录</text>
+	</button>
+	<button hidden="{{!isLogin}}" class="button">
+		<text>个人主页</text>
+	</button>
+
+	<view wx:if="{{isLogin}}" class="userInfo">
+		<open-data class="userImg" type="userAvatarUrl"></open-data>
+		<open-data class="userName" type="userNickName"></open-data>
+	</view>
+	<view wx:else class="userInfo">
+		<image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+		<text class="userName">未登录</text>
+	</view>
+</view>
+
+<view class="content">
+	<view class="menu">
+		<view class="menuItem" wx:for="{{navigateList}}" wx:key="index">
+			<image class="menuIcon" src="{{item.url}}"></image>
+			<text class="menuText">{{item.text}}</text>
+		</view>
+	</view>
+
+	<view class="contentItem">
+		<view class="left">
+			<text class="menuTitle">旅行游记</text>
+			<text class="dec">分享你的专属旅行游记</text>
+		</view>
+
+		<view class="right">
+			<image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/post.png"></image>
+			<text>立即发布</text>
+		</view>
+	</view>
+
+	<view class="contentItem">
+		<view class="left">
+			<text class="menuTitle">管理小队</text>
+			<text class="dec">审核入队申请、管理小队成员</text>
+		</view>
+
+		<view class="right">
+			<image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/setting.png"></image>
+			<text>前往设置</text>
+		</view>
+	</view>
+
+	<view class="contentItem">
+		<view class="left">
+			<text class="menuTitle">导游中心</text>
+			<text class="dec">审核导游申请、管理带领小队</text>
+		</view>
+
+		<view class="right">
+			<image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/looking.png"></image>
+			<text>前往查看</text>
+		</view>
+	</view>
+
+	<view class="consult">
+		<text class="consultTitle">咨询客服</text>
+		<view class="consultContent">
+			<view class="left">
+				<image class="logo" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/logo.png"></image>
+				<text>WUSTraveler</text>
+			</view>
+			<view class="right">联系我</view>
+		</view>
+	</view>
 </view>

@@ -251,9 +251,10 @@
   height: 80rpx;
   border-radius: 50rpx;
 }
-.hotPeople .peopleList .peopleItem text{
+.hotPeople .peopleList .peopleItem .peopleName{
   font-size: 26rpx;
-  display: -webkit-box;
+  display: block;
+  width: 120rpx;
   word-break: break-all;
   text-overflow: ellipsis;
   overflow: hidden;

@@ -11,9 +11,30 @@ Page({
     isLogin:false,
     user: {},
     navBarHeight: app.globalData.navBarHeight,
+    menuWidth: app.globalData.menuWidth,
+    menuBottom: app.globalData.menuBottom,
     strategy: {}
   },
+  getUserInfo: function (e) {
+    let userInfo = e.detail.userInfo;
+    let user = {};
+    user.nickName = userInfo.nickName;
+    user.avatarUrl = userInfo.avatarUrl;
 
+    if (userInfo.gender == 1) {
+      user.sex = 'male';
+    } else {
+      user.sex = 'female';
+    }
+    user.province = userInfo.province;
+    user.city = userInfo.city;
+    this.setData({
+      user: user,
+      isLogin: true
+    });
+    app.globalData.isLogin = true;
+    app.globalData.user = user;
+  },
   navigateTo: function(e) {
     let city = e.currentTarget.dataset.city;
     wx.navigateTo({

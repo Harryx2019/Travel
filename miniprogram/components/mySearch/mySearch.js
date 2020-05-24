@@ -30,6 +30,7 @@ Component({
         delta: 1
       })
     },
+    
     navigateTo: function (e) {
       this.setData({
         inputValue: ""

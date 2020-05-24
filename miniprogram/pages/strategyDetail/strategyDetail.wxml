@@ -1,6 +1,13 @@
 <!-- 使用搜索组件 -->
-<mySearch></mySearch>
-<myLogin data-isLogin="{{isLogin}}" data-user="{{user}}"></myLogin>
+<view class="search" style="height:{{navBarHeight}}px;">
+  <mySearch></mySearch>
+  
+  <button wx:if="{{!isLogin}}" class="user" style="right:{{menuWidth+20}}px; bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+    <image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+  </button>
+
+  <image wx:else src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+20}}px; bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
+</view>
 
 <view class="strategyDetail" style="top:{{navBarHeight}}px;">
   <view class="top">

@@ -1,0 +1,74 @@
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px;">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px;">学校认证</text>
+</view>
+
+<view class="content" style="margin-top:{{-navBarHeight}}px;">
+	<image class="background" style="width:100%; height:{{windowHeight}}px" src="cloud://test-wusir.7465-test-wusir-1302022901/image/qualifyBg.jpg" mode="heightFix"></image>
+	<view class="form">
+		<text class="formTitle">请填写资料</text>
+		<form class="formContent" catchsubmit="formSubmit">
+      <!-- 姓名 -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/userName.png"></image>
+         <text class="formItemTitle">姓名</text>
+         <input name="userName" placeholder="请输入姓名"></input>
+      </view>
+      <!-- 学号 -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/studentId.png"></image>
+         <text class="formItemTitle">学号</text>
+         <input name="studentId" placeholder="请输入学号"></input>
+      </view>
+      <!-- 学校 -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/schoolName.png"></image>
+         <text class="formItemTitle">学校</text>
+         <input name="schoolName" placeholder="请输入学校（校区）"></input>
+      </view>
+      <!-- 院系 -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/institute.png"></image>
+         <text class="formItemTitle">院系</text>
+         <input name="institute" placeholder="请输入院系"></input>
+      </view>
+      <!-- 性别 -->
+      <view class="formItem">
+          <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/sex.png"></image>
+          <text class="formItemTitle">性别</text>
+          <radio-group name="sex">
+					  <label><radio value="male" />男</label>
+					  <label><radio value="female" />女</label>
+				</radio-group>
+      </view>
+      <!-- 年级 -->
+      <view class="formItem" style="height:120rpx;">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/grade.png"></image>
+         <text class="formItemTitle">年级</text>
+         <radio-group name="grade" style="height:120rpx;">
+					<label><radio value="大一" />大一</label>
+					<label><radio value="大二" />大二</label>
+          <label><radio value="大三" />大三</label>
+          <label><radio value="大四" />大四</label>
+				</radio-group>
+      </view>
+      <!-- 学生证 -->
+      <view class="upLoad">
+         <view class="upLoadTitle">
+           <view class="studentCard">
+             <image class="studentCardIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/studentCard.png" mode="widthFix"></image>
+             <text>上传学生证</text>
+           </view>
+           <text style="font-size: 24rpx;color:rgb(126,193,230);">请拍照上传清晰学生证照片，包括：校徽、学号、姓名，我们将于1-2个工作日进行审核。</text>
+         </view>
+         <view class="img" bindtap="addPic">
+            <image wx:if="{{!isUpload}}" class="upLoadImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/upLoadImg.png" mode="widthFix"></image>
+            <image wx:else src="{{userUploadImg}}" mode="widthFix"></image>
+         </view>
+      </view>
+
+			<button class="submit" formType="submit">提交认证</button>
+		</form>
+	</view>
+</view>

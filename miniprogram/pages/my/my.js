@@ -1,5 +1,7 @@
 // miniprogram/pages/my/my.js
-const app=getApp();
+const app = getApp();
+const db = wx.cloud.database();
+const myNavigate = db.collection('myNavigate');
 Page({
 
   /**
@@ -10,13 +12,52 @@ Page({
     menuHeight: app.globalData.menuHeight,
     menuBottom: app.globalData.menuBottom,
 
-    hiddenButton: false,
+    user: {},
+    isLogin: false,
+
+    navigateList: {}
+  },
+
+  getUserInfo: function (e) {
+    let userInfo = e.detail.userInfo;
+    let user = {};
+    user.nickName = userInfo.nickName;
+    user.avatarUrl = userInfo.avatarUrl;
+
+    if (userInfo.gender == 1) {
+      user.sex = 'male';
+    } else {
+      user.sex = 'female';
+    }
+    user.province = userInfo.province;
+    user.city = userInfo.city;
+    this.setData({
+      user: user,
+      isLogin: true
+    });
+    app.globalData.isLogin = true;
+    app.globalData.user = user;
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    let isLogin = app.globalData.isLogin;
+    if (isLogin) {
+      let user = app.globalData.user;
+      this.setData({
+        user: user,
+        isLogin: true
+      });
+    }
+
+    myNavigate.get({
+      success: res => {
+        this.setData({
+          navigateList: res.data
+        })
+      }
+    })
   },
 
   /**

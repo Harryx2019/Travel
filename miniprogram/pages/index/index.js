@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    user: {isLogin:false},
+    user: {},
     isLogin: false,
     swiperImg: [
       "https://images.pexels.com/photos/130111/pexels-photo-130111.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260",
@@ -165,7 +165,7 @@ Page({
       }
     });
 
-    indexStrategy.limit(5).get({
+    indexStrategy.skip(5).limit(5).get({
       success: res => {
         this.setData({
           strategyList: res.data

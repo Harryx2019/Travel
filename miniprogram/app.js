@@ -25,7 +25,7 @@ App({
       windowHeight: 0,//屏幕高度
 
       user: {},
-      isLogin: false,
+      isLogin: false
     }
     //获取用户位置权限
     wx.getSetting({
@@ -83,6 +83,8 @@ App({
         }
         that.globalData.user.province = userInfo.province;
         that.globalData.user.city = userInfo.city;
+
+        that.globalData.isLogin = true;
       }
     });
   }

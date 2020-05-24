@@ -71,6 +71,12 @@
       <text bindtap="changePage" data-page="推荐">推荐</text>
       <text style="border-bottom: 2px solid rgb(81,199,201);">同城</text>
     </view>
+    <!-- 用户头像 -->
+    <button wx:if="{{!isLogin}}" class="user" style="bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+      <image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+    </button>
+    
+    <image wx:else src="{{user.avatarUrl}}" class="userImg" style="bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
   </view>
 
   <view class="hotPeople" style="padding-top:{{navBarHeight+10}}px;">
@@ -82,7 +88,7 @@
       <view class="peopleItem" wx:for="{{peopleList}}" wx:key="index">
         <view class="people">
           <image src="{{item.authorImg}}" bindtap="navigateToMyStrategy" data-author="{{item.author}}"></image>
-          <text>{{item.author}}</text>
+          <text class="peopleName">{{item.author}}</text>
         </view>
       </view>
     </scroll-view>
