@@ -58,24 +58,46 @@ Page({
   },
 
   getUserInfo: function (e) {
-    let userInfo = e.detail.userInfo;
-    let user = {};
-    user.nickName = userInfo.nickName;
-    user.avatarUrl = userInfo.avatarUrl;
+    let userList = db.collection('user');
+    userList.where({
+      nickName: e.detail.userInfo.nickName
+    }).get({
+      success: res => {
+        let userInfo = e.detail.userInfo;
+        let user = {};
+        user.nickName = userInfo.nickName;
+        user.avatarUrl = userInfo.avatarUrl;
 
-    if (userInfo.gender == 1) {
-      user.sex = 'male';
-    } else {
-      user.sex = 'female';
-    }
-    user.province = userInfo.province;
-    user.city = userInfo.city;
-    this.setData({
-      user: user,
-      isLogin: true
-    });
-    app.globalData.isLogin = true;
-    app.globalData.user = user;
+        if (userInfo.gender == 1) {
+          user.sex = 'male';
+        } else {
+          user.sex = 'female';
+        }
+        user.province = userInfo.province;
+        user.city = userInfo.city;
+        if (res.data.length == 0) {
+          wx.cloud.callFunction({
+            name: 'addUser',
+            data: {
+              nickName: user.nickName,
+              avatarUrl: user.avatarUrl,
+              sex: user.sex,
+              province: user.province,
+              city: user.city
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          })
+        }
+        this.setData({
+          user: user,
+          isLogin: true
+        });
+        app.globalData.isLogin = true;
+        app.globalData.user = user;
+      }
+    })
   },
 
   navigateTo: function(e) {

@@ -3,6 +3,7 @@ const app = getApp();
 const db = wx.cloud.database();
 const strategyList = db.collection('strategy');
 const userList = db.collection('user');
+var page = 0;
 Page({
 
   /**
@@ -18,7 +19,11 @@ Page({
 
     myStrategy: [],
     myLikeStrategy: [],
-    author: {}
+    author: {},
+
+    showAll: false,
+    emptyStrategy:false,
+    emptyLikeStrategy : false
   },
 
   changePage: function (e) {
@@ -29,7 +34,15 @@ Page({
         let myLikeStrategy = {};
         let likeStrategyList = this.data.author.likeStrategyList;
         let length = likeStrategyList.length;
-        console.log(length);
+        if(length==0){
+          this.setData({
+            showAll: true,
+            emptyLikeStrategy:true
+          })
+        }
+        if (length > 5) {
+          length = 5;
+        }
         for (let i = 0; i < length; i++) {
           strategyList.where({
             id: likeStrategyList[i]
@@ -101,6 +114,11 @@ Page({
       success: res => {
         let myStrategy = res.data;
         let length = myStrategy.length;
+        if(length==0){
+          this.setData({
+            emptyStrategy: true
+          })
+        }
         for (let i = 0; i < length; i++) {
           let date = myStrategy[i].publishDate;
           date = date.split('/');
@@ -174,7 +192,47 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if (!this.data.showAll) {
+      page++;
+      //获取用户收藏游记
+      let likeStrategyList = this.data.author.likeStrategyList;
+      let length = likeStrategyList.length;
 
+      let length2 = this.data.myLikeStrategy.length;
+      if (length > 5 * (page + 1)) {
+        length = 5 * (page + 1);
+      }
+      for (let i = 5 * page; i < length; i++) {
+        strategyList.where({
+          id: likeStrategyList[i]
+        }).get({
+          success: res => {
+            let oldData = this.data.myLikeStrategy;
+            let newData = res.data;
+            if (newData.length != 0) {
+              newData = newData[0];
+              let date = newData.publishDate;
+              date = date.split('/');
+              newData.publishYear = date[0];
+              newData.publishMonth = date[1];
+              newData.publishDay = date[2];
+
+              oldData[i] = newData;
+
+              this.setData({
+                myLikeStrategy: oldData
+              })
+            }
+            else{
+              console.log(1);
+              this.setData({
+                showAll: true
+              })
+            }
+          }
+        })
+      }
+    }
   },
 
   /**

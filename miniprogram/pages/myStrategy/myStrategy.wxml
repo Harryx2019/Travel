@@ -34,6 +34,9 @@
       <text bindtap="changePage" data-page="store">收藏</text>
     </view>
 
+    <view class="myStrategy" wx:if="{{emptyStrategy}}">
+      <text>暂未发表游记</text>
+    </view>
     <view class="myStrategy">
       <view class="item" wx:for="{{myStrategy}}" wx:key="index">
         <view class="date">
@@ -54,6 +57,9 @@
       <text style="color:rgb(81,199,201); border-bottom:3px solid rgb(81,199,201);">收藏</text>
     </view>
 
+    <view class="myStrategy" wx:if="{{emptyLikeStrategy}}">
+      <text>暂无收藏游记</text>
+    </view>
     <view class="myStrategy">
       <view class="item" wx:for="{{myLikeStrategy}}" wx:key="index">
         <view class="date">

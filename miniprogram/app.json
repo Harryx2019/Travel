@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/my/my",
-    "pages/myStrategy/myStrategy",
-    "pages/square/square",
     "pages/index/index",
+    "pages/my/my",
     "pages/qualifySchool/qualifySchool",
+    "pages/square/square",
+    "pages/myStrategy/myStrategy",
     "pages/strategyDetail/strategyDetail",
     "pages/strategy/strategy",
     "pages/viewDetail/viewDetail",

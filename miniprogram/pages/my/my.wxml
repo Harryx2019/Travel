@@ -9,7 +9,7 @@
 		<image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
 		<text class="login">登录</text>
 	</button>
-	<button hidden="{{!isLogin}}" class="button">
+	<button hidden="{{!isLogin}}" class="button" bindtap="navigateTo" data-page="myStrategy">
 		<text>个人主页</text>
 	</button>
 
@@ -25,7 +25,7 @@
 
 <view class="content">
 	<view class="menu">
-		<view class="menuItem" wx:for="{{navigateList}}" wx:key="index">
+		<view class="menuItem" wx:for="{{navigateList}}" wx:key="index" bindtap="navigateTo" data-page="{{item.page}}">
 			<image class="menuIcon" src="{{item.url}}"></image>
 			<text class="menuText">{{item.text}}</text>
 		</view>

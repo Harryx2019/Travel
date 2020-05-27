@@ -59,7 +59,7 @@
   </view>
   <view class="comment-like">
     <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/greyLike.png"></image>
-    <text>{{strategy[0].likeNum}}</text>
+    <text>{{strategy[0].likeNum.length}}</text>
   </view>
   <view class="comment-like" style="border-right:none;">
     <view class="share">

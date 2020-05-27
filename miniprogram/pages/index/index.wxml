@@ -62,7 +62,7 @@
           </view>
           <view class="like">
             <image class="likeImg" src="{{likeIcon}}"></image>
-            <text class="likeNum">{{item.likeNum}}</text>
+            <text class="likeNum">{{item.likeNum.length}}</text>
           </view>
         </view>
 

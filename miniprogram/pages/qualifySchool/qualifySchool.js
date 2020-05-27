@@ -83,24 +83,54 @@ Page({
     });
     let suffix = /\.\w+$/.exec(this.data.userUploadImg)[0];//正则表达式返回文件的扩展名
     wx.cloud.uploadFile({
-      cloudPath : "userUpload/" + userInfo.userName + suffix,
+      cloudPath : "userUpload/studentCard/" + userInfo.userName + suffix,
       filePath: this.data.userUploadImg,
       success : res=>{
-        userInfo.identityCard=res.fileID
+        userInfo.identityCard=res.fileID;
+        console.log(userInfo);
+        wx.cloud.callFunction({
+          name:'updateUser',
+          data:{
+            _id: this.data._id,
+            userName: userInfo.userName,
+            schoolName: userInfo.schoolName,
+            schoolProvince: userInfo.schoolProvince, 
+            schoolCity: userInfo.schoolCity,
+            schoolDistrict :userInfo.schoolDistrict,
+            studentId: userInfo.studentId,
+            institute: userInfo.institute,
+            grade: userInfo.grade,
+            identityCard: userInfo.identityCard,
+          },
+          success: function(res){
+            console.log(res);
+            wx.showToast({
+              title: '提交成功!',
+              icon: 'success',
+              duration: 2000,
+              complete: function(){
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            });
+          }
+        })
       }
     })
-    wx.showToast({
-      title: '提交成功',
-      icon: 'success'
-    });
-    userInfo.isQulified=2;
-    console.log(userInfo);
+  },
+  navigateBack: function(){
+    wx.navigateBack({
+      delta: 1,
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      _id: options._id
+    })
   },
 
   /**

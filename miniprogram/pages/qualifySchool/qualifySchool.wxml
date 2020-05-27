@@ -5,7 +5,7 @@
 </view>
 
 <view class="content" style="margin-top:{{-navBarHeight}}px;">
-	<image class="background" style="width:100%; height:{{windowHeight}}px" src="cloud://test-wusir.7465-test-wusir-1302022901/image/qualifyBg.jpg" mode="heightFix"></image>
+	<image class="background" style="width:100%; height:{{windowHeight+navBarHeight}}px" src="cloud://test-wusir.7465-test-wusir-1302022901/image/qualifyBg.jpg" mode="heightFix"></image>
 	<view class="form">
 		<text class="formTitle">请填写资料</text>
 		<form class="formContent" catchsubmit="formSubmit">

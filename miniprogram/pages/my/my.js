@@ -19,24 +19,90 @@ Page({
   },
 
   getUserInfo: function (e) {
-    let userInfo = e.detail.userInfo;
-    let user = {};
-    user.nickName = userInfo.nickName;
-    user.avatarUrl = userInfo.avatarUrl;
+    let userList = db.collection('user');
+    userList.where({
+      nickName: e.detail.userInfo.nickName
+    }).get({
+      success: res => {
+        let userInfo = e.detail.userInfo;
+        let user = {};
+        user.nickName = userInfo.nickName;
+        user.avatarUrl = userInfo.avatarUrl;
 
-    if (userInfo.gender == 1) {
-      user.sex = 'male';
-    } else {
-      user.sex = 'female';
+        if (userInfo.gender == 1) {
+          user.sex = 'male';
+        } else {
+          user.sex = 'female';
+        }
+        user.province = userInfo.province;
+        user.city = userInfo.city;
+        if (res.data.length == 0) {
+          wx.cloud.callFunction({
+            name: 'addUser',
+            data: {
+              nickName: user.nickName,
+              avatarUrl: user.avatarUrl,
+              sex: user.sex,
+              province: user.province,
+              city: user.city
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          })
+        }
+        this.setData({
+          user: user,
+          isLogin: true
+        });
+        app.globalData.isLogin = true;
+        app.globalData.user = user;
+      }
+    })
+  },
+
+  navigateTo: function (e) {
+    let page = e.currentTarget.dataset.page;
+    if (page == 'mySchool') {
+      let userList = db.collection('user');
+      userList.where({
+        nickName: this.data.user.nickName
+      }).get({
+        success: res => {
+          let userInfo = res.data[0];
+          let isQulified = userInfo.isQulified;
+          if (isQulified == 0) {
+            wx.showModal({
+              title: '尚未进行学校认证',
+              content: '请前往认证页面进行学校认证，需要提供您的个人信息及学生证照片，是否前往认证？',
+              success(res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../qualifySchool/qualifySchool?_id='+userInfo._id,
+                  })
+                } 
+              }
+            })
+          } else if(isQulified==2){
+            wx.showToast({
+              title: '信息已提交，请耐心等待审核！',
+              icon: 'none',
+              duration: 2000
+            })
+          }else {
+            app.globalData.mySchoolProvince=this.data.user.province;
+            wx.switchTab({
+              url: '../square/square'
+            })
+          }
+        }
+      })
     }
-    user.province = userInfo.province;
-    user.city = userInfo.city;
-    this.setData({
-      user: user,
-      isLogin: true
-    });
-    app.globalData.isLogin = true;
-    app.globalData.user = user;
+    else if(page=='myStrategy'){
+      wx.navigateTo({
+        url: '../myStrategy/myStrategy?author='+this.data.user.nickName,
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载

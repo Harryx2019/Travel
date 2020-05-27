@@ -192,16 +192,22 @@
 .content .contentItem .right .comment{
   font-size: 26rpx;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   background-color: rgb(246,248,247);
-}
-.content .contentItem .right .comment .likeList{
-  color: rgb(94,194,194);
+  padding: 10rpx 20rpx;
 }
 .content .contentItem .right .comment image{
   width: 40rpx;
   height: 40rpx;
+}
+.content .contentItem .right .comment .likeList{
+  color: rgb(94,194,194);
+  height: 40rpx;
+}
+.content .contentItem .right .comment .likeList:hover{
+  color: rgb(33,156,221);
 }
 
 .hotPeople{

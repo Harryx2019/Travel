@@ -40,31 +40,53 @@ Page({
 
   },
 
-  getUserInfo : function(e){
-    let userInfo=e.detail.userInfo;
-    let user={};
-    user.nickName = userInfo.nickName;
-    user.avatarUrl = userInfo.avatarUrl;
+  getUserInfo: function (e) {
+    let userList = db.collection('user');
+    userList.where({
+      nickName: e.detail.userInfo.nickName
+    }).get({
+      success: res => {
+        let userInfo = e.detail.userInfo;
+        let user = {};
+        user.nickName = userInfo.nickName;
+        user.avatarUrl = userInfo.avatarUrl;
 
-    if (userInfo.gender == 1) {
-      user.sex = 'male';
-    } else {
-      user.sex = 'female';
-    }
-    user.province = userInfo.province;
-    user.city = userInfo.city;
-    this.setData({
-      user: user,
-      isLogin: true
-    });
-    app.globalData.isLogin = true;
-    app.globalData.user= user;
+        if (userInfo.gender == 1) {
+          user.sex = 'male';
+        } else {
+          user.sex = 'female';
+        }
+        user.province = userInfo.province;
+        user.city = userInfo.city;
+        if (res.data.length == 0) {
+          wx.cloud.callFunction({
+            name: 'addUser',
+            data: {
+              nickName: user.nickName,
+              avatarUrl: user.avatarUrl,
+              sex: user.sex,
+              province: user.province,
+              city: user.city
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          })
+        }
+        this.setData({
+          user: user,
+          isLogin: true
+        });
+        app.globalData.isLogin = true;
+        app.globalData.user = user;
+      }
+    })
   },
 
   navigateTo: function (e) {
     let page = e.currentTarget.dataset.page;
     let city = e.currentTarget.dataset.city;
-    let province= e.currentTarget.dataset.province;
+    let province = e.currentTarget.dataset.province;
     let district = e.currentTarget.dataset.district;
     wx.navigateTo({
       url: '../' + page + '/' + page + '?province=' + province + '&city=' + city + '&district' + district
@@ -72,17 +94,17 @@ Page({
   },
 
   // 跳转攻略详情页
-  navigateToDetail : function(e){
-    let id=e.currentTarget.dataset.id;
+  navigateToDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../strategyDetail/strategyDetail?id=' + id 
+      url: '../strategyDetail/strategyDetail?id=' + id
     })
   },
 
-  navigateToMyStrategy:function(e){
-    let author=e.currentTarget.dataset.author;
+  navigateToMyStrategy: function (e) {
+    let author = e.currentTarget.dataset.author;
     wx.navigateTo({
-      url: '../myStrategy/myStrategy?author='+author,
+      url: '../myStrategy/myStrategy?author=' + author,
     })
   },
 
@@ -92,8 +114,7 @@ Page({
         searchBackgroundColor: "white",
         inputBackgroundColor: "rgb(245,245,245)"
       })
-    }
-    else {
+    } else {
       this.setData({
         searchBackgroundColor: "none",
         inputBackgroundColor: "rgb(255,255,255,0.5)"
@@ -104,10 +125,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //获取
+    //获取用户信息
     let that = this;
     wx.getSetting({
-      success(res){
+      success(res) {
         var statu = res.authSetting;
         if (statu['scope.userInfo']) {
           let user = app.globalData.user;

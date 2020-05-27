@@ -19,7 +19,7 @@ Page({
     school: false,
 
     //从用户信息获取待改进
-    city: "北京",
+    province: "北京",
 
     navBarHeight: app.globalData.navBarHeight,
     menuBottom: app.globalData.menuBottom,
@@ -38,24 +38,46 @@ Page({
     showAll2: false
   },
   getUserInfo: function (e) {
-    let userInfo = e.detail.userInfo;
-    let user = {};
-    user.nickName = userInfo.nickName;
-    user.avatarUrl = userInfo.avatarUrl;
+    let userList = db.collection('user');
+    userList.where({
+      nickName: e.detail.userInfo.nickName
+    }).get({
+      success: res => {
+        let userInfo = e.detail.userInfo;
+        let user = {};
+        user.nickName = userInfo.nickName;
+        user.avatarUrl = userInfo.avatarUrl;
 
-    if (userInfo.gender == 1) {
-      user.sex = 'male';
-    } else {
-      user.sex = 'female';
-    }
-    user.province = userInfo.province;
-    user.city = userInfo.city;
-    this.setData({
-      user: user,
-      isLogin: true
-    });
-    app.globalData.isLogin = true;
-    app.globalData.user = user;
+        if (userInfo.gender == 1) {
+          user.sex = 'male';
+        } else {
+          user.sex = 'female';
+        }
+        user.province = userInfo.province;
+        user.city = userInfo.city;
+        if (res.data.length == 0) {
+          wx.cloud.callFunction({
+            name: 'addUser',
+            data: {
+              nickName: user.nickName,
+              avatarUrl: user.avatarUrl,
+              sex: user.sex,
+              province: user.province,
+              city: user.city
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          })
+        }
+        this.setData({
+          user: user,
+          isLogin: true
+        });
+        app.globalData.isLogin = true;
+        app.globalData.user = user;
+      }
+    })
   },
   navigateTo: function (e) {
     let province = e.currentTarget.dataset.province;
@@ -78,7 +100,15 @@ Page({
   },
 
   changePage: function (e) {
-    let page = e.currentTarget.dataset.page;
+    console.log(e);
+    let page='';
+    if(e=='mySchool'){
+      page='同城'
+    }
+    else{
+      page = e.currentTarget.dataset.page;
+    }
+    
     if (page == '同城') {
       this.setData({
         recommend: false,
@@ -87,7 +117,7 @@ Page({
       //只有在第一次加载同城页面才会获取数组信息
       if (this.data.strategyListOfSame.length == 0) {
         strategyList.limit(5).where({
-          province: this.data.city
+          province: this.data.province
         }).get({
           success: res => {
             let strategyTempList = res.data;
@@ -156,11 +186,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let mySchoolProvince=app.globalData.mySchoolProvince;
+    if(mySchoolProvince!=undefined){
+      this.setData({
+        province: mySchoolProvince
+      });
+      this.changePage('mySchool');
+    }
     let isLogin = app.globalData.isLogin;
     if (isLogin) {
       this.setData({
         user: app.globalData.user,
-        isLogin: true
+        isLogin: true,
+        province: app.globalData.user.province
       })
     }
     //热门目的地
@@ -276,7 +314,7 @@ Page({
       page2++;
       page = page2;
       strategyList.skip(5 * page).limit(5).where({
-        province: this.data.city
+        province: this.data.province
       }).get({
         success: res => {
           let oldData = this.data.strategyListOfSame;
