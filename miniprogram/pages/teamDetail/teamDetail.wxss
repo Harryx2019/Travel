@@ -1,0 +1,158 @@
+page {
+  background-color: rgb(246, 247, 249);
+}
+.cover{
+  width: 100%;
+  height: 500rpx;
+}
+
+.navigate{
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+.navigateTitle{
+  font-size: 40rpx;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  z-index: 10;
+}
+.back{
+  position: absolute;
+  z-index: 100;
+  width: 40rpx;
+  height: 40rpx;
+  left: 5%;
+}
+.userImg{
+  position: absolute;
+  z-index: 100;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 60rpx; 
+  height: 60rpx;
+}
+
+.teamTitle{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.headImg{
+  margin-top: -80rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+}
+.teamName{
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-top: 10rpx;
+}
+.teamSchool{
+  font-size: 26rpx;
+  background-color: rgb(126, 193, 230);
+  color: white;
+  border-radius: 25rpx;
+  padding: 5rpx 10rpx;
+  line-height: 40rpx;
+  text-align: center;
+  margin-top: 10rpx;
+}
+
+.teamInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+  width: 90%;
+  margin:0 auto;
+  border-radius: 25rpx;
+  margin-top: 10rpx;
+  padding: 20rpx 0;
+  margin-bottom: 50rpx;
+}
+.teamInfo .teamData {
+  width: 90%;
+  margin: 0 auto;
+  height: 240rpx;
+  background-color: beige;
+  border-radius: 25rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.teamData .dataItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 30rpx;
+}
+.dataIcon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.teamDes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  margin: 10rpx auto;
+  padding-bottom: 20rpx;
+}
+.teamDes .title {
+  font-size: 32rpx;
+  color: rgb(126, 193, 230);
+}
+.teamDes .context {
+  width: 70%;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+  border: 1px solid rgb(126, 193, 230);
+  border-radius: 25rpx;
+  padding: 10rpx 10rpx;
+}
+.teamMember {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  margin: 10rpx auto;
+}
+.teamMember .memberList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx;
+  margin: 0 10rpx;
+}
+.teamMember .memberList .memberName {
+  width: 120rpx;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-align: center;
+}
+.teamMember .memberList .memberImg {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+}
+
+.button{
+  margin-top: 20rpx;
+  background-color: rgb(126, 193, 230);
+  color: white;
+  font-weight: bold;
+}

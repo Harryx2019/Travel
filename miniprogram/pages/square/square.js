@@ -100,7 +100,6 @@ Page({
   },
 
   changePage: function (e) {
-    console.log(e);
     let page='';
     if(e=='mySchool'){
       page='同城'
@@ -186,6 +185,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 2000
+    })
     let mySchoolProvince=app.globalData.mySchoolProvince;
     if(mySchoolProvince!=undefined){
       this.setData({

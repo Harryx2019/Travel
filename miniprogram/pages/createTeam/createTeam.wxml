@@ -1,0 +1,94 @@
+<image class="cover" src="{{background}}" mode="widthFix"></image>
+
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px;">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">创建小队</text>
+</view>
+
+<view class="content" style="top:{{navBarHeight}}px;">
+	<view class="form">
+		<text class="formTitle">请填写小队信息</text>
+		<form class="formContent" catchsubmit="formSubmit">
+			<!-- 小队头像 -->
+			<view class="teamHeadImg" bindtap="addPic">
+				<image wx:if="{{!isUpload}}" class="upLoadImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamHeadImg.png" mode="widthFix"></image>
+				<image wx:else src="{{userUploadImg}}" mode="widthFix" style="border-radius: 50%;"></image>
+			</view>
+			<!-- 小队名称 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamName.png"></image>
+				<text class="formItemTitle">小队名称</text>
+				<input name="teamName" placeholder="请输入队名"></input>
+			</view>
+			<!-- 小队目的地 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDestination.png"></image>
+				<text class="formItemTitle">小队目的地</text>
+				<input name="teamDestination" placeholder="请输入旅行目的地"></input>
+			</view>
+			<!-- 旅行天数 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
+				<text class="formItemTitle">旅行天数</text>
+				<input name="teamTravelDate" placeholder="请输入天数"></input>
+				<text>天</text>
+			</view>
+			<!-- 出发日期 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamSetOutDate.png"></image>
+				<text class="formItemTitle">出发日期</text>
+				<picker mode="date" value="{{teamSetOutDate}}" start="2020-06-01" end="2022-09-01" bindchange="bindDateChange">
+					<view class="picker">
+						{{teamSetOutDate}}
+					</view>
+				</picker>
+			</view>
+      <!-- 小队简介 -->
+      <view class="formItem" style="height:140rpx;">
+        <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+        <text class="formItemTitle">小队简介</text>
+        <textarea name="teamDescription" placeholder="用一句话介绍你的小队吧（30字以内）" maxlength="30"></textarea>
+      </view>
+      <!-- 小队公告 -->
+      <view class="formItem" style="height:240rpx;">
+        <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamNotice.png"></image>
+        <text class="formItemTitle">小队公告</text>
+        <textarea name="teamNotice" placeholder="编辑你的小队公告（入队要求、注意事项等）（100字以内）" maxlength="100"
+				style="height:200rpx;"></textarea>
+      </view>
+			<!-- 小队人数 -->
+			<view class="formItem" style="height:120rpx;">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/grade.png"></image>
+				<text class="formItemTitle">规模</text>
+				<radio-group name="teamMemberNum" style="height:120rpx;">
+					<label>
+						<radio value="1" />单人探险</label>
+					<label>
+						<radio value="2" />双人搭档</label>
+					<label>
+						<radio value="3" />三人同行</label>
+					<label>
+						<radio value="4" />抱团出游</label>
+				</radio-group>
+			</view>
+      <!-- 小队状态 -->
+      <view class="formItem" style="height:120rpx;">
+        <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamStatus.png"></image>
+        <text class="formItemTitle">标签</text>
+        <radio-group name="teamStatus" style="height:120rpx;">
+					<label>
+						<radio value="1" />招募中</label>
+					<label>
+						<radio value="0" />暂不招募</label>
+					<label>
+						<radio value="2" />即刻出发</label>
+					<label>
+						<radio value="3" />正在旅行</label>
+				</radio-group>
+      </view>
+
+			<button class="submit" formType="submit">创建小队并发布</button>
+		</form>
+	</view>
+</view>

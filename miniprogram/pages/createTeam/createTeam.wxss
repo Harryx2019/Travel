@@ -1,0 +1,118 @@
+.cover{
+  width: 100%;
+}
+
+.navigate{
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+.navigateTitle{
+  font-size: 40rpx;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+}
+.back{
+  position: absolute;
+  z-index: 100;
+  width: 40rpx;
+  height: 40rpx;
+  left: 5%;
+  top: 60rpx;
+}
+
+.content{
+  position: absolute;
+  width: 90%;
+  height: 1400rpx;
+  margin: 0 auto;
+}
+.form{
+  position: absolute;
+  left: 10%;
+  height: 1400rpx;
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  background-color: rgb(255,255,255,0.9);
+  border-radius: 50rpx;
+  box-shadow: 5px 3px 5px #888888;
+}
+.formTitle{
+  display: block;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  text-align: center;
+  color: rgb(126,193,230);
+  font-weight: bold;
+}
+.formContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  margin: 0 auto;
+}
+.formContent .teamHeadImg{
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.formContent .formItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80rpx;
+  border: 1px solid rgb(235,235,235);
+  border-radius: 25rpx;
+  line-height: 40rpx;
+  padding: 0 10rpx;
+  margin: 10rpx 0;
+}
+.formContent .formItem .formIcon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.formContent .formItem input{
+  padding-left: 20rpx;
+  line-height: 40rpx;
+  width: 50%;
+  text-align: center;
+}
+.formContent .formItem .picker{
+  margin-left: 20rpx;
+}
+.formContent .formItem textarea{
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  width: 60%;
+  height:100rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+.formContent .formItem radio-group{
+  width: 70%;
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.submit{
+  background-color: rgb(47,141,240);
+  color: white;
+}

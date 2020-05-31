@@ -27,7 +27,7 @@
       <text class="publishTime">{{strategy[0].publishDate}}</text>
     </view>
     <button class="follow">关注</button>
-    <text class="destination">{{strategy[0].city}}</text>
+    <text class="destination">{{strategy[0].destination}}</text>
   </view>
 
   <view class="strategyInfo">

@@ -1,3 +1,6 @@
+page{
+  background-color: rgb(246,247,249);
+}
 .top{
   width: 100%;
 }

@@ -1,14 +1,18 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/teamDetail/teamDetail",
+    "pages/team/team",
+    "pages/view/view",
     "pages/my/my",
-    "pages/qualifySchool/qualifySchool",
+    "pages/myTeam/myTeam",
     "pages/square/square",
+    "pages/createTeam/createTeam",
     "pages/myStrategy/myStrategy",
+    "pages/qualifySchool/qualifySchool",
     "pages/strategyDetail/strategyDetail",
     "pages/strategy/strategy",
     "pages/viewDetail/viewDetail",
-    "pages/view/view",
     "pages/search/search"
   ],
   "permission": {

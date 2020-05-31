@@ -1,0 +1,56 @@
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px; background-color:{{navigateBackgroundColor}}">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png" style="bottom:{{menuBottom}}px;"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">小队详情</text>
+
+  <image src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
+</view>
+
+<image class="cover" mode="aspectFill" src="{{team.teamCoverImg}}"></image>
+
+<view class="teamTitle">
+	<image class="headImg" src="{{team.teamHeadImg}}"></image>
+	<text class='teamName'>{{team.teamName}}</text>
+	<text class='teamSchool' style="left:{{windowWidth/2-40}}px;">{{team.teamSchool}}</text>
+</view>
+
+<view class="teamInfo">
+	<view class="teamData">
+		<view class="dataItem">
+			<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDestination.png"></image>
+			<text>小队目的地: {{team.teamDestination}}</text>
+		</view>
+		<view class="dataItem">
+			<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
+			<text>行程天数: {{team.teamTravelDate}}天</text>
+		</view>
+		<view class="dataItem">
+			<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamSetOutDate.png"></image>
+			<text>出发时间： {{team.teamSetOutDate}}</text>
+		</view>
+		<view class="dataItem">
+			<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/location.png"></image>
+			<text>小队所在地： {{team.teamProvince}}·{{team.teamCity}}</text>
+		</view>
+	</view>
+	<view class="teamDes">
+		<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+		<text class="title">简介</text>
+		<text class="context" style="border:none;">{{team.teamDescription}}</text>
+	</view>
+	<view class="teamDes" style="border-bottom: 1px solid rgb(246,247,249);">
+		<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamNotice.png"></image>
+		<text class="title">公告</text>
+		<text class="context">{{team.teamNotice}}</text>
+	</view>
+
+	<view class="teamMember">
+		<view wx:for="{{team.teamMemberInfo}}" wx:for-item="member" wx:key="index" class="memberList" bindtap="navigateTo" data-nickName="{{member.nickName}}">
+			<image src="{{member.avatarUrl}}" class="memberImg"></image>
+			<text class="memberName">{{member.nickName}}</text>
+			<text wx:if="{{index==0}}" style="background-color:red;color:white;padding:0 10rpx;border-radius:25rpx;">队长</text>
+			<text wx:else style="background-color:rgb(171,239,162);color:white;padding:0 10rpx;border-radius:25rpx;">队员</text>
+		</view>
+	</view>
+  <button class="button" bindtap="applyForTeam">申请入队</button>
+</view>

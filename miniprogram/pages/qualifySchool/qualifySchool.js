@@ -20,7 +20,6 @@ Page({
   },
 
   addPic: function(e){
-    let that = this;
     wx.chooseImage({
       count: 1,
       sizeType: 'original',
@@ -87,7 +86,6 @@ Page({
       filePath: this.data.userUploadImg,
       success : res=>{
         userInfo.identityCard=res.fileID;
-        console.log(userInfo);
         wx.cloud.callFunction({
           name:'updateUser',
           data:{

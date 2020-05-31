@@ -1,0 +1,111 @@
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px; background-color:{{navigateBackgroundColor}}">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">{{user.nickName}}的小队</text>
+</view>
+
+<image class="cover" mode="widthFix" src="cloud://test-wusir.7465-test-wusir-1302022901/image/myTeamBack.jpg"></image>
+<image class="userImg" src="{{user.avatarUrl}}" style="left:{{windowWidth/2-30}}px;"></image>
+
+<!-- 创建的小队 -->
+<view class="team">
+  <text class="teamType">我创建的小队<text wx:if="{{createTeam}}" class="manege" style="color:grey;font-size:24rpx;"> 管理小队</text></text>
+  <text wx:if="{{!createTeam}}" class="empty">暂未创建小队<text style="font-size:26rpx;font-weight:bold;color:black;">  创建小队</text></text>
+  <view wx:else class="teamItem">
+    <text class="tag" style="background-color:{{myCreateTeamStatus.color}}; color:white;">{{myCreateTeamStatus.value}}</text>
+    <image class="teamHeadImg" src="{{myCreateTeam.teamHeadImg}}"></image>
+    <view class="teamInfo">
+      <text class="teamName">{{myCreateTeam.teamName}}</text>
+      <text class="teamSchool">{{myCreateTeam.teamSchool}}</text>
+      <view class="teamData">
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDestination.png"></image>
+          <text>小队目的地: {{myCreateTeam.teamDestination}}</text>
+        </view>
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
+          <text>行程天数: {{myCreateTeam.teamTravelDate}}天</text>
+        </view>
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamSetOutDate.png"></image>
+          <text>出发时间： {{myCreateTeam.teamSetOutDate}}</text>
+        </view>
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/location.png"></image>
+          <text>小队所在地： {{myCreateTeam.teamProvince}}·{{myCreateTeam.teamCity}}</text>
+        </view>
+      </view>
+      <view class="teamDes">
+        <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+        <text class="title">简介</text>
+        <text class="context">{{myCreateTeam.teamDescription}}</text>
+      </view>
+      <view class="teamDes">
+        <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamNotice.png"></image>
+        <text class="title">公告</text>
+        <text class="context">{{myCreateTeam.teamNotice}}</text>
+      </view>
+
+      <view class="teamMember">
+        <text class="title">成员</text>
+        <view wx:for="{{myCreateTeamMember}}" wx:key="index" class="memberList" bindtap="navigateTo" data-nickName="{{item.nickName}}">
+          <image src="{{item.avatarUrl}}" class="memberImg"></image>
+          <text class="memberName">{{item.nickName}}</text>
+        </view>
+        <image wx:if="{{!teamFull}}" class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/addMember.png" style="margin-left:20rpx;"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 加入的小队 -->
+<view class="team" style="margin-top: 20rpx;margin-bottom:50rpx;">
+  <text class="teamType">我加入的小队<text wx:if="{{joinTeam}}" class="manege" style="color:grey;font-size:24rpx;"> 退出小队</text></text>
+  <text wx:if="{{!joinTeam}}" class="empty">暂未加入小队<text style="font-size:26rpx;font-weight:bold;color:black;">  加入小队</text></text>
+  <view wx:else class="teamItem">
+    <text class="tag" style="background-color:{{myJoinTeamStatus.color}}; color:white;">{{myJoinTeamStatus.value}}</text>
+    <image class="teamHeadImg" src="{{myJoinTeam.teamHeadImg}}"></image>
+    <view class="teamInfo">
+      <text class="teamName">{{myJoinTeam.teamName}}</text>
+      <text class="teamSchool">{{myJoinTeam.teamSchool}}</text>
+      <view class="teamData">
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDestination.png"></image>
+          <text>小队目的地: {{myJoinTeam.teamDestination}}</text>
+        </view>
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
+          <text>行程天数: {{myJoinTeam.teamTravelDate}}天</text>
+        </view>
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamSetOutDate.png"></image>
+          <text>出发时间： {{myJoinTeam.teamSetOutDate}}</text>
+        </view>
+        <view class="dataItem">
+          <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/location.png"></image>
+          <text>小队所在地： {{myJoinTeam.teamProvince}}·{{myCreateTeam.teamCity}}</text>
+        </view>
+      </view>
+      <view class="teamDes">
+        <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+        <text class="title">简介</text>
+        <text class="context">{{myJoinTeam.teamDescription}}</text>
+      </view>
+      <view class="teamDes">
+        <image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamNotice.png"></image>
+        <text class="title">公告</text>
+        <text class="context">{{myJoinTeam.teamNotice}}</text>
+      </view>
+
+      <view class="teamMember">
+        <text class="title">成员</text>
+        <view wx:for="{{myJoinTeamMember}}" wx:key="index" class="memberList" bindtap="navigateTo" data-nickName="{{item.nickName}}">
+          <image src="{{item.avatarUrl}}" class="memberImg"></image>
+          <text class="memberName">{{item.nickName}}</text>
+          <text wx:if="{{index==0}}" style="background-color:red;color:white;padding:0 10rpx;border-radius:25rpx;">队长</text>
+          <text wx:else style="background-color:rgb(171,239,162);color:white;padding:0 10rpx;border-radius:25rpx;">队员</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

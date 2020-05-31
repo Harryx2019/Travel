@@ -27,6 +27,25 @@ App({
       user: {},
       isLogin: false
     }
+    //获取用户信息
+    wx.getUserInfo({
+      lang: "zh_CN",
+      success: function (res) {
+        var userInfo = res.userInfo;
+        that.globalData.user.nickName = userInfo.nickName;
+        that.globalData.user.avatarUrl = userInfo.avatarUrl;
+
+        if (userInfo.gender == 1) {
+          that.globalData.user.sex = 'male';
+        } else {
+          that.globalData.user.sex = 'female';
+        }
+        that.globalData.user.province = userInfo.province;
+        that.globalData.user.city = userInfo.city;
+
+        that.globalData.isLogin = true;
+      }
+    });
     //获取用户位置权限
     wx.getSetting({
       success(res) {
@@ -67,25 +86,6 @@ App({
     that.globalData.menuWidth = menuButtonInfo.width;
 
     that.globalData.windowHeight=systemInfo.windowHeight;
-
-    //获取用户信息
-    wx.getUserInfo({
-      lang: "zh_CN",
-      success: function (res) {
-        var userInfo = res.userInfo;
-        that.globalData.user.nickName = userInfo.nickName;
-        that.globalData.user.avatarUrl = userInfo.avatarUrl;
-
-        if (userInfo.gender == 1) {
-          that.globalData.user.sex = 'male';
-        } else {
-          that.globalData.user.sex = 'female';
-        }
-        that.globalData.user.province = userInfo.province;
-        that.globalData.user.city = userInfo.city;
-
-        that.globalData.isLogin = true;
-      }
-    });
+    that.globalData.windowWidth=systemInfo.windowWidth;
   }
 })

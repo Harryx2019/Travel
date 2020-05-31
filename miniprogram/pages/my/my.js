@@ -2,6 +2,8 @@
 const app = getApp();
 const db = wx.cloud.database();
 const myNavigate = db.collection('myNavigate');
+const userList = db.collection('user');
+const teamList = db.collection('team');
 Page({
 
   /**
@@ -19,7 +21,6 @@ Page({
   },
 
   getUserInfo: function (e) {
-    let userList = db.collection('user');
     userList.where({
       nickName: e.detail.userInfo.nickName
     }).get({
@@ -61,46 +62,105 @@ Page({
     })
   },
 
+  qualifySchool: function (userInfo) {
+    let isQulified = userInfo.isQulified;
+    if (isQulified == 0) {
+      wx.showModal({
+        title: '尚未进行学校认证',
+        content: '请前往认证页面进行学校认证，需要提供您的个人信息及学生证照片，是否前往认证？',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../qualifySchool/qualifySchool?_id=' + userInfo._id,
+            })
+          }
+        }
+      })
+    } else if (isQulified == 2) {
+      wx.showToast({
+        title: '信息已提交，请耐心等待审核！',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      app.globalData.mySchoolProvince = this.data.user.province;
+      wx.switchTab({
+        url: '../square/square'
+      })
+    }
+  },
   navigateTo: function (e) {
     let page = e.currentTarget.dataset.page;
     if (page == 'mySchool') {
-      let userList = db.collection('user');
       userList.where({
         nickName: this.data.user.nickName
       }).get({
         success: res => {
           let userInfo = res.data[0];
-          let isQulified = userInfo.isQulified;
-          if (isQulified == 0) {
-            wx.showModal({
-              title: '尚未进行学校认证',
-              content: '请前往认证页面进行学校认证，需要提供您的个人信息及学生证照片，是否前往认证？',
-              success(res) {
-                if (res.confirm) {
-                  wx.navigateTo({
-                    url: '../qualifySchool/qualifySchool?_id='+userInfo._id,
-                  })
-                } 
-              }
-            })
-          } else if(isQulified==2){
-            wx.showToast({
-              title: '信息已提交，请耐心等待审核！',
-              icon: 'none',
-              duration: 2000
-            })
-          }else {
-            app.globalData.mySchoolProvince=this.data.user.province;
-            wx.switchTab({
-              url: '../square/square'
-            })
-          }
+          this.qualifySchool(userInfo);
         }
       })
-    }
-    else if(page=='myStrategy'){
+    } else if (page == 'myStrategy') {
       wx.navigateTo({
-        url: '../myStrategy/myStrategy?author='+this.data.user.nickName,
+        url: '../myStrategy/myStrategy?author=' + this.data.user.nickName
+      })
+    } else if (page == 'myStore') {
+      wx.navigateTo({
+        url: '../myStrategy/myStrategy?author=' + this.data.user.nickName + '&myStore=' + 'true'
+      })
+    } else if (page == 'myTeam') {
+      //我加入的小队
+      userList.where({
+        nickName: this.data.user.nickName
+      }).get({
+        success: res=>{
+          let userInfo = res.data[0];
+          if(userInfo.isQulified!=1){
+            this.qualifySchool(userInfo);
+          }else{
+            let myJoinTeam = userInfo.joinTeamId;
+            if (myJoinTeam==""){
+              //我创建的小队
+              teamList.where({
+                teamHeader: userInfo.nickName
+              }).get({
+                success: res=>{
+                  let myCreateTeam=res.data;
+                  if(myCreateTeam.length==0){
+                    wx.showToast({
+                      title: '您目前尚未创建小队或者加入小队，是否创建或加入小队？',
+                      icon: 'none',
+                      duration: 5000
+                    })
+                    wx.showActionSheet({
+                      itemList: ['加入小队', '创建小队'],
+                      success(res) {
+                        if (res.tapIndex == 1) {
+                          wx.navigateTo({
+                            url: '../createTeam/createTeam?nickName=' + userInfo.nickName,
+                          })
+                        }
+                      },
+                      fail(res) {
+                        console.log(res.errMsg)
+                      }
+                    })
+                  }
+                  else{
+                    wx.navigateTo({
+                      url: '../myTeam/myTeam?nickName='+ userInfo.nickName,
+                    })
+                  }
+                }
+              })
+            }
+            else{
+              wx.navigateTo({
+                url: '../myTeam/myTeam?nickName='+ userInfo.nickName,
+              })
+            }
+          }
+        }
       })
     }
   },

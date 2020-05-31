@@ -1,0 +1,95 @@
+<!-- 轮播图 -->
+<swiper indicator-dots="true" autoplay="true" interval="5000" circular="true" indicator-active-color="white" duration="1000" style="top: 0">
+	<view wx:for="{{swiperList}}" wx:key="index">
+		<swiper-item>
+			<image src="{{item}}" style="width:100%;" mode="aspectFill"></image>
+		</swiper-item>
+	</view>
+</swiper>
+<!-- 顶部 -->
+<view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};">
+	<image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
+	<image class="searchIcon" src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+	<input class="searchInput" placeholder="搜索小队队名/所在地" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};" bindconfirm="changeStrategy" value="{{inputValue}}"></input>
+
+	<button wx:if="{{!isLogin}}" class="user" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+		<image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+	</button>
+
+	<image wx:else src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px;" bindtap="navigateTo" data-nickName="{{user.nickName}}"></image>
+</view>
+
+<!-- 标题 -->
+<view class="title">
+	<text class="teamTitle">侣行小队</text>
+
+	<picker style="width:16%;" mode='region' bindchange="changeRegion">
+		<view class="region">
+			<text class="selectCity">{{region[1]}}</text>
+			<image class="selectIcon" src="{{selectUrl}}"></image>
+		</view>
+	</picker>
+
+	<view class="select" bindtap="showSort">
+		<view class="selectButton">
+			<text class="selectType">{{chooseSortType}}</text>
+			<image class="selectIcon" src="{{selectUrl}}"></image>
+		</view>
+
+		<view wx:if="{{!hideFlag}}" class="sort" animation="{{animationData}}">
+			<text bindtap="hideSort" data-status="1">招募中</text>
+			<text bindtap="hideSort" data-status="2">即刻出发</text>
+			<text bindtap="hideSort" data-status="3">正在旅行</text>
+		</view>
+	</view>
+</view>
+
+<!-- 小队列表 -->
+<view class="team">
+	<text wx:if="{{teamEmpty}}" class="empty">暂无小队，敬请期待</text>
+	<view wx:if="{{!teamEmpty}}" class="teamItem" wx:for="{{teamList}}" wx:key="index" bindtap="navigateToDetail" data-id="{{item._id}}">
+		<text class="tag" style="background-color:{{item.teamStatusInfo.color}}; color:white;">{{item.teamStatusInfo.value}}</text>
+		<image class="teamHeadImg" src="{{item.teamHeadImg}}"></image>
+		<view class="teamInfo">
+			<text class="teamName">{{item.teamName}}</text>
+			<text class="teamSchool">{{item.teamSchool}}</text>
+			<view class="teamData">
+				<view class="dataItem">
+					<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDestination.png"></image>
+					<text>小队目的地: {{item.teamDestination}}</text>
+				</view>
+				<view class="dataItem">
+					<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
+					<text>行程天数: {{item.teamTravelDate}}天</text>
+				</view>
+				<view class="dataItem">
+					<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamSetOutDate.png"></image>
+					<text>出发时间： {{item.teamSetOutDate}}</text>
+				</view>
+				<view class="dataItem">
+					<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/location.png"></image>
+					<text>小队所在地： {{item.teamProvince}}·{{item.teamCity}}</text>
+				</view>
+			</view>
+			<view class="teamDes">
+				<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="title">简介</text>
+				<text class="context">{{item.teamDescription}}</text>
+			</view>
+			<view class="teamDes" style="border-bottom: 1px solid rgb(246,247,249);">
+				<image class="dataIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamNotice.png"></image>
+				<text class="title">公告</text>
+				<text class="context">{{item.teamNotice}}</text>
+			</view>
+
+			<view class="teamMember" style="margin-top:20rpx;">
+				<view wx:for="{{item.teamMemberInfo}}" wx:for-item="member" wx:key="index" class="memberList" bindtap="navigateTo" data-nickName="{{member.nickName}}">
+					<image src="{{member.avatarUrl}}" class="memberImg"></image>
+					<text class="memberName">{{member.nickName}}</text>
+					<text wx:if="{{index==0}}" style="background-color:red;color:white;padding:0 10rpx;border-radius:25rpx;">队长</text>
+					<text wx:else style="background-color:rgb(171,239,162);color:white;padding:0 10rpx;border-radius:25rpx;">队员</text>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

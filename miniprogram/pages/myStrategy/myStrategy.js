@@ -27,7 +27,12 @@ Page({
   },
 
   changePage: function (e) {
-    let page = e.currentTarget.dataset.page;
+    let page;
+    if(e=='myStore'){
+      page='store';
+    }else{
+      page = e.currentTarget.dataset.page;
+    }
     if (page == 'store') {
       if (this.data.myLikeStrategy.length == 0) {
         //获取用户收藏游记
@@ -148,7 +153,10 @@ Page({
         author.likeStrategyList = user.likeStrategyList;
         this.setData({
           author: author
-        })
+        });
+        if(options.myStore=='true'){
+          this.changePage('myStore');
+        }
       }
     });
   },
