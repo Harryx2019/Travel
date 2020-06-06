@@ -1,13 +1,14 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/teamDetail/teamDetail",
+    "pages/manageTeam/manageTeam",
     "pages/team/team",
-    "pages/view/view",
     "pages/my/my",
+    "pages/index/index",
+    "pages/createTeam/createTeam",
+    "pages/teamDetail/teamDetail",
+    "pages/view/view",
     "pages/myTeam/myTeam",
     "pages/square/square",
-    "pages/createTeam/createTeam",
     "pages/myStrategy/myStrategy",
     "pages/qualifySchool/qualifySchool",
     "pages/strategyDetail/strategyDetail",

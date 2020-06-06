@@ -1,0 +1,132 @@
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px; background-color:{{navigateBackgroundColor}}">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">管理小队</text>
+</view>
+
+<image class="cover" mode="widthFix" src="cloud://test-wusir.7465-test-wusir-1302022901/image/myTeamBack.jpg"></image>
+
+<view class="teamTitle">
+	<image class="headImg" src="{{team.teamHeadImg}}"></image>
+	<text class='teamName'>{{team.teamName}}</text>
+	<text class='teamSchool' style="left:{{windowWidth/2-40}}px;">{{team.teamSchool}}</text>
+	<view class="editTeam" bindtap="editTeamInfo">
+	  <image class="edit" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/edit.png"></image>
+		<text>修改小队信息</text>
+	</view>
+</view>
+
+<view class="applyList">
+  <text class="title">申请列表(<text>{{applyList.length}}</text>)</text>
+	<text wx:if="{{applyList.length==0}}" class="empty">暂无入队申请</text>
+  <view class="applyItem" wx:for="{{applyList}}" wx:key="index">
+	  <text class="button">同意</text>
+		<text class="button" style="top:30px;background-color: rgb(255,160,190);">拒绝</text>
+
+	  <image class="applicant" src="{{item.applyAvatarUrl}}"></image>
+		<view class="applyInfo">
+		  <view class="top">
+			  <text class="name">{{item.applyName}}</text>
+				<image class="sex" wx:if="{{item.applySex=='male'}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boy.png"></image>
+				<image class="sex" wx:else src="cloud://test-wusir.7465-test-wusir-1302022901/icon/girl.png"></image>
+				<text class="location">{{item.applyProvince}}·{{item.applyCity}}</text>
+			</view>
+
+			<view class="phone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+			  <text class="schoolName">{{item.applyPhone}}</text>
+			</view>
+			<view class="qq">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+			  <text class="schoolName">{{item.applyQQ}}</text>
+			</view>
+			<view class="school">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="schoolName">{{item.applySchool}}</text>
+			</view>
+			<view class="institute">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/institute.png"></image>
+				<text class="itemTitle">学院</text>
+				<text class="instituteName">{{item.applyInsitude}}</text>
+			</view>
+			<view class="grade">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/grade.png"></image>
+				<text class="itemTitle">年级</text>
+				<text>{{item.applyGrade}}</text>
+			</view>
+			<view class="description">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="itemTitle">个人介绍</text>
+				<text style="width: 60%;">{{item.applyContent}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<view class="applyList">
+  <text class="title" bindtap="addTeamMember">小队成员(<text>{{memberList.length}}</text>)<text style="color:black;font-size:26rpx;margin-left:20rpx;">添加成员</text></text>
+	<text wx:if="{{memberList.length==0}}" class="empty">暂无小队成员</text>
+  <view class="applyItem" wx:for="{{memberList}}" wx:key="index">
+	  <text class="button">删除</text>
+
+	  <image class="applicant" src="{{item.avatarUrl}}"></image>
+		<view class="applyInfo">
+		  <view class="top">
+			  <text class="name">{{item.nickName}}</text>
+				<image class="sex" wx:if="{{item.sex=='male'}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boy.png"></image>
+				<image class="sex" wx:else src="cloud://test-wusir.7465-test-wusir-1302022901/icon/girl.png"></image>
+				<text class="location">{{item.province}}·{{item.city}}</text>
+			</view>
+
+			<view class="phone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+			  <text class="schoolName">{{item.phone}}</text>
+			</view>
+			<view class="qq">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+			  <text class="schoolName">{{item.qq}}</text>
+			</view>
+			<view class="school">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="schoolName">{{item.schoolName}}</text>
+			</view>
+			<view class="institute">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/institute.png"></image>
+				<text class="itemTitle">学院</text>
+				<text class="instituteName">{{item.institute}}</text>
+			</view>
+			<view class="grade">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/grade.png"></image>
+				<text class="itemTitle">年级</text>
+				<text>{{item.grade}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<button style="background-color:rgb(126, 193, 230);color:white;margin-bottom: 20rpx;">解散小队</button>
+
+<view class="addMember"  style="height:{{windowHeight}}px">
+  <view class="add" style="top:{{windowHeight/2-70}}px;">
+	  <text class="addTitle">添加成员</text>
+		<view class="search">
+		  <image class="searchIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/search.png"></image>
+			<input class="searchInput" placeholder="输入成员名称" bindconfirm="searchMember"></input>
+		</view>
+		<view class="searchMember">
+		  <view class="memberItem" wx:for="{{searchMemberList}}" wx:key="index">
+			  <image src="{{item.avatarUrl}}" class="searchMemberImg"></image>
+				<view class="searchMemberInfo">
+				  <text>{{item.nickName}}</text>
+					<text>{{item.schoolName}}</text>
+				</view> 
+			</view>
+		</view>
+	</view>
+</view>

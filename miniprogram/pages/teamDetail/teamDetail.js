@@ -3,6 +3,7 @@ const app = getApp();
 const db = wx.cloud.database();
 const userList = db.collection('user');
 const teamList = db.collection('team');
+const applyTeamList = db.collection("applyTeam");
 Page({
 
   /**
@@ -14,8 +15,12 @@ Page({
     menuBottom: app.globalData.menuBottom,
     menuWidth: app.globalData.menuWidth,
 
-    team : {},
+    windowHeight: app.globalData.windowHeight,
+
+    team: {},
     user: {},
+
+    showForm: false
   },
   navigateBack: function () {
     wx.navigateBack({
@@ -34,18 +39,140 @@ Page({
       url: '../myStrategy/myStrategy?author=' + author,
     })
   },
-  applyForTeam :function(){
-    let userNickName=this.data.user.nickName;
-    let teamMemberInfo=this.data.team.teamMemberInfo;
-    let length=teamMemberInfo.length;
-    for(let i=0;i<length;i++){
-      if(teamMemberInfo[i].nickName==userNickName){
+  applyForTeam: function () {
+    //首先验证该用户是否加入其他小队或创建小队
+    userList.where({
+      nickName: this.data.user.nickName
+    }).get().then(res => {
+      if (res.data[0].joinTeamId != "") {
         wx.showToast({
-          title: '您已加入该小队',
+          title: '您已加入小队',
           icon: 'none'
+        });
+        return;
+      }
+      teamList.where({
+        teamHeader: this.data.user.nickName
+      }).get().then(res => {
+        if (res.data.length != 0) {
+          wx.showToast({
+            title: '您已拥有小队',
+            icon: 'none'
+          })
+          return;
+        }
+        //验证用户是否已加入该小队
+        let userNickName = this.data.user.nickName;
+        let teamMemberInfo = this.data.team.teamMemberInfo;
+        let length = teamMemberInfo.length;
+        for (let i = 0; i < length; i++) {
+          if (teamMemberInfo[i].nickName == userNickName) {
+            wx.showToast({
+              title: '您已加入该小队',
+              icon: 'none'
+            })
+            return;
+          }
+        }
+        //验证用户是否向该小队发布申请
+        applyTeamList.where({
+          applyNickName: this.data.user.nickName
+        }).get().then(res=>{
+          let applyTeamList=res.data;
+          let length=applyTeamList.length;
+          for(let i=0;i<length;i++){
+            if(applyTeamList[i].applyTeamId==this.data.team.id){
+              wx.showToast({
+                title: '您已向该小队提交申请，请等待队长同意',
+                icon:'none'
+              })
+              return;
+            }
+          }
         })
+        this.setData({
+          showForm: true
+        })
+      });
+    });
+  },
+  hideForm: function () {
+    this.setData({
+      showForm: false
+    })
+  },
+  formSubmit: function (e) {
+    let applyInfo = e.detail.value;
+    let flag = false;
+    for (let i in applyInfo) {
+      if (applyInfo[i] == '') {
+        flag = true;
+        break;
       }
     }
+    if (flag) {
+      wx.showToast({
+        icon: 'none',
+        title: '请完善所有信息'
+      });
+      return;
+    }
+    wx.showToast({
+      icon: 'loading',
+      title: '提交中',
+      duration: 2000
+    });
+    userList.where({
+      nickName: this.data.user.nickName
+    }).get().then(res => {
+      let userInfo = res.data[0];
+      let _id = userInfo._id;
+      wx.cloud.callFunction({
+        name: "updateUserOfApply",
+        data: {
+          _id: _id,
+          phone: applyInfo.phone,
+          qq: applyInfo.qq
+        },
+        success: function (res) {
+          console.log(res);
+        }
+      });
+
+      //申请表新增记录
+      let that=this;
+      wx.cloud.callFunction({
+        name: "addApply",
+        data: {
+          userName:applyInfo.userName, //申请人姓名
+          nickName:this.data.user.nickName, //申请人微信名
+          avatarUrl:this.data.user.avatarUrl,//申请人头像
+          sex:applyInfo.sex, //申请人性别
+          teamId:this.data.team.id, //申请小队编号
+          personalDescription:applyInfo.personalDescription, //申请人简介
+          school:applyInfo.school, //申请人学校
+          institute:applyInfo.institute, //申请人学院
+          grade:applyInfo.grade, //申请人年级
+          province:this.data.user.province, //申请人所在省份
+          city:this.data.user.city //申请人所在城市
+        },
+        success: function(res){
+          console.log(res);
+          wx.showToast({
+            title: '提交成功!',
+            icon: 'success',
+            duration: 2000,
+            complete: function () {
+              that.setData({
+                showForm: false
+              })
+            }
+          });
+        }
+      });
+
+
+    })
   },
 
   /**

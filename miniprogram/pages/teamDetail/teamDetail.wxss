@@ -42,7 +42,7 @@ page {
   justify-content: space-around;
   align-items: center;
 }
-.headImg{
+.teamTitle .headImg{
   margin-top: -80rpx;
   width: 160rpx;
   height: 160rpx;
@@ -155,4 +155,91 @@ page {
   background-color: rgb(126, 193, 230);
   color: white;
   font-weight: bold;
+}
+
+.apply{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgb(0,0,0,0.5);
+}
+.form{
+  position: fixed;
+  background-color: white;
+  width: 80%;
+  left: 10%;
+  border-radius: 50rpx;
+  padding-bottom: 50rpx;
+}
+.cancel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50rpx;
+  height: 50rpx;
+}
+.formHeadImg{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+.formTitle{
+  display: block;
+  width: 100%;
+  font-size: 40rpx;
+  text-align: center;
+  color: rgb(126,193,230);
+  font-weight: bold;
+}
+.formContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  margin: 0 auto;
+}
+.formContent .formItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80rpx;
+  border: 1px solid rgb(235,235,235);
+  border-radius: 25rpx;
+  line-height: 40rpx;
+  padding: 0 10rpx;
+  margin: 10rpx 0;
+}
+.formContent .formItem .formIcon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.formContent .formItem input{
+  padding-left: 10rpx;
+  line-height: 40rpx;
+}
+.formContent .formItem radio-group{
+  width: 50%;
+  margin-left: 10%;
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.formContent .formItem textarea{
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  width: 60%;
+  height:100rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+.submit{
+  background-color: rgb(47,141,240);
+  color: white;
 }

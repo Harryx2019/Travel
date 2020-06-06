@@ -32,7 +32,9 @@ exports.main = async (event, context) => {
         followList: [],
         beFollowedList: [],
         likeStrategyList: [],
-        joinTeamId:""
+        joinTeamId:"",
+        phone:"",
+        qq:""
       }
     })
   } catch (e) {

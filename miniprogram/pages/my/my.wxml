@@ -49,7 +49,7 @@
 			<text class="dec">审核入队申请、管理小队成员</text>
 		</view>
 
-		<view class="right">
+		<view class="right" bindtap="navigateTo" data-page="manageTeam">
 			<image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/setting.png"></image>
 			<text>前往设置</text>
 		</view>

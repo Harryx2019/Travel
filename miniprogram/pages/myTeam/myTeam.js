@@ -50,6 +50,21 @@ Page({
       url: '../myStrategy/myStrategy?author=' + author,
     })
   },
+  joinTeam: function(){
+    wx.navigateTo({
+      url: '../team/team?province='+this.data.user.province+'&city='+this.data.user.city,
+    })
+  },
+  createTeam: function(){
+    wx.navigateTo({
+      url: '../createTeam/createTeam?nickName='+this.data.user.nickName,
+    })
+  },
+  manageTeam: function(){
+    wx.navigateTo({
+      url: '../manageTeam/manageTeam',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

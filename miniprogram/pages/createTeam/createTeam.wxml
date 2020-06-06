@@ -27,6 +27,18 @@
 				<text class="formItemTitle">小队目的地</text>
 				<input name="teamDestination" placeholder="请输入旅行目的地"></input>
 			</view>
+			<!-- 队长电话 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/phone.png"></image>
+				<text class="formItemTitle">联系电话</text>
+				<input name="phone" placeholder="请输入联系电话"></input>
+			</view>
+			<!-- 队长QQ -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/qq.png"></image>
+				<text class="formItemTitle">QQ</text>
+				<input name="qq" placeholder="请输入QQ"></input>
+			</view>
 			<!-- 旅行天数 -->
 			<view class="formItem">
 				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
@@ -51,7 +63,7 @@
         <textarea name="teamDescription" placeholder="用一句话介绍你的小队吧（30字以内）" maxlength="30"></textarea>
       </view>
       <!-- 小队公告 -->
-      <view class="formItem" style="height:240rpx;">
+      <view class="formItem" style="height:200rpx;">
         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamNotice.png"></image>
         <text class="formItemTitle">小队公告</text>
         <textarea name="teamNotice" placeholder="编辑你的小队公告（入队要求、注意事项等）（100字以内）" maxlength="100"

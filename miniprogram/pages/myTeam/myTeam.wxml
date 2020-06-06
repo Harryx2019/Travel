@@ -9,8 +9,8 @@
 
 <!-- 创建的小队 -->
 <view class="team">
-  <text class="teamType">我创建的小队<text wx:if="{{createTeam}}" class="manege" style="color:grey;font-size:24rpx;"> 管理小队</text></text>
-  <text wx:if="{{!createTeam}}" class="empty">暂未创建小队<text style="font-size:26rpx;font-weight:bold;color:black;">  创建小队</text></text>
+  <text class="teamType" bindtap="manageTeam">我创建的小队<text wx:if="{{createTeam}}" class="manege" style="color:grey;font-size:24rpx;"> 管理小队</text></text>
+  <text wx:if="{{!createTeam}}" class="empty" bindtap="createTeam">暂未创建小队<text style="font-size:26rpx;font-weight:bold;color:black;">  创建小队</text></text>
   <view wx:else class="teamItem">
     <text class="tag" style="background-color:{{myCreateTeamStatus.color}}; color:white;">{{myCreateTeamStatus.value}}</text>
     <image class="teamHeadImg" src="{{myCreateTeam.teamHeadImg}}"></image>
@@ -61,7 +61,8 @@
 <!-- 加入的小队 -->
 <view class="team" style="margin-top: 20rpx;margin-bottom:50rpx;">
   <text class="teamType">我加入的小队<text wx:if="{{joinTeam}}" class="manege" style="color:grey;font-size:24rpx;"> 退出小队</text></text>
-  <text wx:if="{{!joinTeam}}" class="empty">暂未加入小队<text style="font-size:26rpx;font-weight:bold;color:black;">  加入小队</text></text>
+  <text wx:if="{{!joinTeam}}" class="empty" bindtap="joinTeam">暂未加入小队<text style="font-size:26rpx;font-weight:bold;color:black;">  加入小队</text>
+  </text>
   <view wx:else class="teamItem">
     <text class="tag" style="background-color:{{myJoinTeamStatus.color}}; color:white;">{{myJoinTeamStatus.value}}</text>
     <image class="teamHeadImg" src="{{myJoinTeam.teamHeadImg}}"></image>

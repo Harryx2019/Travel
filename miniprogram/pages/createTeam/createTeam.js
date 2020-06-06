@@ -81,6 +81,19 @@ Page({
         teamInfo.teamProvince = teamHeader.province;
         teamInfo.teamCity = teamHeader.city;
         teamInfo.teamSchool = teamHeader.schoolName;
+
+        //后续增加，添加用户电话、QQ
+        wx.cloud.callFunction({
+          name: "updateUserOfApply",
+          data: {
+            _id: teamHeader._id,
+            phone: teamInfo.phone,
+            qq: teamInfo.qq
+          },
+          success: function (res) {
+            console.log(res);
+          }
+        });
       }
     })
     teamInfo.teamSetOutDate = this.data.teamSetOutDate;
@@ -98,7 +111,7 @@ Page({
       filePath: this.data.userUploadImg,
       success: res => {
         teamInfo.teamHeadImg = res.fileID;
-        console.log(teamInfo);
+
         wx.cloud.callFunction({
           name: 'addTeam',
           data: {

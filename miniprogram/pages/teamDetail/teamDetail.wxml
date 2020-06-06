@@ -3,7 +3,7 @@
 	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png" style="bottom:{{menuBottom}}px;"></image>
 	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">小队详情</text>
 
-  <image src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
+	<image src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px;" bindtap="navigateToMyStrategy" data-author="{{user.nickName}}"></image>
 </view>
 
 <image class="cover" mode="aspectFill" src="{{team.teamCoverImg}}"></image>
@@ -52,5 +52,73 @@
 			<text wx:else style="background-color:rgb(171,239,162);color:white;padding:0 10rpx;border-radius:25rpx;">队员</text>
 		</view>
 	</view>
-  <button class="button" bindtap="applyForTeam">申请入队</button>
+	<button class="button" bindtap="applyForTeam">申请入队</button>
+</view>
+
+<view wx:if="{{showForm}}" class="apply" style="height:{{windowHeight}}px;">
+	<view class="form" style="top:{{navBarHeight+20}}px;">
+	  <image class="cancel" bindtap="hideForm" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/error.png"></image>
+		<image class="formHeadImg" src="{{team.teamHeadImg}}"></image>
+		<text class="formTitle">入队申请</text>
+		<form class="formContent" catchsubmit="formSubmit">
+			<!-- 姓名 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/userName.png"></image>
+				<text class="formItemTitle">姓名</text>
+				<input name="userName" placeholder="请输入真实姓名"></input>
+			</view>
+			<!-- 学校 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/schoolName.png"></image>
+				<text class="formItemTitle">学校</text>
+				<input name="school" placeholder="请输入学校"></input>
+			</view>
+			<!-- 院系 -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/institute.png"></image>
+         <text class="formItemTitle">院系</text>
+         <input name="institute" placeholder="请输入院系"></input>
+      </view>
+			<!-- 联系电话 -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+         <text class="formItemTitle">电话</text>
+         <input name="phone" placeholder="请输入联系电话"></input>
+      </view>
+			<!-- QQ -->
+      <view class="formItem">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+         <text class="formItemTitle">QQ</text>
+         <input name="qq" placeholder="请输入QQ"></input>
+      </view>
+			<!-- 性别 -->
+      <view class="formItem">
+          <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/sex.png"></image>
+          <text class="formItemTitle">性别</text>
+          <radio-group name="sex">
+					  <label><radio value="male" />男</label>
+					  <label><radio value="female" />女</label>
+				</radio-group>
+      </view>
+      <!-- 年级 -->
+      <view class="formItem" style="height:120rpx;">
+         <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/grade.png"></image>
+         <text class="formItemTitle">年级</text>
+         <radio-group name="grade" style="height:120rpx;">
+					<label><radio value="大一" />大一</label>
+					<label><radio value="大二" />大二</label>
+          <label><radio value="大三" />大三</label>
+          <label><radio value="大四" />大四</label>
+				</radio-group>
+      </view>
+			<!-- 个人简介 -->
+      <view class="formItem" style="height:140rpx;">
+        <image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+        <text class="formItemTitle">个人简介</text>
+        <textarea name="personalDescription" placeholder="用一句话介绍你吧（50字以内）" maxlength="50"></textarea>
+      </view>
+
+			<button class="submit" formType="submit">提交申请</button>
+		</form>
+	</view>
 </view>

@@ -78,7 +78,7 @@ Page({
       })
     } else if (isQulified == 2) {
       wx.showToast({
-        title: '信息已提交，请耐心等待审核！',
+        title: '学校认证信息已提交，请耐心等待审核！',
         icon: 'none',
         duration: 2000
       })
@@ -113,20 +113,20 @@ Page({
       userList.where({
         nickName: this.data.user.nickName
       }).get({
-        success: res=>{
+        success: res => {
           let userInfo = res.data[0];
-          if(userInfo.isQulified!=1){
+          if (userInfo.isQulified != 1) {
             this.qualifySchool(userInfo);
-          }else{
+          } else {
             let myJoinTeam = userInfo.joinTeamId;
-            if (myJoinTeam==""){
+            if (myJoinTeam == "") {
               //我创建的小队
               teamList.where({
                 teamHeader: userInfo.nickName
               }).get({
-                success: res=>{
-                  let myCreateTeam=res.data;
-                  if(myCreateTeam.length==0){
+                success: res => {
+                  let myCreateTeam = res.data;
+                  if (myCreateTeam.length == 0) {
                     wx.showToast({
                       title: '您目前尚未创建小队或者加入小队，是否创建或加入小队？',
                       icon: 'none',
@@ -139,28 +139,34 @@ Page({
                           wx.navigateTo({
                             url: '../createTeam/createTeam?nickName=' + userInfo.nickName,
                           })
+                        } else {
+                          wx.navigateTo({
+                            url: '../team/team?province=' + this.data.user.province + '&city=' + this.data.user.city,
+                          })
                         }
                       },
                       fail(res) {
                         console.log(res.errMsg)
                       }
                     })
-                  }
-                  else{
+                  } else {
                     wx.navigateTo({
-                      url: '../myTeam/myTeam?nickName='+ userInfo.nickName,
+                      url: '../myTeam/myTeam?nickName=' + userInfo.nickName,
                     })
                   }
                 }
               })
-            }
-            else{
+            } else {
               wx.navigateTo({
-                url: '../myTeam/myTeam?nickName='+ userInfo.nickName,
+                url: '../myTeam/myTeam?nickName=' + userInfo.nickName,
               })
             }
           }
         }
+      })
+    } else if (page == 'manageTeam') {
+      wx.navigateTo({
+        url: '../manageTeam/manageTeam',
       })
     }
   },
