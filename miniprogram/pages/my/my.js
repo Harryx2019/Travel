@@ -90,6 +90,7 @@ Page({
     }
   },
   navigateTo: function (e) {
+    let that=this;
     let page = e.currentTarget.dataset.page;
     if (page == 'mySchool') {
       userList.where({
@@ -141,7 +142,7 @@ Page({
                           })
                         } else {
                           wx.navigateTo({
-                            url: '../team/team?province=' + this.data.user.province + '&city=' + this.data.user.city,
+                            url: '../team/team?province=' + that.data.user.province + '&city=' + that.data.user.city,
                           })
                         }
                       },

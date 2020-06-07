@@ -45,6 +45,7 @@ page{
   margin-top: 100rpx;
   position: relative;
   overflow: hidden;
+  padding-bottom: 20rpx;
 }
 .tag{
   position: absolute;
@@ -175,4 +176,70 @@ page{
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
+}
+
+.applyItem{
+  display: flex;
+  flex-direction: row;
+  width: 94%;
+  margin: 0 auto;
+  border-bottom: 1px solid rgb(246,247,249);
+  position: relative;
+}
+.applyStatus{
+  position: absolute;
+  right: 5%;
+  top: 20rpx;
+  background-color: rgb(126,193,230);
+  color: white;
+  padding: 10rpx 20rpx;
+  border-radius: 50rpx;
+  font-size: 26rpx;
+}
+.applyTeamHeadImg{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.applyTeamSchool{
+  font-size: 26rpx;
+  background-color: rgb(245,245,245);
+  border-radius: 25rpx;
+  padding: 5rpx 10rpx;
+  line-height: 40rpx;
+  max-width: 300rpx;
+  text-align: center;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:1; 
+  -webkit-box-orient:vertical;
+}
+.applyTeamInfo{
+  display: flex;
+  flex-direction: column;
+}
+.applyTeamHeader{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10rpx;
+}
+.applyTeamName{
+  font-weight: bold;
+}
+.applyTeamHeaderInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10rpx;
+}
+.applyTeamHeaderImg{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+.applyTeamHeaderName{
+  font-size: 24rpx;
 }

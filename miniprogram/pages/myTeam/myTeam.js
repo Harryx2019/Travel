@@ -3,6 +3,7 @@ const app = getApp();
 const db = wx.cloud.database();
 const userList = db.collection('user');
 const team = db.collection('team');
+const applyList = db.collection('applyTeam');
 Page({
 
   /**
@@ -16,6 +17,9 @@ Page({
     windowWidth: app.globalData.windowWidth,
 
     user: {},
+
+    applyTeam:false,
+    applyList:[],
 
     createTeam: false,
     myCreateTeam: {},
@@ -64,6 +68,77 @@ Page({
     wx.navigateTo({
       url: '../manageTeam/manageTeam',
     })
+  },
+  confirmApply: function(e){
+    let that=this;
+    let id=e.currentTarget.dataset.id;
+    let applyList=this.data.applyList;
+    let teamInfo=applyList[id];
+    if(teamInfo.applyStatus==1){
+      wx.showModal({
+        title: '申请成功',
+        content: '你已成功申请加入小队"'+teamInfo.teamName+'"',
+        showCancel: false,
+        success (res) {
+          wx.cloud.callFunction({
+            name:"confirmApply",
+            data:{
+              _id: teamInfo._id
+            },
+            success: function(res){
+              console.log(res);
+              let teamNum=applyList.length;
+              if(teamNum==1){
+                applyList=[];
+                that.setData({
+                  applyTeam: false
+                })
+              }else{
+                for(let i=id;i<teamNum-1;i++){
+                  applyList[i]=applyList[i+1];
+                }
+                applyList.pop();
+              }
+              that.setData({
+                applyList: applyList
+              })
+            }
+          })
+        }
+      })
+    }else{
+      wx.showModal({
+        title: '申请失败',
+        content: '你的申请被拒绝，看看其他小队吧！',
+        showCancel: false,
+        success (res) {
+          wx.cloud.callFunction({
+            name:"confirmApply",
+            data:{
+              _id: teamInfo._id
+            },
+            success: function(res){
+              console.log(res);
+              let teamNum=applyList.length;
+              if(teamNum==1){
+                applyList=[];
+                that.setData({
+                  applyTeam: false
+                })
+              }else{
+                for(let i=id;i<teamNum-1;i++){
+                  applyList[i]=applyList[i+1];
+                }
+                applyList.pop();
+              }
+              that.setData({
+                applyList: applyList
+              })
+            }
+          })
+        }
+      })
+    }
   },
 
   /**
@@ -180,6 +255,32 @@ Page({
           myCreateTeam: res.data[0],
           createTeam: true,
           myCreateTeamStatus: teamStatus
+        })
+      }
+    });
+    //获取用户申请的小队
+    applyList.where({
+      applyNickName: options.nickName
+    }).get().then(res=>{
+      let applyTeamList=res.data;
+      let length=applyTeamList.length;
+      for(let i=0;i<length;i++){
+        team.where({
+          id:applyTeamList[i].applyTeamId
+        }).get().then(res=>{
+          applyTeamList[i].teamHeadImg=res.data[0].teamHeadImg;
+          applyTeamList[i].teamName=res.data[0].teamName;
+          applyTeamList[i].teamSchool=res.data[0].teamSchool;
+          applyTeamList[i].teamHeader=res.data[0].teamHeader;
+          userList.where({
+            nickName: res.data[0].teamHeader
+          }).get().then(res=>{
+            applyTeamList[i].teamHeaderImg=res.data[0].avatarUrl;
+            this.setData({
+              applyList: applyTeamList,
+              applyTeam: true
+            })
+          })
         })
       }
     })

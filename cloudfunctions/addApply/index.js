@@ -22,7 +22,8 @@ exports.main = async (event, context) => {
         applyInsitude: event.institute,//申请人学院
         applyGrade: event.grade,//申请人年级
         applyProvince: event.province,//申请人所在省份
-        applyCity: event.city//申请人所在城市
+        applyCity: event.city,//申请人所在城市
+        applyStatus: 0
       }
     })
   } catch (e) {

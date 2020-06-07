@@ -55,7 +55,7 @@
 	<button class="button" bindtap="applyForTeam">申请入队</button>
 </view>
 
-<view wx:if="{{showForm}}" class="apply" style="height:{{windowHeight}}px;">
+<view wx:if="{{showForm}}" class="apply" style="height:{{windowHeight+navBarHeight}}px;">
 	<view class="form" style="top:{{navBarHeight+20}}px;">
 	  <image class="cancel" bindtap="hideForm" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/error.png"></image>
 		<image class="formHeadImg" src="{{team.teamHeadImg}}"></image>

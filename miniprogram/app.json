@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/my/my",
     "pages/manageTeam/manageTeam",
     "pages/team/team",
-    "pages/my/my",
-    "pages/index/index",
     "pages/createTeam/createTeam",
     "pages/teamDetail/teamDetail",
     "pages/view/view",

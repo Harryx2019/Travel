@@ -77,19 +77,20 @@ Page({
         //验证用户是否向该小队发布申请
         applyTeamList.where({
           applyNickName: this.data.user.nickName
-        }).get().then(res=>{
-          let applyTeamList=res.data;
-          let length=applyTeamList.length;
-          for(let i=0;i<length;i++){
-            if(applyTeamList[i].applyTeamId==this.data.team.id){
+        }).get().then(res => {
+          let applyTeamList = res.data;
+          let length = applyTeamList.length;
+          for (let i = 0; i < length; i++) {
+            if (applyTeamList[i].applyTeamId == this.data.team.id) {
               wx.showToast({
                 title: '您已向该小队提交申请，请等待队长同意',
-                icon:'none'
+                icon: 'none'
               })
               return;
             }
           }
         })
+
         this.setData({
           showForm: true
         })
@@ -140,23 +141,23 @@ Page({
       });
 
       //申请表新增记录
-      let that=this;
+      let that = this;
       wx.cloud.callFunction({
         name: "addApply",
         data: {
-          userName:applyInfo.userName, //申请人姓名
-          nickName:this.data.user.nickName, //申请人微信名
-          avatarUrl:this.data.user.avatarUrl,//申请人头像
-          sex:applyInfo.sex, //申请人性别
-          teamId:this.data.team.id, //申请小队编号
-          personalDescription:applyInfo.personalDescription, //申请人简介
-          school:applyInfo.school, //申请人学校
-          institute:applyInfo.institute, //申请人学院
-          grade:applyInfo.grade, //申请人年级
-          province:this.data.user.province, //申请人所在省份
-          city:this.data.user.city //申请人所在城市
+          userName: applyInfo.userName, //申请人姓名
+          nickName: this.data.user.nickName, //申请人微信名
+          avatarUrl: this.data.user.avatarUrl, //申请人头像
+          sex: applyInfo.sex, //申请人性别
+          teamId: this.data.team.id, //申请小队编号
+          personalDescription: applyInfo.personalDescription, //申请人简介
+          school: applyInfo.school, //申请人学校
+          institute: applyInfo.institute, //申请人学院
+          grade: applyInfo.grade, //申请人年级
+          province: this.data.user.province, //申请人所在省份
+          city: this.data.user.city //申请人所在城市
         },
-        success: function(res){
+        success: function (res) {
           console.log(res);
           wx.showToast({
             title: '提交成功!',
@@ -193,6 +194,26 @@ Page({
         team.teamStatus = 4;
       }
 
+      let status = team.teamStatus;
+      let teamStatus = {};
+      if (status == 0) {
+        teamStatus.value = "暂不招募";
+        teamStatus.color = "rgb(245,245,245)";
+      } else if (status == 1) {
+        teamStatus.value = "招募中";
+        teamStatus.color = "red";
+      } else if (status == 2) {
+        teamStatus.value = "即刻出发";
+        teamStatus.color = "rgb(188,241,138)";
+      } else if (status == 3) {
+        teamStatus.value = "正在旅行";
+        teamStatus.color = "rgb(126,193,230)";
+      } else {
+        teamStatus.value = "已招满";
+        teamStatus.color = "rgb(234,140,46)";
+      }
+      team.teamStatusInfo = teamStatus;
+
       let teamMemberInfo = [];
       let teamHeader = {};
       userList.where({
@@ -201,6 +222,11 @@ Page({
         teamHeader.nickName = team.teamHeader;
         teamHeader.avatarUrl = res.data[0].avatarUrl;
         teamMemberInfo.push(teamHeader);
+        team.teamMemberInfo = teamMemberInfo;
+        this.setData({
+          team: team
+        })
+
         for (let j = 0; j < memberNum; j++) {
           userList.where({
             nickName: memberList[j]
@@ -218,26 +244,6 @@ Page({
           })
         }
       })
-
-      let status = team.teamStatus;
-      let teamStatus = {};
-      if (status == 0) {
-        teamStatus.value = "暂不招募";
-        teamStatus.color = "rgb(245,245,245)";
-      } else if (status == 1) {
-        teamStatus.value = "招募中";
-        teamStatus.color = "red";
-      } else if (status == 2) {
-        teamStatus.value = "即刻出发";
-        teamStatus.color = "rgb(188,241,138)";
-      } else if (stetus == 3) {
-        teamStatus.value = "正在旅行";
-        teamStatus.color = "rgb(126,193,230)";
-      } else {
-        teamStatus.value = "已招满";
-        teamStatus.color = "rgb(234,140,46)";
-      }
-      team.teamStatusInfo = teamStatus;
     });
     //获取用户信息
 

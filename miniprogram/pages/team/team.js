@@ -33,7 +33,7 @@ Page({
 
     chooseSortType: "筛选",
     animationData: {}, //动画
-    hideFlag:false,
+    hideFlag: false,
 
     teamEmpty: false,
   },
@@ -91,14 +91,15 @@ Page({
       url: '../myStrategy/myStrategy?author=' + author,
     })
   },
-  navigateToDetail: function(e){
-    let id=e.currentTarget.dataset.id;
+  navigateToDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    console.log(id);
     wx.navigateTo({
-      url: '../teamDetail/teamDetail?id='+id,
+      url: '../teamDetail/teamDetail?id=' + id,
     })
   },
   onPageScroll: function (res) {
-    if (res.scrollTop >= 265) {
+    if (res.scrollTop >= 26) {
       this.setData({
         searchBackgroundColor: "white",
         inputBackgroundColor: "rgb(245,245,245)"
@@ -123,7 +124,7 @@ Page({
     }
     this.getTeamList(province[0]);
   },
-  showSort: function(){
+  showSort: function () {
     var that = this;
     that.setData({
       hideFlag: false
@@ -134,14 +135,14 @@ Page({
       timingFunction: 'ease' //动画的效果 默认值是linear->匀速，ease->动画以低速开始，然后加快，在结束前变慢
     });
     this.animation = animation; //将animation变量赋值给当前动画
-    var time1 = setTimeout(function() {
+    var time1 = setTimeout(function () {
       that.slideIn(); //调用动画--滑入
       clearTimeout(time1);
       time1 = null;
     }, 100)
   },
   //隐藏下拉菜单
-  hideSort: function(e) {
+  hideSort: function (e) {
     this.changeSort(e);
     var that = this;
     var animation = wx.createAnimation({
@@ -149,14 +150,14 @@ Page({
       timingFunction: 'ease'
     });
     this.animation = animation;
-    var time1 = setTimeout(function() {
+    var time1 = setTimeout(function () {
       that.slideOut(); //调用动画--滑出
       clearTimeout(time1);
       time1 = null;
     }, 220) //先执行下滑动画，再隐藏模块
   },
   // 动画--滑入
-  slideIn: function() {
+  slideIn: function () {
     this.animation.translateY(30).step();
     this.setData({
       //动画实例的export方法导出动画数据传递给组件的animation属性
@@ -164,23 +165,23 @@ Page({
     })
   },
   // 动画--滑出
-  slideOut: function() {
+  slideOut: function () {
     this.animation.translateY(-80).step();
     this.setData({
       animationData: this.animation.export()
     })
   },
-  changeSort: function(e){
-    let status=e.currentTarget.dataset.status;
-    if(status==1){
+  changeSort: function (e) {
+    let status = e.currentTarget.dataset.status;
+    if (status == 1) {
       this.setData({
         chooseSortType: "招募中"
       })
-    }else if(status==2){
+    } else if (status == 2) {
       this.setData({
         chooseSortType: "即刻出发"
       })
-    }else{
+    } else {
       this.setData({
         chooseSortType: "正在旅行"
       })
@@ -200,39 +201,6 @@ Page({
           })
         } else {
           for (let i = 0; i < length; i++) {
-            let memberList = teamList[i].teamMemberList;
-            let memberNum = memberList.length;
-            if (memberNum == 4) {
-              teamList[i].teamStatus = 4;
-            }
-
-            let teamMemberInfo = [];
-            let teamHeader = {};
-            userList.where({
-              nickName: teamList[i].teamHeader
-            }).get().then(res => {
-              teamHeader.nickName = teamList[i].teamHeader;
-              teamHeader.avatarUrl = res.data[0].avatarUrl;
-              teamMemberInfo.push(teamHeader);
-              for (let j = 0; j < memberNum; j++) {
-                userList.where({
-                  nickName: memberList[j]
-                }).get().then(res => {
-                  let avatarUrl = res.data[0].avatarUrl;
-                  let member = {};
-                  member.nickName = memberList[j];
-                  member.avatarUrl = avatarUrl;
-                  teamMemberInfo.push(member);
-
-                  teamList[i].teamMemberInfo = teamMemberInfo;
-                  this.setData({
-                    teamList: teamList,
-                    teamEmpty: false
-                  })
-                })
-              }
-            })
-
             let status = teamList[i].teamStatus;
             let teamStatus = {};
             if (status == 0) {
@@ -252,6 +220,45 @@ Page({
               teamStatus.color = "rgb(234,140,46)";
             }
             teamList[i].teamStatusInfo = teamStatus;
+
+            let memberList = teamList[i].teamMemberList;
+            let memberNum = memberList.length;
+            if (memberNum == 4) {
+              teamList[i].teamStatus = 4;
+            }
+
+            let teamMemberInfo = [];
+            let teamHeader = {};
+            userList.where({
+              nickName: teamList[i].teamHeader
+            }).get().then(res => {
+              teamHeader.nickName = teamList[i].teamHeader;
+              teamHeader.avatarUrl = res.data[0].avatarUrl;
+              teamMemberInfo.push(teamHeader);
+              teamList[i].teamMemberInfo = teamMemberInfo;
+              this.setData({
+                teamList: teamList,
+                teamEmpty: false
+              })
+
+              for (let j = 0; j < memberNum; j++) {
+                userList.where({
+                  nickName: memberList[j]
+                }).get().then(res => {
+                  let avatarUrl = res.data[0].avatarUrl;
+                  let member = {};
+                  member.nickName = memberList[j];
+                  member.avatarUrl = avatarUrl;
+                  teamMemberInfo.push(member);
+
+                  teamList[i].teamMemberInfo = teamMemberInfo;
+                  this.setData({
+                    teamList: teamList,
+                    teamEmpty: false
+                  })
+                })
+              }
+            })
           }
         }
       }
@@ -283,7 +290,7 @@ Page({
       } else {
         province = province.split("省");
       }
-      province=province[0];
+      province = province[0];
       this.getTeamList(province);
     }
     let city = "北京";

@@ -7,8 +7,33 @@
 <image class="cover" mode="widthFix" src="cloud://test-wusir.7465-test-wusir-1302022901/image/myTeamBack.jpg"></image>
 <image class="userImg" src="{{user.avatarUrl}}" style="left:{{windowWidth/2-30}}px;"></image>
 
-<!-- 创建的小队 -->
+<!-- 申请的小队 -->
 <view class="team">
+  <text class="teamType" bindtap="manageTeam">我申请的小队</text>
+  <text wx:if="{{!applyTeam}}" class="empty">暂未申请小队</text>
+  <view class="applyItem" wx:for="{{applyList}}" wx:key="index">
+    <!-- 小队申请状态 -->
+    <text class="applyStatus" wx:if="{{item.applyStatus==0}}" style="background-color: rgb(246,247,249);color:grey;">等待同意</text>
+    <text class="applyStatus" wx:if="{{item.applyStatus==1}}" bindtap="confirmApply" data-id="{{index}}">已同意</text>
+    <text class="applyStatus" wx:if="{{item.applyStatus==2}}" style="background-color:red;" bindtap="confirmApply" data-id="{{index}}">已拒绝</text>
+
+    <image class="applyTeamHeadImg" src="{{item.teamHeadImg}}"></image>
+    <view class="applyTeamInfo">
+      <text class="applyTeamName">{{item.teamName}}</text>
+      <text class="applyTeamSchool">{{item.teamSchool}}</text>
+      <view class="applyTeamHeader">
+        <text>队长</text>
+        <view class="applyTeamHeaderInfo" bindtap="navigateTo" data-nickName="{{item.teamHeader}}">
+          <image class="applyTeamHeaderImg" src="{{item.teamHeaderImg}}"></image>
+          <text class="applyTeamHeaderName">{{item.teamHeader}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 创建的小队 -->
+<view class="team" style="margin-top: 20rpx;margin-bottom:50rpx;">
   <text class="teamType" bindtap="manageTeam">我创建的小队<text wx:if="{{createTeam}}" class="manege" style="color:grey;font-size:24rpx;"> 管理小队</text></text>
   <text wx:if="{{!createTeam}}" class="empty" bindtap="createTeam">暂未创建小队<text style="font-size:26rpx;font-weight:bold;color:black;">  创建小队</text></text>
   <view wx:else class="teamItem">

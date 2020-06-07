@@ -189,6 +189,13 @@ page {
   border-radius: 50rpx;
   padding: 20rpx 10rpx;
 }
+.cancel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50rpx;
+  height: 50rpx;
+}
 .addTitle{
   width: 100%;
   text-align: center;
@@ -219,12 +226,19 @@ page {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+  margin: 20rpx 0;
 }
 .memberItem{
-  width: 45%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: 1px solid rgb(230,230,230);
+  border-radius: 50rpx;
+}
+.memberItem:hover{
+  background-color: rgb(126, 193, 230);
+  color: white;
 }
 .searchMemberImg{
   width: 80rpx;
@@ -232,7 +246,15 @@ page {
   border-radius: 50%;
 }
 .searchMemberInfo{
+  width: 60%;
   display: flex;
   flex-direction: column;
   font-size: 26rpx;
+}
+.searchSchool{
+  text-overflow:ellipsis;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:1; 
+  -webkit-box-orient:vertical;
 }
