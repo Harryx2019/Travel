@@ -1,0 +1,147 @@
+.navigate{
+  width: 100%;
+  position: relative;
+}
+.navigateTitle{
+  font-size: 40rpx;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+}
+.back{
+  position: absolute;
+  z-index: 1000;
+  width: 40rpx;
+  height: 40rpx;
+  left: 5%;
+  top: 60rpx;
+}
+
+.content{
+  position: relative;
+}
+.form{
+  position: absolute;
+  top: 100rpx;
+  left: 10%;
+  width: 80%;
+  margin-top: 50rpx;
+  padding-bottom: 20rpx;
+  background-color: rgb(255,255,255,0.8);
+  border-radius: 50rpx;
+  box-shadow: 5px 1px 5px #888888;
+}
+.formTitle{
+  display: block;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  text-align: center;
+  color: rgb(126,193,230);
+  font-weight: bold;
+}
+.formContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  margin: 0 auto;
+}
+.formContent .formItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80rpx;
+  border: 1px solid rgb(235,235,235);
+  border-radius: 25rpx;
+  line-height: 40rpx;
+  padding: 0 10rpx;
+  margin: 10rpx 0;
+}
+.formContent .formItem .formIcon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.formContent .formItem input{
+  padding-left: 10rpx;
+  line-height: 40rpx;
+}
+.formContent .formItem radio-group{
+  width: 50%;
+  margin-left: 10%;
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.formContent .formItem textarea{
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  width: 60%;
+  height:100rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+.upLoad{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid rgb(235,235,235);
+  border-radius: 25rpx;
+  line-height: 40rpx;
+  padding: 10rpx 10rpx;
+  margin: 10rpx 0;
+}
+.upLoadTitle{
+  display: flex;
+  flex-direction: column;
+  margin: 10rpx 10rpx;
+}
+.studentCard{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.studentCardIcon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.upLoadCard{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.img{
+  width: 150rpx;
+  height: 120rpx;
+  border-radius: 25rpx;
+  border: 1px solid rgb(235,235,235);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.upLoadImg{
+  width: 60rpx;
+  height: 60rpx;
+}
+.userUpLoad{
+  width: 150rpx;
+  height: 120rpx;
+  border-radius: 25rpx;
+}
+
+.submit{
+  background-color: rgb(47,141,240);
+  color: white;
+}

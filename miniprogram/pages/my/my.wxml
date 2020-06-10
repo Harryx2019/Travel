@@ -9,7 +9,7 @@
 		<image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
 		<text class="login">登录</text>
 	</button>
-	<button hidden="{{!isLogin}}" class="button" bindtap="navigateTo" data-page="myStrategy">
+	<button hidden="{{!isLogin}}" class="button" bindtap="navigateTo" data-page="myZone">
 		<text>个人主页</text>
 	</button>
 
@@ -37,7 +37,7 @@
 			<text class="dec">分享你的专属旅行游记</text>
 		</view>
 
-		<view class="right">
+		<view class="right" bindtap="navigateTo" data-page="publicStrategy">
 			<image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/post.png"></image>
 			<text>立即发布</text>
 		</view>
@@ -61,7 +61,7 @@
 			<text class="dec">审核导游申请、管理带领小队</text>
 		</view>
 
-		<view class="right">
+		<view class="right" bindtap="navigateTo" data-page="manageGuide">
 			<image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/looking.png"></image>
 			<text>前往查看</text>
 		</view>

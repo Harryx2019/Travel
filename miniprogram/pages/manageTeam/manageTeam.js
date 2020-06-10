@@ -4,6 +4,8 @@ const db = wx.cloud.database();
 const userList = db.collection('user');
 const teamList = db.collection('team');
 const applyTeamList = db.collection('applyTeam');
+const applyGuideList = db.collection('applyGuide');
+const guideList = db.collection('guide');
 Page({
 
   /**
@@ -25,7 +27,11 @@ Page({
 
     showAdd: false,
     searchMemberList: [],
-    emptySearch: false
+    emptySearch: false,
+
+    applyGuideList: [],
+    guide: {},
+    applyGuide: false,
   },
 
   navigateBack: function () {
@@ -107,7 +113,7 @@ Page({
   },
   //拒绝入队申请
   refuse: function (e) {
-    let that=this;
+    let that = this;
     let applyId = e.currentTarget.dataset.applyid;
     let applyInfo = this.data.applyList[applyId];
     let _id = applyInfo._id;
@@ -121,7 +127,7 @@ Page({
           data: {
             _id: _id
           },
-          success: function(res){
+          success: function (res) {
             console.log(res);
             wx.showToast({
               title: '已拒绝',
@@ -162,7 +168,7 @@ Page({
 
   //更新小队申请列表
   updateApplyList: function () {
-    let that=this;
+    let that = this;
     applyTeamList.where({
       applyTeamId: that.data.team.id
     }).get().then(res => {
@@ -329,26 +335,26 @@ Page({
     })
   },
 
-  removeMember: function(e){
-    let that=this;
-    let id=e.currentTarget.dataset.id;
-    let member=this.data.memberList[id];
-    let _memberId=member._id;
+  removeMember: function (e) {
+    let that = this;
+    let id = e.currentTarget.dataset.id;
+    let member = this.data.memberList[id];
+    let _memberId = member._id;
     wx.showModal({
       title: '删除成员',
-      content: '确认要删除成员"'+member.userName+'"吗？',
-      success (res) {
+      content: '确认要删除成员"' + member.userName + '"吗？',
+      success(res) {
         if (res.confirm) {
-          let teamMemberList=that.data.team.teamMemberList;
-          let memberList=that.data.memberList;
-          let length=teamMemberList.length;
-          if(length==0){
-            teamMemberList=[];
-            memberList=[];
-          }else{
-            for(let i=id;i<length-1;i++){
-              teamMemberList[i]=teamMemberList[i+1];
-              memberList[i]=memberList[i+1];
+          let teamMemberList = that.data.team.teamMemberList;
+          let memberList = that.data.memberList;
+          let length = teamMemberList.length;
+          if (length == 0) {
+            teamMemberList = [];
+            memberList = [];
+          } else {
+            for (let i = id; i < length - 1; i++) {
+              teamMemberList[i] = teamMemberList[i + 1];
+              memberList[i] = memberList[i + 1];
             }
             teamMemberList.pop();
             memberList.pop();
@@ -358,21 +364,21 @@ Page({
           })
           wx.cloud.callFunction({
             name: "removeMember",
-            data:{
-              _teamId:that.data.team._id,
+            data: {
+              _teamId: that.data.team._id,
               teamMemberList: teamMemberList
             },
-            success : function(res){
+            success: function (res) {
               console.log(res);
             }
           });
           wx.cloud.callFunction({
-            name:"updateUserOfAddMember",
-            data:{
+            name: "updateUserOfAddMember",
+            data: {
               _memberId: _memberId,
               teamId: ""
             },
-            success: function(res){
+            success: function (res) {
               console.log(res);
             }
           })
@@ -381,42 +387,42 @@ Page({
     })
   },
 
-  removeTeam: function(){
-    let that=this;
+  removeTeam: function () {
+    let that = this;
     wx.showModal({
       title: '解散小队',
-      content: '确认要解散小队"'+that.data.team.teamName+'"吗？',
-      success (res) {
+      content: '确认要解散小队"' + that.data.team.teamName + '"吗？',
+      success(res) {
         if (res.confirm) {
           wx.showToast({
             title: '正在解散小队',
-            icon:'loading',
+            icon: 'loading',
             duration: 2000
           })
           wx.cloud.callFunction({
-            name:"removeTeam",
-            data:{
-              _id:that.data.team._id
+            name: "removeTeam",
+            data: {
+              _id: that.data.team._id
             },
-            success: function(res){
+            success: function (res) {
               console.log(res);
             }
           });
 
-          let memberList=that.data.memberList;
-          let length=memberList.length;
-          for(let i=0;i<length;i++){
+          let memberList = that.data.memberList;
+          let length = memberList.length;
+          for (let i = 0; i < length; i++) {
             wx.cloud.callFunction({
-              name:"updateUserOfAddMember",
-              data:{
+              name: "updateUserOfAddMember",
+              data: {
                 _memberId: memberList[i]._id,
                 teamId: ""
               },
-              success: function(res){
+              success: function (res) {
                 console.log(res);
                 wx.showToast({
                   title: '解散小队成功',
-                  icon:'success',
+                  icon: 'success',
                   duration: 2000
                 });
                 wx.navigateTo({
@@ -425,8 +431,155 @@ Page({
               }
             })
           }
-        } 
+        }
       }
+    })
+  },
+  //获取导游申请列表
+  getApplyGuide: function () {
+    applyGuideList.where({
+      applyTeam: this.data.team.id
+    }).get().then(res => {
+      let applyGuideList = res.data;
+      let length = applyGuideList.length;
+      if (length == 0) {
+        this.setData({
+          applyGuideList: []
+        })
+      } else {
+        for (let i = 0; i < length; i++) {
+          guideList.where({
+            id: applyGuideList[i].applyGuide
+          }).get().then(res => {
+            applyGuideList[i].guide = res.data[0];
+            this.setData({
+              applyGuideList: applyGuideList
+            })
+          })
+        }
+      }
+    })
+  },
+  //获取导游信息
+  getGuideInfo: function () {
+    let teamGuide = this.data.team.teamGuide;
+    if (teamGuide == "") {
+      this.setData({
+        guide: {},
+        applyGuide: false
+      })
+    } else {
+      guideList.where({
+        guideName: this.data.team.teamGuide
+      }).get().then(res => {
+        this.setData({
+          guide: res.data[0],
+          applyGuide: true
+        })
+      })
+    }
+
+  },
+  //确认申请信息
+  confirmApply: function (e) {
+    let that = this;
+    let id = e.currentTarget.dataset.id;
+    let applyList = this.data.applyGuideList;
+    let guideInfo = applyList[id];
+    if (guideInfo.applyStatus == 1) {
+      wx.showModal({
+        title: '申请成功',
+        content: '你已成功聘请"' + guideInfo.guide.guideName + '"成为小队导游',
+        showCancel: false,
+        success(res) {
+          wx.cloud.callFunction({
+            name: "confirmApplyOfGuide",
+            data: {
+              _id: guideInfo._id
+            },
+            success: function (res) {
+              console.log(res);
+              that.getApplyGuide();
+            }
+          })
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '申请失败',
+        content: '你的申请被拒绝，看看其他导游吧！',
+        showCancel: false,
+        success(res) {
+          wx.cloud.callFunction({
+            name: "confirmApplyOfGuide",
+            data: {
+              _id: guideInfo._id
+            },
+            success: function (res) {
+              console.log(res);
+              that.getApplyGuide();
+            }
+          })
+        }
+      })
+    }
+  },
+  removeGuide: function (e) {
+    let that = this;
+    let team = this.data.team;
+    wx.showModal({
+      title: '解除导游关系',
+      content: '确认解除与"' + team.teamGuide + '"的导游关系吗？',
+      success(res) {
+        if (res.confirm) {
+          wx.showToast({
+            title: '正在提交',
+            icon: 'loading',
+            duration: 2000
+          });
+          wx.cloud.callFunction({
+            name: "updateTeamForAddGuide",
+            data: {
+              _id: team._id,
+              guide: ""
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          });
+          wx.cloud.callFunction({
+            name: "updateGuideForApplyGuide",
+            data: {
+              _id: that.data.guide._id,
+              teamId: ""
+            },
+            success: function (res) {
+              console.log(res);
+              wx.showToast({
+                title: '已解除',
+                icon: 'success',
+                duration: 2000
+              });
+              that.setData({
+                guide: {},
+                applyGuide: false,
+                [team.teamGuide]:""
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+  applyGuide:function(){
+    wx.navigateTo({
+      url: '../guide/guide?province='+this.data.user.province + '&city=' + this.data.user.city,
+    })
+  },
+  navigateTo:function(e){
+    let author=e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../myStrategy/myStrategy?author='+author,
     })
   },
 
@@ -484,7 +637,10 @@ Page({
             memberList: memberList
           })
         })
-      }
+      };
+
+      this.getApplyGuide();
+      this.getGuideInfo();
     });
   },
 

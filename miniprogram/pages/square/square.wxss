@@ -140,6 +140,17 @@
   position: absolute;
   right: 10%;
   bottom: 20rpx;
+  border-radius: 25rpx;
+}
+.content .contentItem .right .author .beFollow{
+  border: 1px solid rgb(94,194,194);
+  color: rgb(94,194,194);
+  font-size: 28rpx;
+  padding: 5rpx 20rpx;
+  position: absolute;
+  right: 10%;
+  bottom: 20rpx;
+  border-radius: 25rpx;
 }
 .content .contentItem .right .ellipsis{
   -webkit-line-clamp:4; 

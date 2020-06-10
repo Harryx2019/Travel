@@ -89,10 +89,9 @@ Page({
               return;
             }
           }
-        })
-
-        this.setData({
-          showForm: true
+          this.setData({
+            showForm: true
+          })
         })
       });
     });

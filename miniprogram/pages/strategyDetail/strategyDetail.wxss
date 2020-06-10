@@ -84,6 +84,16 @@
   min-height: 20rpx;
   border : 1px solid black;
   margin: 0 20rpx;
+}.author .followed{
+  font-size: 24rpx;
+  width: 164rpx;
+  border-radius: 50rpx;
+  line-height: 30rpx;
+  min-height: 20rpx;
+  border : 1px solid white;
+  background-color: orange;
+  color: white;
+  margin: 0 20rpx;
 }
 .author .authorInfo{
   display: flex;
@@ -128,6 +138,7 @@
 .strategyInfo .icon{
   width: 40rpx;
   height: 40rpx;
+  margin-right: 10rpx;
 }
 .strategyInfo .bar{
   color: rgb(69,144,230);
@@ -156,6 +167,7 @@
 .bottom .icon{
   width: 40rpx;
   height: 40rpx;
+  margin-right: 10rpx;
 }
 .bottom .comment-like{
   display: flex;

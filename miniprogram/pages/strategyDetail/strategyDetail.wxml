@@ -26,7 +26,8 @@
       <text class="authorName">{{strategy[0].author}}</text>
       <text class="publishTime">{{strategy[0].publishDate}}</text>
     </view>
-    <button class="follow">关注</button>
+    <button wx:if="{{!follow}}" class="follow" bindtap="follow">关注</button>
+    <button wx:else class="followed" bindtap="follow">已关注</button>
     <text class="destination">{{strategy[0].destination}}</text>
   </view>
 
@@ -57,11 +58,12 @@
     <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/comment.png"></image>
     <text>{{strategy[0].viewNum-200}}</text>
   </view>
-  <view class="comment-like">
-    <image class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/greyLike.png"></image>
+  <view class="comment-like" bindtap="like">
+    <image wx:if="{{!like}}" class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/greyLike.png"></image>
+    <image wx:else class="icon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/like.png"></image>
     <text>{{strategy[0].likeNum.length}}</text>
   </view>
-  <view class="comment-like" style="border-right:none;">
+  <view class="comment-like" style="border-right:none;" bindtap="share">
     <view class="share">
       <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/weichat.png"></image>
       <text>分享</text>

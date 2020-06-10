@@ -116,6 +116,14 @@
   display: flex;
   flex-direction: row;
   height: 200rpx;
+  position: relative;
+}
+.delete{
+  position: absolute;
+  left: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  top: 60rpx
 }
 .content .myStrategy .item .date{
   width: 15%;

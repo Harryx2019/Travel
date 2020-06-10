@@ -12,7 +12,7 @@
 }
 .back{
   position: absolute;
-  z-index: 100;
+  z-index: 1000;
   width: 40rpx;
   height: 40rpx;
   left: 5%;

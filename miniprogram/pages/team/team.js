@@ -85,7 +85,6 @@ Page({
     })
   },
   navigateTo: function (e) {
-    console.log(e);
     let author = e.currentTarget.dataset.nickname;
     wx.navigateTo({
       url: '../myStrategy/myStrategy?author=' + author,
@@ -93,7 +92,6 @@ Page({
   },
   navigateToDetail: function (e) {
     let id = e.currentTarget.dataset.id;
-    console.log(id);
     wx.navigateTo({
       url: '../teamDetail/teamDetail?id=' + id,
     })
@@ -271,7 +269,7 @@ Page({
     wx.showToast({
       title: '加载中',
       icon: 'loading',
-      duration: 3000
+      duration: 2000
     })
     let isLogin = app.globalData.isLogin;
     if (isLogin) {

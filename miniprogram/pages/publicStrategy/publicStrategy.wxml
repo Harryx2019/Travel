@@ -1,0 +1,68 @@
+<image class="cover" src="{{background}}" style="height:{{windowHeight}}px;"></image>
+
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px;">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">发布游记</text>
+</view>
+
+<view class="content" style="top:{{navBarHeight}}px;">
+	<view class="form">
+		<form class="formContent" catchsubmit="formSubmit">
+			<!-- 游记封面 -->
+			<view class="strategyCover" bindtap="addPic">
+				<view class="upLoadImg" wx:if="{{!isUpload}}">
+					<image class="upLoadImgIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/upLoadImg.png" mode="widthFix"></image>
+					<text>请上传游记封面</text>
+				</view>
+				<image wx:else src="{{userUploadImg}}" mode="widthFix"></image>
+			</view>
+			<!-- 游记标题 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamName.png"></image>
+				<text class="formItemTitle">游记标题</text>
+				<input name="title" placeholder="请输入游记标题"></input>
+			</view>
+			<!-- 游记目的地 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDestination.png"></image>
+				<text class="formItemTitle">旅行目的地</text>
+				<input name="destination" placeholder="请输入旅行目的地"></input>
+			</view>
+			<!-- 旅行天数 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamTravelDate.png"></image>
+				<text class="formItemTitle">旅行天数</text>
+				<input name="travelDays" placeholder="请输入天数"></input>
+				<text>天</text>
+			</view>
+			<!-- 平均消费 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/avarageCost.png"></image>
+				<text class="formItemTitle">平均消费</text>
+				<input name="avarageCost" placeholder="请输入平均消费"></input>
+				<text>元/人</text>
+			</view>
+			<!-- 出发日期 -->
+			<view class="formItem">
+				<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamSetOutDate.png"></image>
+				<text class="formItemTitle">出发日期</text>
+				<picker mode="date" value="{{setoutDate}}" start="2019/06/01" end="2022/09/01" bindchange="bindDateChange">
+					<view class="picker">
+						{{setoutDate}}
+					</view>
+				</picker>
+			</view>
+			<!-- 游记内容 -->
+			<view class="strategy">
+				<view class="contentTitle">
+					<image class="formIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/content.png"></image>
+					<text class="formItemTitle">游记内容</text>
+				</view>
+				<textarea name="content" class="strategyContent" placeholder="立即分享你的游记吧！" maxlength="2000"></textarea>
+			</view>
+
+			<button class="submit" formType="submit">立即发布</button>
+		</form>
+	</view>
+</view>

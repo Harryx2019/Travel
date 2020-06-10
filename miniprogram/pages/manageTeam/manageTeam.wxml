@@ -17,13 +17,13 @@
 </view>
 
 <view class="applyList">
-  <text class="title">申请列表(<text>{{applyList.length}}</text>)</text>
+  <text class="title">入队申请(<text>{{applyList.length}}</text>)</text>
 	<text wx:if="{{applyList.length==0}}" class="empty">暂无入队申请</text>
   <view class="applyItem" wx:for="{{applyList}}" wx:key="index">
 	  <text class="button" bindtap="accept" data-applyId="{{index}}">同意</text>
 		<text class="button" style="top:30px;background-color: rgb(255,160,190);" bindtap="refuse" data-applyId="{{index}}">拒绝</text>
 
-	  <image class="applicant" src="{{item.applyAvatarUrl}}"></image>
+	  <image class="applicant" src="{{item.applyAvatarUrl}}" bindtap="navigateTo" data-author="{{item.applyNickName}}"></image>
 		<view class="applyInfo">
 		  <view class="top">
 			  <text class="name">{{item.applyName}}</text>
@@ -72,7 +72,7 @@
   <view class="applyItem" wx:for="{{memberList}}" wx:key="index">
 	  <text class="button" bindtap="removeMember" data-id="{{index}}">删除</text>
 
-	  <image class="applicant" src="{{item.avatarUrl}}"></image>
+	  <image class="applicant" src="{{item.avatarUrl}}" bindtap="navigateTo" data-author="{{item.nickName}}"></image>
 		<view class="applyInfo">
 		  <view class="top">
 			  <text class="name">{{item.userName}}</text>
@@ -105,6 +105,87 @@
 			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/grade.png"></image>
 				<text class="itemTitle">年级</text>
 				<text>{{item.grade}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<view class="applyList">
+  <text class="title">导游申请</text>
+	<text wx:if="{{applyGuideList.length==0}}" class="empty">暂无导游申请</text>
+  <view class="applyItem" wx:for="{{applyGuideList}}" wx:key="index">
+    <!-- 导游申请状态 -->
+    <text class="applyStatus" wx:if="{{item.applyStatus==0}}" style="background-color: rgb(246,247,249);color:grey;">等待同意</text>
+    <text class="applyStatus" wx:if="{{item.applyStatus==1}}" bindtap="confirmApply" data-id="{{index}}">已同意</text>
+    <text class="applyStatus" wx:if="{{item.applyStatus==2}}" style="background-color:red;" bindtap="confirmApply" data-id="{{index}}">已拒绝</text>
+
+	  <image class="applicant" src="{{item.guide.guideImg}}" bindtap="navigateTo" data-author="{{item.guide.guideNickName}}"></image>
+		<view class="applyInfo">
+		  <view class="top">
+			  <text class="name">{{item.guide.guideName}}</text>
+				<image class="sex" wx:if="{{item.guide.guideSex=='male'}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boy.png"></image>
+				<image class="sex" wx:else src="cloud://test-wusir.7465-test-wusir-1302022901/icon/girl.png"></image>
+				<text class="location">{{item.guide.guideProvince}}·{{item.guide.guideCity}}</text>
+			</view>
+
+			<view class="phone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+			  <text class="schoolName">{{item.guide.guidePhone}}</text>
+			</view>
+			<view class="qq">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+			  <text class="schoolName">{{item.guide.guideQQ}}</text>
+			</view>
+			<view class="school">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="schoolName">{{item.guide.guideSchool}}</text>
+			</view>
+			<view class="description">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="itemTitle">个人介绍</text>
+				<text style="width: 60%;">{{item.guide.guideDescription}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<view class="applyList">
+  <text class="title" bindtap="applyGuide">小队导游<text wx:if="{{!applyGuide}}" style="color:black;font-size:26rpx;margin-left:20rpx;">聘请导游</text></text>
+	<text wx:if="{{!applyGuide}}" class="empty">暂未聘请导游</text>
+  <view wx:else class="applyItem">
+    <text class="button" bindtap="removeGuide">解除</text>
+
+	  <image class="applicant" src="{{guide.guideImg}}" bindtap="navigateTo" data-author="{{guide.guideNickName}}"></image>
+		<view class="applyInfo">
+		  <view class="top">
+			  <text class="name">{{guide.guideName}}</text>
+				<image class="sex" wx:if="{{guide.guideSex=='male'}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boy.png"></image>
+				<image class="sex" wx:else src="cloud://test-wusir.7465-test-wusir-1302022901/icon/girl.png"></image>
+				<text class="location">{{guide.guideProvince}}·{{guide.guideCity}}</text>
+			</view>
+
+			<view class="phone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+			  <text class="schoolName">{{guide.guidePhone}}</text>
+			</view>
+			<view class="qq">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+			  <text class="schoolName">{{guide.guideQQ}}</text>
+			</view>
+			<view class="school">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="schoolName">{{guide.guideSchool}}</text>
+			</view>
+			<view class="description">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="itemTitle">个人介绍</text>
+				<text style="width: 60%;">{{guide.guideDescription}}</text>
 			</view>
 		</view>
 	</view>

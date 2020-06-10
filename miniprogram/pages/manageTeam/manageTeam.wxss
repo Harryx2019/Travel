@@ -107,6 +107,16 @@ page {
   border-bottom: 1px solid rgb(246, 247, 249);
   position: relative;
 }
+.applyStatus{
+  position: absolute;
+  right: 5%;
+  top: 20rpx;
+  background-color: rgb(126,193,230);
+  color: white;
+  padding: 10rpx 20rpx;
+  border-radius: 50rpx;
+  font-size: 26rpx;
+}
 .button{
   position: absolute;
   right: 10%;

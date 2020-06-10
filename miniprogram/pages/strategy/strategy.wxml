@@ -48,11 +48,11 @@
   <text class="title">推荐导游</text>
   <view class="guideContent">
     <view class="guideList" wx:for="{{recommendGuide}}" wx:key="index">
-      <image src="{{item.guideImg}}"></image>
+      <image src="{{item.guideImg}}" bindtap="navigateToMyStrategy" data-author="{{item.guideNickName}}"></image>
       <text>{{item.guideName}}</text>
       <text class="guideSchool">{{item.guideSchool}}</text>
     </view>
-    <image src="{{moreSrc}}" class="more"></image>
+    <image src="{{moreSrc}}" class="more" bindtap="navigateToGuide"></image>
   </view>
 </view>
 
@@ -82,12 +82,12 @@
 <view class="recommendGuide recommendTeam">
   <text class="title">推荐小队</text>
   <view class="guideContent">
-    <view class="guideList" wx:for="{{recommendGuide}}" wx:key="index">
-      <image src="{{item.guideImg}}"></image>
-      <text>{{item.guideName}}</text>
-      <text class="guideSchool">{{item.guideSchool}}</text>
+    <view class="guideList" wx:for="{{recommendTeam}}" wx:key="index">
+      <image src="{{item.teamHeadImg}}" bindtap="navigateToTeamDetail" data-id="{{item._id}}"></image>
+      <text>{{item.teamName}}</text>
+      <text class="guideSchool">{{item.teamSchool}}</text>
     </view>
-    <image src="{{moreSrc}}" class="more"></image>
+    <image src="{{moreSrc}}" class="more" bindtap="navigateToTeam"></image>
   </view>
 </view>
 

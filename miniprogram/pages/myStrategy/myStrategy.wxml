@@ -39,6 +39,7 @@
     </view>
     <view class="myStrategy">
       <view class="item" wx:for="{{myStrategy}}" wx:key="index">
+        <image wx:if="{{my}}" class="delete" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/delete.png" bindtap="removeStratge" data-id="{{index}}"></image>
         <view class="date">
           <text class="publishDay">{{item.publishDay}}</text>
           <text class="publishMonth">{{item.publishMonth}}月</text>
@@ -77,11 +78,15 @@
 </view>
 
 <view class="bottom">
-  <view class="follow">
+  <view wx:if="{{!follow}}" class="follow" bindtap="follow">
     <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/follow.png"></image>
     <text>关注</text>
   </view>
-  <view class="join">
+  <view wx:else class="follow" bindtap="follow">
+    <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/followed.png"></image>
+    <text style="color:rgb(81,199,201);">已关注</text>
+  </view>
+  <view class="join" bindtap="join">
     <image src="cloud://test-wusir.7465-test-wusir-1302022901/icon/joinTeam.png"></image>
     <text>加入小队</text>
   </view>

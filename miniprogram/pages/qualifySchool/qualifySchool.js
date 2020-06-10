@@ -32,6 +32,7 @@ Page({
         });
         wx.showToast({
           title: '上传成功',
+          icon:'success'
         })
       },
     })

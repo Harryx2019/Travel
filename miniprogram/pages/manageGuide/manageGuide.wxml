@@ -1,0 +1,92 @@
+<!-- 顶部 -->
+<view class="navigate" style="height:{{navBarHeight}}px; background-color:{{navigateBackgroundColor}}">
+	<image class="back" bindtap="navigateBack" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/back.png"></image>
+	<text class="navigateTitle" style="height:{{menuHeight}}px; line-height:{{menuHeight}}px; bottom:{{menuBottom}}px;">导游中心</text>
+</view>
+
+<image class="cover" mode="widthFix" src="cloud://test-wusir.7465-test-wusir-1302022901/image/guideCover.jpeg"></image>
+
+<view class="guideTitle">
+	<image class="guideImg" src="{{guide.guideImg}}"></image>
+	<text class='guideName'>{{guide.guideName}}</text>
+	<text class='guideSchool' style="left:{{windowWidth/2-40}}px;">{{guide.guideSchool}}</text>
+	<view class="editGuide" bindtap="editTeamInfo">
+	  <image class="edit" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/edit.png"></image>
+		<text>修改导游信息</text>
+	</view>
+</view>
+
+<view class="applyList">
+  <text class="title">申请列表(<text>{{applyList.length}}</text>)</text>
+	<text wx:if="{{applyList.length==0}}" class="empty">暂无导游申请</text>
+  <view class="applyItem" wx:for="{{applyList}}" wx:key="index">
+	  <text class="button" bindtap="accept" data-applyId="{{index}}">同意</text>
+		<text class="button" style="top:30px;background-color: rgb(255,160,190);" bindtap="refuse" data-applyId="{{index}}">拒绝</text>
+
+	  <image class="applicant" src="{{item.team.teamHeadImg}}" bindtap="navigateTo" data-id="{{index}}"></image>
+		<view class="applyInfo">
+		  <view class="top">
+			  <text class="name">{{item.team.teamName}}</text>
+				<text class="location">{{item.team.teamProvince}}·{{item.team.teamCity}}</text>
+			</view>
+
+      <view class="school">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="schoolName">{{item.team.teamSchool}}</text>
+			</view>
+			<view class="phone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+			  <text class="schoolName">{{item.team.teamPhone}}</text>
+			</view>
+			<view class="qq">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+			  <text class="schoolName">{{item.team.teamQQ}}</text>
+			</view>
+			<view class="description">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="itemTitle">小队介绍</text>
+				<text style="width: 60%;">{{item.team.teamDescription}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<view class="applyList">
+  <text class="title" bindtap="cancel">带领小队<text wx:if="{{guideTeam}}" style="color: grey;font-size: 26rpx">  取消带领</text></text>
+	<text wx:if="{{!guideTeam}}" class="empty">暂未带领小队</text>
+  <view wx:else class="applyItem">
+	  <image class="applicant" src="{{team.teamHeadImg}}" bindtap="navigateToTeam"></image>
+		<view class="applyInfo">
+		  <view class="top">
+			  <text class="name">{{team.teamName}}</text>
+				<text class="location">{{team.teamProvince}}·{{team.teamCity}}</text>
+			</view>
+
+      <view class="school">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/university.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="schoolName">{{team.teamSchool}}</text>
+			</view>
+			<view class="phone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+			  <text class="schoolName">{{team.teamPhone}}</text>
+			</view>
+			<view class="qq">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+			  <text class="schoolName">{{team.teamQQ}}</text>
+			</view>
+			<view class="description">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="itemTitle">小队介绍</text>
+				<text style="width: 60%;">{{team.teamDescription}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+<button style="background-color:rgb(126, 193, 230);color:white;margin-bottom: 20rpx;" bindtap="removeGuide">注销导游</button>

@@ -3,6 +3,7 @@ const app = getApp();
 const db = wx.cloud.database();
 const swiperList = db.collection('indexDestination');
 const guide = db.collection('guide');
+const team = db.collection('team');
 const indexStrategy = db.collection('strategy');
 const viewList = db.collection('view');
 var page=0;
@@ -40,9 +41,10 @@ Page({
     swiperList: [],
     swiperCity: "",
 
-    // 推荐导游
+    // 推荐导游、小队
     moreSrc: "cloud://test-wusir.7465-test-wusir-1302022901/icon/more.png",
     recommendGuide: [],
+    recommendTeam:[],
 
     //热门景点
     starIcon: "cloud://test-wusir.7465-test-wusir-1302022901/icon/star.png",
@@ -115,6 +117,18 @@ Page({
       url: '../'+page+'/'+page+'?id=' + id
     })
   },
+  //跳转导游页
+  navigateToGuide: function(){
+    wx.navigateTo({
+      url: '../guide/guide?province='+this.data.region[0]+'&city='+this.data.region[1],
+    })
+  },
+  //跳转小队页
+  navigateToTeam: function(){
+    wx.navigateTo({
+      url: '../team/team?province='+this.data.region[0]+'&city='+this.data.region[1],
+    })
+  },
 
   navigateBack: function() {
     wx.navigateBack({
@@ -126,6 +140,13 @@ Page({
     let author = e.currentTarget.dataset.author;
     wx.navigateTo({
       url: '../myStrategy/myStrategy?author=' + author,
+    })
+  },
+
+  navigateToTeamDetail: function (e) {
+    let id=e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../teamDetail/teamDetail?id=' + id,
     })
   },
 
@@ -341,6 +362,13 @@ Page({
         })
       }
     });
+    team.limit(3).get({
+      success: res=>{
+        this.setData({
+          recommendTeam: res.data
+        })
+      }
+    })
   },
 
   /**

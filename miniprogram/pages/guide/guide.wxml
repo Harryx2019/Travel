@@ -1,0 +1,71 @@
+<!-- 轮播图 -->
+<swiper indicator-dots="true" autoplay="true" interval="5000" circular="true" indicator-active-color="white" duration="1000" style="top: 0">
+	<view wx:for="{{swiperList}}" wx:key="index">
+		<swiper-item>
+			<image src="{{item}}" style="width:100%;" mode="aspectFill"></image>
+		</swiper-item>
+	</view>
+</swiper>
+<!-- 顶部 -->
+<view class="search" style="height:{{navBarHeight}}px; background-color: {{searchBackgroundColor}};">
+	<image class="back" bindtap="navigateBack" src="{{backUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px;"></image>
+	<image class="searchIcon" src="{{searchUrl}}" style="bottom:{{menuBottom+menuHeight/2-10}}px"></image>
+	<input class="searchInput" placeholder="搜索小队队名/所在地" style="height:{{menuHeight}}px; bottom:{{menuBottom}}px; background-color: {{inputBackgroundColor}};" bindconfirm="changeStrategy" value="{{inputValue}}"></input>
+
+	<button wx:if="{{!isLogin}}" class="user" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px; min-height: 60rpx; width:60rpx;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+		<image class="userImg" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/user-circle.png"></image>
+	</button>
+
+	<image wx:else src="{{user.avatarUrl}}" class="userImg" style="right:{{menuWidth+15}}px; bottom:{{menuBottom}}px;" bindtap="navigateTo" data-nickName="{{user.nickName}}"></image>
+</view>
+
+<!-- 标题 -->
+<view class="title">
+	<text class="teamTitle">侣行导游</text>
+
+	<picker style="width:16%;" mode='region' bindchange="changeRegion">
+		<view class="region">
+			<text class="selectCity">{{region[1]}}</text>
+			<image class="selectIcon" src="{{selectUrl}}"></image>
+		</view>
+	</picker>
+</view>
+
+<!-- 导游列表 -->
+<view class="guide">
+  <text wx:if="{{guideEmpty}}" class="empty">暂无导游，敬请期待</text>
+	<view wx:if="{{!guideEmpty}}" wx:for="{{guideList}}" wx:key="index" class="guideItem">
+	  <view class="guideApply">
+		  <text class="grade"><text style="font-size:28rpx;">评分：</text>{{item.guideGrade}}</text>
+			<text class="apply" bindtap="applyGuide" data-id="{{index}}">聘请</text>
+		</view>
+	  <image class="guideImg" src="{{item.guideImg}}" bindtap="navigateTo" data-nickName="{{item.guideNickName}}"></image>
+		<view class="guideInfo">
+		  <view class="guideTitle">
+			  <text class="guideName">{{item.guideName}}</text>
+				<image class="sex" wx:if="{{item.sex==male}}" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/boy.png"></image>
+				<image class="sex" wx:else src="cloud://test-wusir.7465-test-wusir-1302022901/icon/girl.png"></image>
+			</view>
+			<view class="guideSchool">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/schoolName.png"></image>
+				<text class="itemTitle">学校</text>
+			  <text class="guideSchoolName">{{item.guideSchool}}</text>
+			</view>
+			<view class="guidePhone">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/phone.png"></image>
+				<text class="itemTitle">电话</text>
+				<text class="guidePhoneNum">{{item.guidePhone}}</text>
+			</view>
+			<view class="guideQQ">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/qq.png"></image>
+				<text class="itemTitle">QQ</text>
+				<text class="guidePhoneNum">{{item.guideQQ}}</text>
+			</view>
+			<view class="guideDescription">
+			  <image class="itemIcon" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/createTeam/teamDescription.png"></image>
+				<text class="itemTitle">个人介绍</text>
+				<text class="description">{{item.guideDescription}}</text>
+			</view>
+		</view>
+	</view>
+</view>

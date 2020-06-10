@@ -1,6 +1,7 @@
 // miniprogram/pages/index/index.js
 const app = getApp();
 const db = wx.cloud.database();
+const userList = db.collection('user');
 const indexNavigate = db.collection('indexNavigate');
 const indexDestination = db.collection('indexDestination');
 const indexStrategy = db.collection('strategy');
@@ -12,9 +13,9 @@ Page({
     user: {},
     isLogin: false,
     swiperImg: [
-      "https://images.pexels.com/photos/130111/pexels-photo-130111.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260",
-      "https://images.pexels.com/photos/2085998/pexels-photo-2085998.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260",
-      "https://images.pexels.com/photos/1292843/pexels-photo-1292843.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260"
+      "cloud://test-wusir.7465-test-wusir-1302022901/image/indexSwiper1.jpeg",
+      "cloud://test-wusir.7465-test-wusir-1302022901/image/indexSwiper2.png",
+      "cloud://test-wusir.7465-test-wusir-1302022901/image/indexSwiper3.jpg"
     ],
 
     //搜索框参数
@@ -75,7 +76,8 @@ Page({
         }
         this.setData({
           user: user,
-          isLogin: true
+          isLogin: true,
+          isQulified: 0
         });
         app.globalData.isLogin = true;
         app.globalData.user = user;
@@ -85,12 +87,47 @@ Page({
 
   navigateTo: function (e) {
     let page = e.currentTarget.dataset.page;
+    let isQulified = this.data.isQulified;
     let city = e.currentTarget.dataset.city;
     let province = e.currentTarget.dataset.province;
     let district = e.currentTarget.dataset.district;
-    wx.navigateTo({
-      url: '../' + page + '/' + page + '?province=' + province + '&city=' + city + '&district' + district
-    })
+    if (page == 'team' || page == 'guide') {
+      let that=this;
+      //小队页面和导游页面需要登录并且进行学校认证
+      if (this.data.isLogin == false) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        })
+      } else if (isQulified == 0) {
+        //判断用户是否进行学校认证
+        wx.showModal({
+          title: '尚未进行学校认证',
+          content: '请前往认证页面进行学校认证，需要提供您的个人信息及学生证照片，是否前往认证？',
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../qualifySchool/qualifySchool?_id=' + that.data.user._id,
+              })
+            }
+          }
+        })
+      } else if (isQulified == 2) {
+        wx.showToast({
+          title: '学校认证信息已提交，请耐心等待审核！',
+          icon: 'none',
+          duration: 2000
+        })
+      } else if (isQulified == 1) {
+        wx.navigateTo({
+          url: '../' + page + '/' + page + '?province=' + province + '&city=' + city + '&district' + district
+        })
+      }
+    } else {
+      wx.navigateTo({
+        url: '../' + page + '/' + page + '?province=' + province + '&city=' + city + '&district' + district
+      })
+    }
   },
 
   // 跳转攻略详情页
@@ -125,11 +162,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 3000
-    })
     //获取用户信息
     let that = this;
     wx.getSetting({
@@ -138,13 +170,26 @@ Page({
         if (statu['scope.userInfo']) {
           let user = app.globalData.user;
           that.setData({
-            user: user,
-            isLogin: true
-          });
+            user: user
+          })
+          userList.where({
+            nickName: user.nickName
+          }).get().then(res => {
+            that.setData({
+              user: res.data[0],
+              isLogin: true,
+              isQulified: res.data[0].isQulified
+            });
+          })
           app.globalData.isLogin = true;
         }
       }
     });
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 3000
+    })
     // 获取用户位置信息
     var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
     var qqmapsdk = new QQMapWX({

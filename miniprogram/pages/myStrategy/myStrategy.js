@@ -22,27 +22,33 @@ Page({
     author: {},
 
     showAll: false,
-    emptyStrategy:false,
-    emptyLikeStrategy : false
+    emptyStrategy: false,
+    emptyLikeStrategy: false,
+
+    follow: false,
   },
 
   changePage: function (e) {
     let page;
-    if(e=='myStore'){
-      page='store';
-    }else{
+    if (e == 'myStore') {
+      page = 'store';
+    } else {
       page = e.currentTarget.dataset.page;
     }
     if (page == 'store') {
+      this.setData({
+        strategy: false,
+        store: true
+      })
       if (this.data.myLikeStrategy.length == 0) {
         //获取用户收藏游记
         let myLikeStrategy = {};
         let likeStrategyList = this.data.author.likeStrategyList;
         let length = likeStrategyList.length;
-        if(length==0){
+        if (length == 0) {
           this.setData({
             showAll: true,
-            emptyLikeStrategy:true
+            emptyLikeStrategy: true
           })
         }
         if (length > 5) {
@@ -69,10 +75,6 @@ Page({
           })
         }
       }
-      this.setData({
-        strategy: false,
-        store: true
-      })
     } else {
       this.setData({
         strategy: true,
@@ -105,21 +107,233 @@ Page({
       })
     }
   },
+  removeStratge: function (e) {
+    let that = this;
+    let id = e.currentTarget.dataset.id;
+    let strategy = this.data.myStrategy[id];
+    wx.showModal({
+      title: '删除游记',
+      content: '确认删除"' + strategy.title + '"吗？',
+      success(res) {
+        if (res.confirm) {
+          wx.showToast({
+            title: '正在删除',
+            icon: 'loading',
+          });
+          if (id == 0) {
+            let coverImg = "";
+            if (that.data.myStrategy.length == 1) {
+              coverImg = "cloud://test-wusir.7465-test-wusir-1302022901/image/myBackground.jpg";
+            } else {
+              coverImg = that.data.myStrategy[1].coverImg;
+            }
+            wx.cloud.callFunction({
+              name: "updateUserOfAddStrategy",
+              data: {
+                coverImg: coverImg,
+                _id: that.data.author._id
+              },
+              success: function (res) {
+                console.log(res);
+              }
+            });
+          }
+          wx.cloud.callFunction({
+            name: 'removeStrategy',
+            data: {
+              _id: strategy._id
+            },
+            success: function (res) {
+              console.log(res);
+              //获取用户游记
+              strategyList.where({
+                author: that.data.author.name
+              }).orderBy('id', 'desc').get({
+                success: res => {
+                  let myStrategy = res.data;
+                  let length = myStrategy.length;
+                  if (length == 0) {
+                    that.setData({
+                      emptyStrategy: true
+                    })
+                  }
+                  for (let i = 0; i < length; i++) {
+                    let date = myStrategy[i].publishDate;
+                    date = date.split('/');
+                    myStrategy[i].publishYear = date[0];
+                    myStrategy[i].publishMonth = date[1];
+                    myStrategy[i].publishDay = date[2];
+                  }
+                  that.setData({
+                    myStrategy: myStrategy
+                  })
+                  wx.showToast({
+                    title: '删除成功',
+                    icon: 'loading',
+                    duration: 2000
+                  });
+                }
+              });
+            }
+          });
+        }
+      }
+    })
+  },
+  join : function(){
+    //首先判断该用户是否创建小队
+    let teamList=db.collection('team');
+    teamList.where({
+      teamHeader: this.data.author.name
+    }).get().then(res=>{
+      if(res.data.length==0){
+        wx.showToast({
+          title: '该用户暂未创建小队',
+          icon:'none'
+        });
+      }else{
+        let team=res.data[0];
+        wx.navigateTo({
+          url: '../teamDetail/teamDetail?id='+team._id,
+        })
+      }
+    })
+  },
+  follow: function () {
+    let user = this.data.user.nickName
+    let userId = "";
+    let author = this.data.author.name
+    let authorId = "";
 
+    if (this.data.follow == false) {
+      this.setData({
+        follow: true
+      });
+      userList.where({
+        nickName: user
+      }).get().then(res => {
+        userId = res.data[0]._id;
+        userList.where({
+          nickName: author
+        }).get().then(res => {
+          authorId = res.data[0]._id;
+          wx.cloud.callFunction({
+            name: 'updateUserOfFollow',
+            data: {
+              _id: userId,
+              nickName: author
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          });
+          wx.cloud.callFunction({
+            name: 'updateUserOfBeFollowed',
+            data: {
+              _id: authorId,
+              nickName: user
+            },
+            success: function (res) {
+              console.log(res);
+            }
+          })
+        });
+      });
+    } else {
+      let followList=[];
+      let beFollowedList=[];
+      this.setData({
+        follow: false
+      });
+      userList.where({
+        nickName: user
+      }).get().then(res => {
+        userId = res.data[0]._id;
+        followList=res.data[0].followList;
+        let followNum=followList.length;
+        let i;
+        if(followNum==1){
+          followList=[];
+        }else{
+          for(i=0;i<followNum-1;i++){
+            if(followList[i]==author){
+              break;
+            }
+          }
+          for(;i<followNum-1;i++){
+            followList[i]=followList[i+1];
+          }
+          followList.pop();
+        }
+        userList.where({
+          nickName: author
+        }).get().then(res => {
+          authorId = res.data[0]._id;
+          beFollowedList=res.data[0].beFollowedList;
+          let beFollowNum=beFollowedList.length;
+          let i;
+          if(beFollowNum==1){
+            beFollowedList=[];
+          }else{
+            for(i=0;i<beFollowNum-1;i++){
+              if(beFollowedList[i]==user){
+                break;
+              }
+            }
+            for(;i<beFollowNum-1;i++){
+              beFollowedList[i]=beFollowedList[i+1];
+            }
+            beFollowedList.pop();
+          }
+
+          wx.cloud.callFunction({
+            name:'updateUserOfUnFollow',
+            data:{
+              _id: userId,
+              followList: followList
+            },
+            success: function(res){
+              console.log(res);
+            }
+          });
+          wx.cloud.callFunction({
+            name:'updateUserOfUnBeFollowed',
+            data:{
+              _id: authorId,
+              beFollowedList: beFollowedList
+            },
+            success: function(res){
+              console.log(res);
+            }
+          });
+        });
+      });
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.my == "true") {
+      this.setData({
+        my: true
+      })
+    }
+    let userInfo=app.globalData.user;
+    this.setData({
+      user: userInfo,
+    })
+
     let author = {};
     author.name = options.author;
     //获取用户游记
     strategyList.where({
       author: author.name
-    }).get({
+    }).orderBy('id', 'desc').get({
       success: res => {
         let myStrategy = res.data;
         let length = myStrategy.length;
-        if(length==0){
+        if (length == 0) {
           this.setData({
             emptyStrategy: true
           })
@@ -143,20 +357,41 @@ Page({
     }).get({
       success: res => {
         let user = res.data[0];
+        author._id=user._id;
         author.sex = user.sex;
         author.authorImg = user.avatarUrl;
         author.school = user.schoolName;
         author.coverImg = user.coverImg;
         author.viewNum = user.viewNum;
-        author.followList = user.followList;
-        author.followNum = user.followList.length;
+        author.beFollowedList = user.beFollowedList;
+        author.followNum = user.beFollowedList.length;
         author.likeStrategyList = user.likeStrategyList;
+        //判断用户是否关注该作者
+        let beFollowedList=user.beFollowedList;
+        let followNum = beFollowedList.length;
+        for(let i=0;i<followNum;i++){
+          if(beFollowedList[i]==userInfo.nickName){
+            this.setData({
+              follow: true
+            })
+          }
+        }
         this.setData({
           author: author
         });
-        if(options.myStore=='true'){
+        if (options.myStore == 'true') {
           this.changePage('myStore');
         }
+        wx.cloud.callFunction({
+          name: 'myView',
+          data: {
+            _id: user._id,
+            viewNum: user.viewNum + 1
+          },
+          success: function (res) {
+            console.log(res);
+          }
+        })
       }
     });
   },
@@ -230,8 +465,7 @@ Page({
               this.setData({
                 myLikeStrategy: oldData
               })
-            }
-            else{
+            } else {
               console.log(1);
               this.setData({
                 showAll: true

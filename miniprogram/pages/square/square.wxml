@@ -35,7 +35,8 @@
 				<view class="author">
 					<text class="authorName">{{item.author}}</text>
 					<text class="school">{{item.university}}</text>
-					<text class="follow">关注</text>
+					<text class="follow" wx:if="{{!item.beFollow}}" bindtap="follow" data-id="{{index}}">关注</text>
+					<text class="beFollow" wx:else bindtap="follow" data-id="{{index}}">已关注</text>
 				</view>
 
 				<text class="postContent {{item.ellipsis?'ellipsis':'unellipsis'}}">{{item.content}}</text>
@@ -50,7 +51,8 @@
 						<text>{{item.viewNum-200}}</text>
 					</view>
 					<view class="like">
-						<image src="{{like}}"></image>
+						<image wx:if="{{item.beLike}}" src="{{beLike}}" bindtap="like" data-id="{{index}}"></image>
+						<image wx:else src="{{like}}" bindtap="like" data-id="{{index}}"></image>
 						<text>{{item.likeNum.length}}</text>
 					</view>
 				</view>
@@ -103,7 +105,8 @@
 				<view class="author">
 					<text class="authorName">{{item.author}}</text>
 					<text class="school">{{item.university}}</text>
-					<text class="follow">关注</text>
+					<text class="follow" wx:if="{{!item.beFollow}}" bindtap="follow" data-id="{{index}}">关注</text>
+					<text class="beFollow" wx:else bindtap="follow" data-id="{{index}}">已关注</text>
 				</view>
 
 				<text class="postContent {{item.ellipsis?'ellipsis':'unellipsis'}}">{{item.content}}</text>
@@ -118,7 +121,8 @@
 						<text>{{item.viewNum-200}}</text>
 					</view>
 					<view class="like">
-						<image src="{{like}}"></image>
+						<image wx:if="{{item.beLike}}" src="{{beLike}}" bindtap="like" data-id="{{index}}"></image>
+						<image wx:else src="{{like}}" bindtap="like" data-id="{{index}}"></image>
 						<text>{{item.likeNum.length}}</text>
 					</view>
 				</view>

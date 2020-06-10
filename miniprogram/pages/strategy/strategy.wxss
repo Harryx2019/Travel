@@ -168,6 +168,7 @@ swiper image{
   align-items: center;
   justify-content: space-between;
   font-size: 28rpx;
+  width: 30%;
 }
 .recommendGuide .guideContent .guideList image{
   width: 80rpx;
@@ -178,6 +179,12 @@ swiper image{
   background-color: rgb(245,245,245);
   border-radius: 5%;
   padding: 0 5rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:1; 
 }
 .recommendGuide .guideContent .more{
   width:  40rpx;

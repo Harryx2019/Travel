@@ -4,7 +4,8 @@
 
 .navigate{
   width: 100%;
-  position: absolute;
+  position: fixed;
+  z-index: 100;
   top: 0;
 }
 .navigateTitle{
@@ -17,7 +18,7 @@
 }
 .back{
   position: absolute;
-  z-index: 100;
+  z-index: 1000;
   width: 40rpx;
   height: 40rpx;
   left: 5%;
