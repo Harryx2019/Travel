@@ -148,7 +148,7 @@ Page({
                           wx.showToast({
                             title: '您目前尚未创建小队或者加入小队，是否创建或加入小队？',
                             icon: 'none',
-                            duration: 5000
+                            duration: 2000
                           })
                           wx.showActionSheet({
                             itemList: ['加入小队', '创建小队'],

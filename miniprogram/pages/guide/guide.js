@@ -125,8 +125,16 @@ Page({
             guideEmpty: true
           })
         } else {
+          let guideList=[];
+          let guideTempList=res.data;
+          let length=guideTempList.length;
+          for(let i=0;i<length;i++){
+            if(guideTempList[i].guideStatus==1){
+              guideList.push(guideTempList[i]);
+            }
+          }
           this.setData({
-            guideList: res.data,
+            guideList: guideList,
             guideEmpty: false
           })
         }

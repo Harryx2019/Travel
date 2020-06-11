@@ -193,7 +193,7 @@
 
 <button style="background-color:rgb(126, 193, 230);color:white;margin-bottom: 20rpx;" bindtap="removeTeam">解散小队</button>
 
-<view class="addMember" wx:if="{{showAdd}}" style="height:{{windowHeight}}px">
+<view class="addMember" wx:if="{{showAdd}}" style="height:{{windowHeight+navBarHeight}}px">
   <view class="add" style="top:{{windowHeight/2-70}}px;">
 	  <image class="cancel" bindtap="hideForm" src="cloud://test-wusir.7465-test-wusir-1302022901/icon/form/error.png"></image>
 	  <text class="addTitle">添加成员</text>

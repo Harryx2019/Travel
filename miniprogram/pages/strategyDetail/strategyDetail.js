@@ -80,6 +80,13 @@ Page({
     let authorId = "";
 
     if (this.data.follow == false) {
+      if (this.data.isLogin == false) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        });
+        return;
+      }
       this.setData({
         follow: true
       });
@@ -185,6 +192,13 @@ Page({
     }
   },
   like: function () {
+    if (this.data.isLogin == false) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
     let that = this;
     let id = this.data.strategy[0]._id
     if (this.data.like == false) {

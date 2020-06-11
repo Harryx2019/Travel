@@ -231,6 +231,13 @@ Page({
     }
   },
   follow: function (e) {
+    if (this.data.isLogin == false) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
     let i = e.currentTarget.dataset.id;
     let strategy = {};
     if(this.data.recommend){
@@ -361,6 +368,13 @@ Page({
     }
   },
   like: function (e) {
+    if (this.data.isLogin == false) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
     let i = e.currentTarget.dataset.id;
     let strategy = {};
     if(this.data.recommend){

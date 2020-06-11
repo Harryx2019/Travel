@@ -1,4 +1,4 @@
-<image class="cover" src="{{background}}" style="height:{{windowHeight}}px;"></image>
+<image class="cover" src="{{background}}" style="height:{{windowHeight+navBarHeight}}px;"></image>
 
 <!-- 顶部 -->
 <view class="navigate" style="height:{{navBarHeight}}px;">
